@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file_format.c                                :+:      :+:    :+:   */
+/*   check_file_type.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 14:59:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:46:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_valid_file_type(char *file)
 	if (ft_strcmp(extension, ".cub"))
 	{
 		free(extension);
-		print_error_msg("Invalid file Type");
+		print_error_msg("Invalid File Type");
 		return (FALSE);
 	}
 	free(extension);

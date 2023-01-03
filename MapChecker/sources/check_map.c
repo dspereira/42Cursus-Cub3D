@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:05:42 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 16:28:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:48:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	free_map(char **map)
 	int	i;
 
 	i = 0;
+	if (!map)
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
