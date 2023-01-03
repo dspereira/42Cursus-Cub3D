@@ -20,6 +20,7 @@ SRC_NAME =	main.c					\
 			check_file_type.c		\
 			check_map.c				\
 			check_map_utils.c		\
+			check_map_elements.c	\
 			get_next_line.c			\
 			error_msgs.c
 
@@ -32,7 +33,7 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	clear
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
-	@echo "\033[1;36m[PHILOSOPHERS COMPILED]\033[0m"
+	@echo "\033[1;36m[PARSER COMPILED]\033[0m"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects

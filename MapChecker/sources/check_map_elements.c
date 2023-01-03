@@ -1,57 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 15:05:42 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 16:28:08 by dcandeia         ###   ########.fr       */
+/*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
+/*   Updated: 2023/01/03 16:31:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-static void	print_map(char **map);
-static void	free_map(char **map);
+static int	check_one_line_map(char *line);
 
-int	is_valid_map(char *map_file)
+int	check_map_elements(char **map)
 {
-	char	**map;
-
-	map = get_map(map_file);
-	if (!map || !check_map_elements(map))
+	int	i;
+	
+	i = 0;
+	while (map[i])
 	{
-		free_map(map);
-		print_error_msg("Invalid Map");
-		return (FALSE);
+		if (!check_one_line_map(map[i]))
+			return (FALSE);
+		i++;
 	}
-	print_map(map);
-	free_map(map);
 	return (TRUE);
 }
 
-static void	print_map(char **map)
+static int	check_one_line_map(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (line[i] != '\n')
 	{
-		printf("%s", map[i]);
-		i++;
+		if (line[i] == '0' || line[i] == '1')
+			i++;
+		else if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
+			i++;
+		else if (line[i] == ' ')
+			i++;
+		else
+			return (FALSE);
 	}
-}
-
-static void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
+	return (TRUE);
 }

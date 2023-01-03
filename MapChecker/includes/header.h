@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 15:53:23 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:26:15 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	*get_next_line(int fd);
 
 int		is_valid_map(char *map_file);
 char	**get_map(char *file);
+int		check_map_elements(char **map);
 
 #endif
