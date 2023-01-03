@@ -18,6 +18,9 @@ OBJ_PATH = ./objects
 SRC_NAME =	main.c					\
 			check_file.c			\
 			check_file_type.c		\
+			check_map.c				\
+			check_map_utils.c		\
+			get_next_line.c			\
 			error_msgs.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
