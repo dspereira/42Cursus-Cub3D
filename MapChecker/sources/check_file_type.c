@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 14:35:32 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:59:50 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	is_valid_file_type(char *file)
 	if (ft_strcmp(extension, ".cub"))
 	{
 		free(extension);
+		print_error_msg("Invalid file Type");
 		return (FALSE);
 	}
 	free(extension);
@@ -77,7 +78,6 @@ static int	ft_strcmp(char *s1, char *s2)
 /*
 	Function to find the index of the last appeereance of char in a string.
 	Returns -1 if the charecter is not founded
-					OR
 	Returns the index of the char in the string.
 
 	Parameters:

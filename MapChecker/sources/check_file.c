@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 14:56:53 by dcandeia         ###   ########.fr       */
+/*   Created: 2023/01/03 14:51:29 by dcandeia          #+#    #+#             */
+/*   Updated: 2023/01/03 15:02:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "../includes/header.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-
-# define FALSE	0
-# define TRUE	1
-
-int		check_file(char	*file);
-int		is_valid_file_type(char *file);
-void	print_error_msg(char *msg);
-
-#endif
+int	check_file(char	*file)
+{
+	int	fd;
+	
+	if (!is_valid_file_type(file))
+		return (FALSE);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		print_error_msg("Impossible to read from File");
+		return (FALSE);
+	}
+	close(fd);
+	return (TRUE);
+}
