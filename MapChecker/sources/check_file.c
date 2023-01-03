@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:51:29 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 15:02:31 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:13:09 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_file(char	*file)
 {
 	int	fd;
-	
+
 	if (!is_valid_file_type(file))
 		return (FALSE);
 	fd = open(file, O_RDONLY);
