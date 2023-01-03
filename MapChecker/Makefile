@@ -1,4 +1,4 @@
-NAME = parcer
+NAME = parser
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g
