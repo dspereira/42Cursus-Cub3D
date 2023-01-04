@@ -18,11 +18,31 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+# define TEX_NO	0
+# define TEX_SO	1
+# define TEX_WE	2
+# define TEX_EA	3
+# define TEX_C	4
+# define TEX_F	5
+
+typedef struct s_map
+{
+	char		**content;
+}				t_map;
+
+typedef struct s_textures
+{
+	char			*path;
+	unsigned int	colour;
+}				t_textures;
+
 typedef struct s_file
 {
-	char		*filename;
-	char		**content;
-	int			nbr_lines;
+	char			*filename;
+	char			**content;
+	int				nbr_lines;
+	t_map			*map;
+	t_textures		*tex;
 }				t_file;
 
 # define BUFFER_SIZE	13

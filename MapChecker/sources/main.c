@@ -18,11 +18,13 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		myfile = NULL;
 		myfile = get_file_info((const char *)av[1]);
 		if (!myfile)
 			return (-1);
 		if (!check_file(myfile))
 			return (-1);
+		myfile->tex = get_file_textures(myfile->content);
 		//if (!is_valid_map(av[1]))
 		//	return (-1);
 		//printf("MAP: OK\n");
