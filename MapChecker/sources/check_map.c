@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:05:42 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 16:48:44 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/04 11:49:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int	is_valid_map(char *map_file)
 	char	**map;
 
 	map = get_map(map_file);
-	if (!map || !check_map_elements(map))
+	if (!map)
+		return (FALSE);
+	if (!check_map_elements(map))
 	{
 		free_map(map);
-		print_error_msg("Invalid Map");
 		return (FALSE);
 	}
 	print_map(map);

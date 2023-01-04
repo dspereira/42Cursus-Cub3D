@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:11:35 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/03 16:28:31 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/04 11:24:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	**get_map(char *file)
 	int		fd;
 
 	map_nbr_lines = get_map_nbr_lines(file);
-	if (map_nbr_lines < 1)
-		return (NULL);
 	map = malloc(sizeof(char *) * (map_nbr_lines + 1));
+	if (!map)
+		return (NULL);
 	index = 0;
 	fd = open(file, O_RDONLY);
 	if (!fd)
