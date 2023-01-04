@@ -16,6 +16,8 @@ SRC_PATH = ./sources
 OBJ_PATH = ./objects
 
 SRC_NAME =	main.c					\
+			ft_calloc.c				\
+			get_file_info.c			\
 			check_file.c			\
 			check_file_type.c		\
 			check_map.c				\
