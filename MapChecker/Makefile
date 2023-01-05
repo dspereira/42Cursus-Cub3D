@@ -15,17 +15,18 @@ SRC_PATH = ./sources
 
 OBJ_PATH = ./objects
 
-SRC_NAME =	main.c					\
-			ft_calloc.c				\
-			ft_strncmp.c			\
-			get_file_info.c			\
-			get_file_textures.c		\
-			check_file.c			\
-			check_file_type.c		\
-			check_map.c				\
-			check_map_utils.c		\
-			check_map_elements.c	\
-			get_next_line.c			\
+SRC_NAME =	main.c							\
+			ft_calloc.c						\
+			ft_strncmp.c					\
+			get_file_info.c					\
+			get_file_textures.c				\
+			get_file_textures_utils.c		\
+			check_file.c					\
+			check_file_type.c				\
+			check_map.c						\
+			check_map_utils.c				\
+			check_map_elements.c			\
+			get_next_line.c					\
 			error_msgs.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))

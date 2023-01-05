@@ -32,8 +32,8 @@ typedef struct s_map
 
 typedef struct s_textures
 {
-	char			*path;
-	unsigned int	colour;
+	char		*path;
+	int			colour;
 }				t_textures;
 
 typedef struct s_file

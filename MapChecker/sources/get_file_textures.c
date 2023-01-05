@@ -1,5 +1,6 @@
 #include "../includes/header.h"
 
+int 		get_rgb_colour(char *src, int *tex_count, int actual_colour);
 static int	is_line_empty(char *line);
 static char	*get_texture_path(char *src, int *tex_counter, char *actpath);
 
@@ -15,9 +16,10 @@ t_textures	*get_file_textures(char **content)
 		print_error_msg("Impossible to Aloc Memory");
 		return (NULL);
 	}
+	tex[TEX_C].colour = -1;
+	tex[TEX_F].colour = -1;
 	tex_count = 0;
 	i = 0;
-	printf("\n================================================\n");
 	while (tex_count < 6 && content[i])
 	{
 		if (is_line_empty(content[i]))
@@ -30,10 +32,12 @@ t_textures	*get_file_textures(char **content)
 			tex[TEX_WE].path = get_texture_path(content[i], &tex_count, tex[TEX_WE].path);
 		else if (!ft_strncmp(content[i], "EA", 2))
 			tex[TEX_EA].path = get_texture_path(content[i], &tex_count, tex[TEX_EA].path);
+		else if (content[i][0] == 'C')
+			tex[TEX_C].colour = get_rgb_colour(content[i], &tex_count, tex[TEX_C].colour);
+		else if (content[i][0] == 'F')
+			tex[TEX_F].colour = get_rgb_colour(content[i], &tex_count, tex[TEX_F].colour);
 		i++;
-		printf("Tex Counter = %d\n", tex_count);
 	}
-	printf("================================================\n\n");
 	return (tex);
 }
 

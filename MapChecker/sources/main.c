@@ -30,10 +30,9 @@ int	main(int ac, char **av)
 		printf("TEX_SO = %s\n", myfile->tex[TEX_SO].path);
 		printf("TEX_WE = %s\n", myfile->tex[TEX_WE].path);
 		printf("TEX_EA = %s\n", myfile->tex[TEX_EA].path);
+		printf("TEX_F  = %d\n", myfile->tex[TEX_F].colour);
+		printf("TEX_C  = %d\n", myfile->tex[TEX_C].colour);
 		printf("================================================\n");
-		//if (!is_valid_map(av[1]))
-		//	return (-1);
-		//printf("MAP: OK\n");
 		free_file_mem(myfile);
 		return (0);
 	}
