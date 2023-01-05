@@ -51,10 +51,13 @@ typedef struct s_file
 # define TRUE	1
 
 void	*ft_calloc(size_t count, size_t size);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int		check_file(t_file *file_data);
 t_file	*get_file_info(const char *filename);
 int		is_valid_file_type(char *file);
+
+t_textures	*get_file_textures(char **content);
 
 void	free_file_mem(t_file *file);
 
