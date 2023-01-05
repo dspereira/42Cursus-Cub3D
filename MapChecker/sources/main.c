@@ -25,14 +25,6 @@ int	main(int ac, char **av)
 		if (!check_file(myfile))
 			return (-1);
 		myfile->tex = get_file_textures(myfile->content);
-		printf("================================================\n");
-		printf("TEX_NO = %s\n", myfile->tex[TEX_NO].path);
-		printf("TEX_SO = %s\n", myfile->tex[TEX_SO].path);
-		printf("TEX_WE = %s\n", myfile->tex[TEX_WE].path);
-		printf("TEX_EA = %s\n", myfile->tex[TEX_EA].path);
-		printf("TEX_F  = %d\n", myfile->tex[TEX_F].colour);
-		printf("TEX_C  = %d\n", myfile->tex[TEX_C].colour);
-		printf("================================================\n");
 		if (!check_textures(myfile->tex))
 		{
 			free_file_mem(myfile);
