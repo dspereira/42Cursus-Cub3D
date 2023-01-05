@@ -1,8 +1,8 @@
 NAME = parser
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
-EXTRA_FLAGS = -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+EXTRA_FLAGS = 
 RM = rm -f
 
 $(VERBOSE).SILENT:
@@ -21,6 +21,7 @@ SRC_NAME =	main.c							\
 			get_file_info.c					\
 			get_file_textures.c				\
 			get_file_textures_utils.c		\
+			check_textures.c				\
 			check_file.c					\
 			check_file_type.c				\
 			check_map.c						\

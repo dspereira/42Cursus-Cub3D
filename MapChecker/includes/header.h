@@ -57,9 +57,11 @@ int		check_file(t_file *file_data);
 t_file	*get_file_info(const char *filename);
 int		is_valid_file_type(char *file);
 
+int 		check_textures(t_textures *tex);
 t_textures	*get_file_textures(char **content);
 
 void	free_file_mem(t_file *file);
+void    free_textures(t_textures *tex);
 
 void	print_error_msg(char *msg);
 

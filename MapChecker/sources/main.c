@@ -33,6 +33,12 @@ int	main(int ac, char **av)
 		printf("TEX_F  = %d\n", myfile->tex[TEX_F].colour);
 		printf("TEX_C  = %d\n", myfile->tex[TEX_C].colour);
 		printf("================================================\n");
+		if (!check_textures(myfile->tex))
+		{
+			free_file_mem(myfile);
+			return (-1);
+		}
+		free_textures(myfile->tex);
 		free_file_mem(myfile);
 		return (0);
 	}
