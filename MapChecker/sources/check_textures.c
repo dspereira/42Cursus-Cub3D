@@ -1,12 +1,17 @@
 #include "../includes/header.h"
 
+#define MAX_NBR_RGB 16777216
+#define MIN_NBR_RGB 0
+
 static int  check_tex_files(char *filename);
 static void print_textures(t_textures *tex);
+static int  check_rgb_colour(int colour);
 
 int check_textures(t_textures *tex)
 {
     print_textures(tex);
-    if (!check_tex_files(tex[TEX_NO].path) || !check_tex_files(tex[TEX_SO].path)
+    if (!check_rgb_colour(tex[TEX_C].colour) || !check_rgb_colour(tex[TEX_F].colour)
+        || !check_tex_files(tex[TEX_NO].path) || !check_tex_files(tex[TEX_SO].path)
         || !check_tex_files(tex[TEX_WE].path) ||!check_tex_files(tex[TEX_EA].path))
     {
         free_textures(tex);
@@ -39,6 +44,13 @@ static int  check_tex_files(char *filename)
     if (fd == -1)
         return (FALSE);
     close(fd);
+    return (TRUE);
+}
+
+static int  check_rgb_colour(int colour)
+{
+    if (colour < MIN_NBR_RGB || colour > MAX_NBR_RGB)
+        return (FALSE);
     return (TRUE);
 }
 

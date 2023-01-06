@@ -4,7 +4,7 @@ int 		get_rgb_colour(char *src, int *tex_count, int actual_colour);
 static int	is_line_empty(char *line);
 static char	*get_texture_path(char *src, int *tex_counter, char *actpath);
 
-t_textures	*get_file_textures(char **content)
+t_textures	*get_file_textures(char **content, int *tex_line_end)
 {
 	t_textures	*tex;
 	int			tex_count;
@@ -38,6 +38,7 @@ t_textures	*get_file_textures(char **content)
 			tex[TEX_F].colour = get_rgb_colour(content[i], &tex_count, tex[TEX_F].colour);
 		i++;
 	}
+	*tex_line_end = i;
 	return (tex);
 }
 

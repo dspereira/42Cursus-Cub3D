@@ -24,13 +24,22 @@ int	main(int ac, char **av)
 			return (-1);
 		if (!check_file(myfile))
 			return (-1);
-		myfile->tex = get_file_textures(myfile->content);
+		myfile->tex = get_file_textures(myfile->content, &myfile->end_tex_line);
+		myfile->map = get_map(myfile->content, myfile->end_tex_line);
+		if (!is_valid_map(myfile->map))
+		{
+			free_textures(myfile->tex);
+			free_file_mem(myfile);
+			return (-1);
+		}
 		if (!check_textures(myfile->tex))
 		{
+			free_map(myfile->map);
 			free_file_mem(myfile);
 			return (-1);
 		}
 		free_textures(myfile->tex);
+		free_map(myfile->map);
 		free_file_mem(myfile);
 		return (0);
 	}

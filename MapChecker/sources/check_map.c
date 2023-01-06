@@ -13,22 +13,18 @@
 #include "../includes/header.h"
 
 static void	print_map(char **map);
-static void	free_map(char **map);
 
-int	is_valid_map(char *map_file)
+int	is_valid_map(t_map *map)
 {
-	char	**map;
 
-	map = get_map(map_file);
-	if (!map)
+	if (!map || !map->content)
 		return (FALSE);
-	if (!check_map_elements(map))
+	if (!check_map_elements(map->content))
 	{
 		free_map(map);
 		return (FALSE);
 	}
-	print_map(map);
-	free_map(map);
+	print_map(map->content);
 	return (TRUE);
 }
 
@@ -37,24 +33,8 @@ static void	print_map(char **map)
 	int	i;
 
 	i = 0;
+    printf("================================================\n");
 	while (map[i])
-	{
-		printf("%s", map[i]);
-		i++;
-	}
-}
-
-static void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	if (!map)
-		return ;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
+		printf("%s\n", map[i++]);
+    printf("================================================\n");
 }

@@ -39,7 +39,7 @@ static int	check_one_line_map(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i])
 	{
 		if (line[i] == '0' || line[i] == '1')
 			i++;

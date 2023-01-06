@@ -41,6 +41,7 @@ typedef struct s_file
 	char			*filename;
 	char			**content;
 	int				nbr_lines;
+	int				end_tex_line;
 	t_map			*map;
 	t_textures		*tex;
 }				t_file;
@@ -58,17 +59,18 @@ t_file	*get_file_info(const char *filename);
 int		is_valid_file_type(char *file);
 
 int 		check_textures(t_textures *tex);
-t_textures	*get_file_textures(char **content);
+t_textures	*get_file_textures(char **content, int *tex_line_end);
 
 void	free_file_mem(t_file *file);
 void    free_textures(t_textures *tex);
+void    free_map(t_map *map);
 
 void	print_error_msg(char *msg);
 
 char	*get_next_line(int fd);
 
-int		is_valid_map(char *map_file);
-char	**get_map(char *file);
+t_map   *get_map(char **content, int map_begin_line);
+int		is_valid_map(t_map *map);
 int		check_map_elements(char **map);
 
 #endif

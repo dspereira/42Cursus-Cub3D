@@ -20,12 +20,12 @@ SRC_NAME =	main.c							\
 			ft_strncmp.c					\
 			get_file_info.c					\
 			get_file_textures.c				\
-			get_file_textures_utils.c		\
+			get_file_textures_rgb.c			\
 			check_textures.c				\
 			check_file.c					\
 			check_file_type.c				\
+			get_map.c						\
 			check_map.c						\
-			check_map_utils.c				\
 			check_map_elements.c			\
 			get_next_line.c					\
 			error_msgs.c
