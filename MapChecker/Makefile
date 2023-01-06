@@ -28,6 +28,7 @@ SRC_NAME =	main.c							\
 			check_map.c						\
 			check_map_elements.c			\
 			get_next_line.c					\
+			free_memory.c					\
 			error_msgs.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))

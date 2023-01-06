@@ -14,14 +14,17 @@
 
 void	print_error_msg(char *msg)
 {
+	
+	write(2, "Error\n", 6);
+	putstr_error(msg);
+	write(2, "\n", 1);
+}
+
+void	putstr_error(char *str)
+{
 	int	i;
 
 	i = 0;
-	write(2, "Error\n", 6);
-	while (msg[i])
-	{
-		write(2, &msg[i], 1);
-		i++;
-	}
-	write(2, "\n", 1);
+	while (str[i])
+		write(2, &str[i++], 1);
 }

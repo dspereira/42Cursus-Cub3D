@@ -7,7 +7,7 @@ t_file	*get_file_info(const char *filename)
 {
 	t_file	*newfile;
 
-	newfile = malloc(sizeof(t_file));
+	newfile = ft_calloc(1, sizeof(t_file));
 	if (!newfile)
 	{
 		print_error_msg("Impossible to alloc memory");

@@ -20,10 +20,7 @@ int	is_valid_map(t_map *map)
 	if (!map || !map->content)
 		return (FALSE);
 	if (!check_map_elements(map->content))
-	{
-		free_map(map);
 		return (FALSE);
-	}
 	print_map(map->content);
 	return (TRUE);
 }

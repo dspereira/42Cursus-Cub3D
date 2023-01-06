@@ -22,25 +22,22 @@ int	main(int ac, char **av)
 		myfile = get_file_info((const char *)av[1]);
 		if (!myfile)
 			return (-1);
-		if (!check_file(myfile))
-			return (-1);
-		myfile->tex = get_file_textures(myfile->content, &myfile->end_tex_line);
-		myfile->map = get_map(myfile->content, myfile->end_tex_line);
-		if (!is_valid_map(myfile->map))
+		if (check_file(myfile))
 		{
-			free_textures(myfile->tex);
-			free_file_mem(myfile);
+			myfile->tex = get_file_textures(myfile->content, &myfile->end_tex_line);
+			myfile->map = get_map(myfile->content, myfile->end_tex_line);
+			if (!is_valid_map(myfile->map) || !check_textures(myfile->tex))
+			{
+				free_memory(myfile);
+				return (-1);
+			}
+		}
+		else
+		{
+			free_memory(myfile);
 			return (-1);
 		}
-		if (!check_textures(myfile->tex))
-		{
-			free_map(myfile->map);
-			free_file_mem(myfile);
-			return (-1);
-		}
-		free_textures(myfile->tex);
-		free_map(myfile->map);
-		free_file_mem(myfile);
+		free_memory(myfile);
 		return (0);
 	}
 	printf("Error: Invalid number of Arguments\n");

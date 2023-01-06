@@ -22,7 +22,10 @@ int	check_map_elements(char **map)
 	
 	i = 0;
 	if (!check_empty_map((const char **)map))
+	{
+		print_error_msg("The Map is Empty");
 		return (FALSE);
+	}
 	while (map[i])
 	{
 		if (!check_one_line_map(map[i]))
@@ -107,9 +110,6 @@ static int	check_empty_map(const char **map)
 		i++;
 	}
 	if (nbr_map_elem < 1)
-	{
-		print_error_msg("Map is Empty");
 		return (FALSE);
-	}
 	return (TRUE);
 }

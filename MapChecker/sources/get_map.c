@@ -4,6 +4,7 @@ static int	is_line_empty(char *line);
 static int  get_map_nbr_lines(char **cont, int begin);
 static char *get_map_line(char *src);
 static int  get_index(char **cont, int begin);
+static void clear_map(t_map *map);
 
 t_map   *get_map(char **content, int map_begin_line)
 {
@@ -24,7 +25,7 @@ t_map   *get_map(char **content, int map_begin_line)
         map->content[j] = get_map_line(content[i]);
         if (!map->content[j])
         {
-            free_map(map);
+            clear_map(map);
             return (NULL);
         }
         i++;
@@ -32,11 +33,13 @@ t_map   *get_map(char **content, int map_begin_line)
     return (map);
 }
 
-void    free_map(t_map *map)
+static void clear_map(t_map *map)
 {
     int i;
 
     i = 0;
+    if (!map)
+        return ;
     while (map->content[i])
     {
         free(map->content[i]);
@@ -107,7 +110,7 @@ static int  get_index(char **cont, int begin)
     int i;
 
     i = begin;
-    while (is_line_empty(cont[i]) && cont[i])
+    while (cont[i] && is_line_empty(cont[i]))
         i++;
     return (i);
 }
