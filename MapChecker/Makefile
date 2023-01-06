@@ -27,6 +27,7 @@ SRC_NAME =	main.c							\
 			get_map.c						\
 			check_map.c						\
 			check_map_elements.c			\
+			check_map_walls.c				\
 			get_next_line.c					\
 			free_memory.c					\
 			error_msgs.c

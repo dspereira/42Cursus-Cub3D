@@ -72,5 +72,6 @@ char	*get_next_line(int fd);
 t_map   *get_map(char **content, int map_begin_line);
 int		is_valid_map(t_map *map);
 int		check_map_elements(char **map);
+int		check_map_walls(char **map);
 
 #endif

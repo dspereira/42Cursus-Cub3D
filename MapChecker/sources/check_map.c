@@ -22,6 +22,8 @@ int	is_valid_map(t_map *map)
 	if (!check_map_elements(map->content))
 		return (FALSE);
 	print_map(map->content);
+	if (!check_map_walls(map->content))
+		return (FALSE);
 	return (TRUE);
 }
 
