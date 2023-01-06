@@ -28,6 +28,7 @@
 typedef struct s_map
 {
 	char		**content;
+	int			nbr_lines;
 }				t_map;
 
 typedef struct s_textures
@@ -53,6 +54,7 @@ typedef struct s_file
 
 void	*ft_calloc(size_t count, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *src);
 
 void 	putstr_error(char *str);
 
@@ -70,6 +72,7 @@ void	print_error_msg(char *msg);
 char	*get_next_line(int fd);
 
 t_map   *get_map(char **content, int map_begin_line);
+void    resize_map(t_map  *initital_map);
 int		is_valid_map(t_map *map);
 int		check_map_elements(char **map);
 int		check_map_walls(char **map);

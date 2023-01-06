@@ -15,7 +15,6 @@
 static int		find_last_char_index(char *file, char to_find);
 static int		ft_strcmp(char *s1, char *s2);
 static char		*ft_substr(char const *s, unsigned int start, size_t len);
-static size_t	ft_strlen(const char *str);
 
 int	is_valid_file_type(char *file)
 {
@@ -32,16 +31,6 @@ int	is_valid_file_type(char *file)
 	}
 	free(extension);
 	return (TRUE);
-}
-
-static size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 static char	*ft_substr(char const *s, unsigned int start, size_t len)

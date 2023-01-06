@@ -18,6 +18,7 @@ OBJ_PATH = ./objects
 SRC_NAME =	main.c							\
 			ft_calloc.c						\
 			ft_strncmp.c					\
+			ft_strlen.c						\
 			get_file_info.c					\
 			get_file_textures.c				\
 			get_file_textures_rgb.c			\
@@ -25,6 +26,7 @@ SRC_NAME =	main.c							\
 			check_file.c					\
 			check_file_type.c				\
 			get_map.c						\
+			get_map_utils.c					\
 			check_map.c						\
 			check_map_elements.c			\
 			check_map_walls.c				\

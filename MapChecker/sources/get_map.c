@@ -11,16 +11,15 @@ t_map   *get_map(char **content, int map_begin_line)
     t_map   *map;
     int     i;
     int     j;
-    int     map_nbr_lines;
 
     i = get_index(content, map_begin_line);
     map = ft_calloc(1, sizeof(t_map));
     if (!map)
         return (NULL);
-    map_nbr_lines = get_map_nbr_lines(content, i);
-    map->content = ft_calloc(map_nbr_lines + 1, sizeof(char *));
+    map->nbr_lines = get_map_nbr_lines(content, i);
+    map->content = ft_calloc(map->nbr_lines + 1, sizeof(char *));
     j = -1;
-    while (++j < map_nbr_lines)
+    while (++j < map->nbr_lines)
     {
         map->content[j] = get_map_line(content[i]);
         if (!map->content[j])
@@ -30,6 +29,7 @@ t_map   *get_map(char **content, int map_begin_line)
         }
         i++;
     }
+    resize_map(map);
     return (map);
 }
 

@@ -14,7 +14,7 @@
 
 static int		ft_clean(char *str);
 static char		*ft_strjoin(char *s1, char *s2);
-static size_t	ft_strlen(const char *str);
+static size_t	ft_len(const char *str);
 
 char	*get_next_line(int fd)
 {
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	while (cursor[fd][0] || read(fd, cursor[fd], BUFFER_SIZE) > 0)
 	{
 		line = ft_strjoin(line, cursor[fd]);
-		if (ft_strlen(cursor[fd]) == 0)
+		if (ft_len(cursor[fd]) == 0)
 			return (line);
 		if (ft_clean(cursor[fd]) == 1)
 			break ;
@@ -40,7 +40,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-static size_t	ft_strlen(const char *str)
+static size_t	ft_len(const char *str)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ static char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	v = 0;
-	newstr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	newstr = malloc(ft_len(s1) + ft_len(s2) + 1);
 	if (!newstr)
 		return (NULL);
 	while (s1 && s1[v])
