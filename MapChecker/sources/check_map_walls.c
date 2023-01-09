@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:39:13 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:40:32 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:20:13 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	check_top_bot_lines(char **map)
 	{
 		if (i == 0 || !map[i + 1])
 		{
-			printf("Line [%d] - \'%s\'\n", i, map[i]);
 			j = 0;
 			while (map[i][j])
 			{
