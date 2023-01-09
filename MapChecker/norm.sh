@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 norminette | egrep -B1 'Error|Warning' >check_norm
 
 printf "\e[1;33m[NORMINETTE]: \e[0m"
