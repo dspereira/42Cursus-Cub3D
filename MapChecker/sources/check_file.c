@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:51:29 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/04 13:33:05 by codespace        ###   ########.fr       */
+/*   Updated: 2023/01/09 10:57:59 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ int	check_file(t_file *file_data)
 
 static void	print_file_info(t_file *file)
 {
+	int	i;
+
+	i = 0;
 	if (!file->content || !file->nbr_lines)
 		return ;
 	printf("File Name: %s\n", file->filename);
 	printf("Nbr Lines: %d\n", file->nbr_lines);
 	printf("File Content:\n");
-	for (int i = 0; i < file->nbr_lines; i++)
-		printf("%s", file->content[i]);
+	while (i < file->nbr_lines)
+		printf("%s", file->content[i++]);
 	printf("\n");
 	return ;
 }

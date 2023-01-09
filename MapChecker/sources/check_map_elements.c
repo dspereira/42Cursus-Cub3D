@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/04 11:56:15 by codespace        ###   ########.fr       */
+/*   Updated: 2023/01/09 11:21:35 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_one_line_map(char *line);
 int	check_map_elements(char **map)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!check_empty_map((const char **)map))
 	{
@@ -54,7 +54,7 @@ static int	check_one_line_map(char *line)
 		else
 		{
 			print_error_msg("Invalid elements in the Map");
-			return (FALSE);	
+			return (FALSE);
 		}
 	}
 	return (TRUE);
@@ -83,7 +83,7 @@ static int	check_nbr_player_start_pos(const char **map)
 	if (nbr_player_start_pos != 1)
 	{
 		print_error_msg("The game is only Single Player Mode");
-		return (FALSE);	
+		return (FALSE);
 	}
 	return (TRUE);
 }

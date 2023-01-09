@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_file_info.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 10:59:11 by dcandeia          #+#    #+#             */
+/*   Updated: 2023/01/09 11:00:12 by dcandeia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/header.h"
 
 static int	get_file_nbr_lines(const char *filename);
@@ -62,7 +74,7 @@ static char	**get_file_content(const char *file, int file_nbr_lines)
 		return (NULL);
 	}
 	i = 0;
-	while(i < file_nbr_lines)
+	while (i < file_nbr_lines)
 	{
 		resource[i] = get_next_line(fd);
 		i++;

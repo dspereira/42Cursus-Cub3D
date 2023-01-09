@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_memory.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 11:19:08 by dcandeia          #+#    #+#             */
+/*   Updated: 2023/01/09 11:20:28 by dcandeia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/header.h"
 
-static void free_file(t_file *file);
-static void free_textures(t_textures *tex);
-static void free_map(t_map *map);
+static void	free_file(t_file *file);
+static void	free_textures(t_textures *tex);
+static void	free_map(t_map *map);
 
 void	free_memory(t_file *file)
 {
-    if (file)
-    {
-        free_map(file->map);
-        free_textures(file->tex);
-        free_file(file);
-    }
+	if (file)
+	{
+		free_map(file->map);
+		free_textures(file->tex);
+		free_file(file);
+	}
 }
 
-static void free_file(t_file *file)
+static void	free_file(t_file *file)
 {
 	int	i;
 
@@ -29,35 +41,35 @@ static void free_file(t_file *file)
 	free(file);
 }
 
-static void free_textures(t_textures *tex)
+static void	free_textures(t_textures *tex)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!tex)
-        return ;
-    while (i < 4)
-    {
-        if (tex[i].path)
-            free(tex[i].path);
-        i++;
-    }
-    free(tex);
+	i = 0;
+	if (!tex)
+		return ;
+	while (i < 4)
+	{
+		if (tex[i].path)
+			free(tex[i].path);
+		i++;
+	}
+	free(tex);
 }
 
-static void free_map(t_map *map)
+static void	free_map(t_map *map)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!map)
-        return ;
-    while (map->content[i])
-    {
-        free(map->content[i]);
-        i++;
-    }
-    if (map->content)
-        free(map->content);
-    free(map);
+	i = 0;
+	if (!map)
+		return ;
+	while (map->content[i])
+	{
+		free(map->content[i]);
+		i++;
+	}
+	if (map->content)
+		free(map->content);
+	free(map);
 }

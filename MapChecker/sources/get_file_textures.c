@@ -1,41 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_file_textures.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 11:23:32 by dcandeia          #+#    #+#             */
+/*   Updated: 2023/01/09 12:14:22 by dcandeia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/header.h"
 
-int 		get_rgb_colour(char *src, int *tex_count, int actual_colour);
-static int	is_line_empty(char *line);
-static char	*get_texture_path(char *src, int *tex_counter, char *actpath);
+int					get_rgb(char *src, int *tex_count, int act_colour);
+static int			is_line_empty(char *line);
+static char			*get_path(char *src, int *tex_c, char *actpath);
+static t_textures	*init_textures(void);
 
-t_textures	*get_file_textures(char **content, int *tex_line_end)
+t_textures	*get_file_textures(char **src, int *tex_line_end)
 {
 	t_textures	*tex;
 	int			tex_count;
 	int			i;
 
-	tex = ft_calloc(6, sizeof(t_textures));
-	if (!tex)
-	{
-		print_error_msg("Impossible to Aloc Memory");
-		return (NULL);
-	}
-	tex[TEX_C].colour = -1;
-	tex[TEX_F].colour = -1;
+	tex = init_textures();
 	tex_count = 0;
 	i = 0;
-	while (tex_count < 6 && content[i])
+	while (tex_count < 6 && src[i] && tex)
 	{
-		if (is_line_empty(content[i]))
-			i++;
-		if (!ft_strncmp(content[i], "NO", 2))
-			tex[TEX_NO].path = get_texture_path(content[i], &tex_count, tex[TEX_NO].path);
-		else if (!ft_strncmp(content[i], "SO", 2))
-			tex[TEX_SO].path = get_texture_path(content[i], &tex_count, tex[TEX_SO].path);
-		else if (!ft_strncmp(content[i], "WE", 2))
-			tex[TEX_WE].path = get_texture_path(content[i], &tex_count, tex[TEX_WE].path);
-		else if (!ft_strncmp(content[i], "EA", 2))
-			tex[TEX_EA].path = get_texture_path(content[i], &tex_count, tex[TEX_EA].path);
-		else if (content[i][0] == 'C')
-			tex[TEX_C].colour = get_rgb_colour(content[i], &tex_count, tex[TEX_C].colour);
-		else if (content[i][0] == 'F')
-			tex[TEX_F].colour = get_rgb_colour(content[i], &tex_count, tex[TEX_F].colour);
+		if (!ft_strncmp(src[i], "NO", 2))
+			tex[TEX_NO].path = get_path(src[i], &tex_count, tex[TEX_NO].path);
+		else if (!ft_strncmp(src[i], "SO", 2))
+			tex[TEX_SO].path = get_path(src[i], &tex_count, tex[TEX_SO].path);
+		else if (!ft_strncmp(src[i], "WE", 2))
+			tex[TEX_WE].path = get_path(src[i], &tex_count, tex[TEX_WE].path);
+		else if (!ft_strncmp(src[i], "EA", 2))
+			tex[TEX_EA].path = get_path(src[i], &tex_count, tex[TEX_EA].path);
+		else if (src[i][0] == 'C')
+			tex[TEX_C].colour = get_rgb(src[i], &tex_count, tex[TEX_C].colour);
+		else if (src[i][0] == 'F')
+			tex[TEX_F].colour = get_rgb(src[i], &tex_count, tex[TEX_F].colour);
 		i++;
 	}
 	*tex_line_end = i;
@@ -56,14 +60,14 @@ static int	is_line_empty(char *line)
 	return (TRUE);
 }
 
-static char	*get_texture_path(char *src, int *tex_counter, char *actpath)
+static char	*get_path(char *src, int *tex_c, char *actpath)
 {
 	int		i;
 	int		len;
 	char	*path;
 
 	i = 2;
-	if (actpath)
+	if (actpath || is_line_empty(src))
 		return (actpath);
 	while ((src[i] >= 9 && src[i] <= 13) || src[i] == 32)
 		i++;
@@ -76,6 +80,21 @@ static char	*get_texture_path(char *src, int *tex_counter, char *actpath)
 	len = 0;
 	while (src[i] != '\n')
 		path[len++] = src[i++];
-	*tex_counter += 1;
+	*tex_c += 1;
 	return (path);
+}
+
+static t_textures	*init_textures(void)
+{
+	t_textures	*tex;
+
+	tex = ft_calloc(6, sizeof(t_textures));
+	if (!tex)
+	{
+		print_error_msg("Impossible to Aloc Memory");
+		return (NULL);
+	}
+	tex[TEX_C].colour = -1;
+	tex[TEX_F].colour = -1;
+	return (tex);
 }
