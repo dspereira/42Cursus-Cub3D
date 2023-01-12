@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:39:13 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 12:20:13 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:29:00 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ static int	check_top_bot_lines(char **map);
 
 int	check_map_walls(char **map)
 {
+	int	ret;
+
+	ret = TRUE;
 	if (!check_top_bot_lines(map))
-	{
+		ret = FALSE;
+	if (ret == FALSE)
 		print_error_msg("The map is not surrounded by Walls");
-		return (FALSE);
-	}
-	return (TRUE);
+	return (ret);
 }
 
 static int	check_top_bot_lines(char **map)
