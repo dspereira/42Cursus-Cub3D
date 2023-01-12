@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:00:26 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 12:04:53 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:14:37 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ int	main(int ac, char **av)
 		{
 			myfile->tex = get_file_textures(myfile->content, &myfile->end_tex_line);
 			myfile->map = get_map(myfile->content, myfile->end_tex_line);
-			if (!is_valid_map(myfile->map) || !check_textures(myfile->tex))
-			{
-				free_memory(myfile);
-				return (-1);
-			}
+			check_textures(myfile->tex);
+			is_valid_map(myfile->map);
 		}
 		else
 		{

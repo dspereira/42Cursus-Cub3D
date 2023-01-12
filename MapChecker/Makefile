@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 EXTRA_FLAGS = 
 RM = rm -f
 
-$(VERBOSE).SILENT:
+#$(VERBOSE).SILENT:
 
 HEADER = header.h
 
@@ -41,7 +41,6 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-	clear
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
 	@echo "\033[1;36m[PARSER COMPILED]\033[0m"
 

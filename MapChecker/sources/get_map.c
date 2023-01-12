@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/12 14:33:21 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/12 15:28:43 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int			is_line_empty(char *line);
 static int	get_map_nbr_lines(char **cont, int begin);
 static char	*get_map_line(char *src);
 static void	clear_map(t_map *map);
+
+/*
+Onde se obtem as tex
+1. Loop para contar as linhas do mapa e sacar a maior linha
+2. 
+
+*/
 
 t_map	*get_map(char **content, int map_begin_line)
 {
