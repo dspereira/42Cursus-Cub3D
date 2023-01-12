@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:16:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:33:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ static int	get_map_nbr_lines(char **cont, int begin)
 	map_nbr_lines = 0;
 	while (cont[i])
 	{
-		if (is_line_empty(cont[i]) && map_nbr_lines != 0)
-			break ;
-		else if (!is_line_empty(cont[i]))
-			map_nbr_lines += 1;
+		map_nbr_lines += 1;
 		i++;
 	}
 	return (map_nbr_lines);
