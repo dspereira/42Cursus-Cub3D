@@ -20,8 +20,8 @@ SRC_NAME =	main.c							\
 			ft_strncmp.c					\
 			ft_strlen.c						\
 			get_file_info.c					\
-			get_file_textures.c				\
-			get_file_textures_rgb.c			\
+			get_map_textures.c				\
+			get_map_textures_rgb.c			\
 			check_textures.c				\
 			check_file.c					\
 			check_file_type.c				\

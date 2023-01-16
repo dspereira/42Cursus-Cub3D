@@ -6,17 +6,17 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/12 15:28:43 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:15:20 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-int			get_index(char **cont, int begin);
+/* int			get_index(char **cont, int begin);
 int			is_line_empty(char *line);
 static int	get_map_nbr_lines(char **cont, int begin);
 static char	*get_map_line(char *src);
-static void	clear_map(t_map *map);
+static void	clear_map(t_map *map); */
 
 /*
 Onde se obtem as tex
@@ -25,7 +25,7 @@ Onde se obtem as tex
 
 */
 
-t_map	*get_map(char **content, int map_begin_line)
+/* t_map	*get_map(char **content, int map_begin_line)
 {
 	t_map	*map;
 	int		i;
@@ -106,3 +106,4 @@ static char	*get_map_line(char *src)
 	}
 	return (result);
 }
+*/

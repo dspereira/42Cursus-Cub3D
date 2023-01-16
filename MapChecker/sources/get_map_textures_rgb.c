@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_file_textures_rgb.c                            :+:      :+:    :+:   */
+/*   get_map_textures_rgb.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:01:43 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 12:02:15 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:54:20 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	get_number(char *src, int *index);
 static int	check_rgb_elemts(char *src);
 
-int	get_rgb(char *src, int *tex_count, char actual_colour)
+int	get_rgb(char *src, int *tex_count, int	actual_colour)
 {
 	int	r;
 	int	g;

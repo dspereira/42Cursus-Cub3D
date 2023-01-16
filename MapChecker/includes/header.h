@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:35:28 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:26:49 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 
 typedef struct s_map
 {
+	char 		**wall_textures;
+	int			*rgb_colours;
 	char		**content;
-	int			nbr_lines;
 }				t_map;
 
 typedef struct s_textures
@@ -58,7 +59,7 @@ size_t		ft_strlen(const char *src);
 
 void		putstr_error(char *str);
 
-int			check_file(t_file *file_data);
+int			check_file(char *filename);
 t_file		*get_file_info(const char *filename);
 int			is_valid_file_type(char *file);
 
@@ -76,5 +77,7 @@ void		resize_map(t_map *initital_map);
 int			is_valid_map(t_map *map);
 int			check_map_elements(char **map);
 int			check_map_walls(char **map);
+
+t_map		*init_map_struct(void);
 
 #endif
