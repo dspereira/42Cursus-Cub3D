@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 09:59:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:50:24 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ t_map	*init_map_struct(void)
 	if (!init)
 		return (NULL);
 	init.wall_textures = ft_calloc(4, sizeof(char *));
-	init.rgb_colours = ft_calloc(2, sizeof(int));
-	if (!init.wall_textures || !init.rgb_colours)
+	init.rgb_colors = ft_calloc(2, sizeof(int));
+	if (!init.wall_textures || !init.rgb_colors)
 	{
 		if (init.wall_textures)
 			free(init.wall_textures);
 		if (init.rgb_colours)
-			free(init.rgb_colours);
+			free(init.rgb_colors);
 		free(init);
 		return (NULL);
 	}
-	map.rgb_colours[0] = -1;
-	map.rgb_colours[1] = -1;
+	map.rgb_colors[RGB_C] = RGB_NO_COLOR;
+	map.rgb_colors[RGB_F] = RGB_NO_COLOR;
 	return (init);
 }
 
@@ -44,5 +44,10 @@ int	get_all_map_info(t_map *map, filename)
 	if (!fd)
 		return (0);
 	get_map_textures(map, fd);
-	
+	/* if (!get_map_textures(map, fd))
+	{
+		// Free map Memory
+		return (FALSE);
+	} */
+	return (TRUE);
 }

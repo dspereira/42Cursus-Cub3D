@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:35:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:38:37 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:01:32 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_textures(t_textures *tex)
 		|| !check_tex_files(tex[TEX_NO].path)
 		|| !check_tex_files(tex[TEX_SO].path)
 		|| !check_tex_files(tex[TEX_WE].path)
-		||!check_tex_files(tex[TEX_EA].path))
+		|| !check_tex_files(tex[TEX_EA].path))
 		return (FALSE);
 	return (TRUE);
 }

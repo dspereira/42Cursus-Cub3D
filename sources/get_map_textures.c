@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:23:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 09:53:45 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:49:13 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,29 @@ int	get_map_textures(t_map *map, int fd)
 	while (tex_count < 6 && line)
 	{
 		if (!ft_strncmp(line, "NO", 2))
-			get_path(line, &tex_count, map->wall_textures[0]);
+			get_path(line, &tex_count, map->wall_textures[TEX_NO]);
 		else if (!ft_strncmp(line, "SO", 2))
-			get_path(line, &tex_count, map->wall_textures[1]);
+			get_path(line, &tex_count, map->wall_textures[TEX_SO]);
 		else if (!ft_strncmp(line, "WE", 2))
-			get_path(line, &tex_count, map->wall_textures[2]);
+			get_path(line, &tex_count, map->wall_textures[TEX_WE]);
 		else if (!ft_strncmp(line, "EA", 2))
-			get_path(line, &tex_count, map->wall_textures[3]);
+			get_path(line, &tex_count, map->wall_textures[TEX_EA]);
 		else if (line[0] == 'C')
-			get_rgb(line, &tex_count, map->rgb_colours[0]);
+			get_rgb(line, &tex_count, map->rgb_colors[RGB_C]);
 		else if (line[0] == 'F')
-			get_rgb(line, &tex_count, map->rgb_colours[1]);
+			get_rgb(line, &tex_count, map->rgb_colors[RGB_F]);
+		free(line);
+		line = get_next_line(fd);
 	}
-	return (1);
+	printf("NO -> %s\n", map->wall_textures[TEX_NO]);
+	printf("SO -> %s\n", map->wall_textures[TEX_SO]);
+	printf("WE -> %s\n", map->wall_textures[TEX_WE]);
+	printf("EA -> %s\n", map->wall_textures[TEX_EA]);
+	printf("C -> %s\n", map->rgb_colors[RGB_C]);
+	printf("F -> %s\n", map->rgb_colors[RGB_F]);
+	/* if (!check_textures(map->wall_textures, map->rgb_colors))
+		return (FALSE); */
+	return (TRUE);
 }
 
 static int	is_line_empty(char *line)

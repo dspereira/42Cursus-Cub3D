@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 09:26:49 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:47:49 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,17 @@
 # define TEX_SO	1
 # define TEX_WE	2
 # define TEX_EA	3
-# define TEX_C	4
-# define TEX_F	5
+
+# define RGB_C			0
+# define RGB_F			1
+# define RGB_NO_COLOR	-1
 
 typedef struct s_map
 {
 	char 		**wall_textures;
-	int			*rgb_colours;
+	int			*rgb_colors;
 	char		**content;
 }				t_map;
-
-typedef struct s_textures
-{
-	char		*path;
-	int			colour;
-}				t_textures;
-
-typedef struct s_file
-{
-	char			*filename;
-	char			**content;
-	int				nbr_lines;
-	int				end_tex_line;
-	t_map			*map;
-	t_textures		*tex;
-}				t_file;
 
 # define BUFFER_SIZE	13
 
@@ -79,5 +65,6 @@ int			check_map_elements(char **map);
 int			check_map_walls(char **map);
 
 t_map		*init_map_struct(void);
+int			get_all_map_info(t_map *map, filename);
 
 #endif
