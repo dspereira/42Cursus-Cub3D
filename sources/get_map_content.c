@@ -13,6 +13,7 @@
 #include "../includes/header.h"
 
 int			is_line_empty(char *line);
+void		map_resizer(char ***src);
 static void	get_map_line(char **content, char *src);
 static void	realloc_map(int	actual_len, char ***content);
 static void	clear_map(char ***map);
@@ -41,6 +42,7 @@ int	get_map_content(char ***content, int fd)
 		realloc_map(i + 2, content);
 		i++;
 	}
+	map_resizer(content);
 	for (int a = 0; (*content)[a]; a++)
 		printf("\'%s\'\n", (*content)[a]);
 	return (TRUE);

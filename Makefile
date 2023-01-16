@@ -25,6 +25,7 @@ SRC_NAME =	main.c							\
 			check_file.c					\
 			check_file_type.c				\
 			map.c							\
+			map_resizer.c					\
 			get_map_content.c				\
 			get_map_utils.c					\
 			get_next_line.c					\
