@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 12:34:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:55:23 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	get_all_map_info(t_map **map, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (!fd)
 		return (0);
-	if (!get_map_textures(map, fd))
+	if (!get_map_textures(map, fd) || !get_map_content(&(*map)->content, fd))
 	{
 		// Free map Memory
-		return (FALSE);
+		printf("Errors!\n");
 	}
 	return (TRUE);
 }

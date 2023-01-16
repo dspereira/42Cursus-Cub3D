@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 12:34:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:59:28 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,24 @@
 # define RGB_F			1
 # define RGB_NO_COLOR	-1
 
+# define ORIENTATION_N	90
+# define ORIENTATION_S	270
+# define ORIENTATION_E	0
+# define ORIENTATION_O	180
+
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}				t_pos;
+
 typedef struct s_map
 {
 	char 		**wall_textures;
 	int			*rgb_colors;
 	char		**content;
+	int			orientation;
+	t_pos		pos;
 }				t_map;
 
 # define BUFFER_SIZE	13
@@ -58,11 +71,12 @@ void		print_error_msg(char *msg);
 
 char		*get_next_line(int fd);
 
-t_map		*get_map(char **content, int map_begin_line);
-void		resize_map(t_map *initital_map);
-int			is_valid_map(t_map *map);
-int			check_map_elements(char **map);
-int			check_map_walls(char **map);
+int			get_map_content(char ***content, int fd);
+
+// void		resize_map(t_map *initital_map);
+// int			is_valid_map(t_map *map);
+// int			check_map_elements(char **map);
+// int			check_map_walls(char **map);
 
 t_map		*init_map_struct(void);
 int			get_all_map_info(t_map **map, char *filename);
