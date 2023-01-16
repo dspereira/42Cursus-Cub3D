@@ -13,6 +13,8 @@ void	map_resizer(char ***src)
 
 	big_len = find_big_line_len(*src);
 	i = 0;
+    if (get_map_size(*src) < 3)
+        return ;
     res = ft_calloc(get_map_size(*src) + 3, sizeof(char *));
     res[0] = fill_first_last_line(big_len);
 	while (++i < get_map_size(*src))
