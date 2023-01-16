@@ -59,7 +59,6 @@ size_t		ft_strlen(const char *src);
 void		putstr_error(char *str);
 
 int			check_file(char *filename);
-// t_file		*get_file_info(const char *filename);
 int			is_valid_file_type(char *file);
 
 int			check_textures(char **textures, int *rgb_colors);
@@ -73,10 +72,9 @@ char		*get_next_line(int fd);
 
 int			get_map_content(char ***content, int fd);
 
-// void		resize_map(t_map *initital_map);
-// int			is_valid_map(t_map *map);
-// int			check_map_elements(char **map);
-// int			check_map_walls(char **map);
+int			check_map(char **map);
+int			check_map_elements(char **map);
+int			check_map_walls(char **map);
 
 t_map		*init_map_struct(void);
 int			get_all_map_info(t_map **map, char *filename);

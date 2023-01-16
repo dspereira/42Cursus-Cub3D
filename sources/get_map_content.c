@@ -43,8 +43,8 @@ int	get_map_content(char ***content, int fd)
 		i++;
 	}
 	map_resizer(content);
-	for (int a = 0; (*content)[a]; a++)
-		printf("\'%s\'\n", (*content)[a]);
+	if (!check_map(*content))
+		return (FALSE);
 	return (TRUE);
 }
 

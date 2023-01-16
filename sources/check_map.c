@@ -13,15 +13,16 @@
 #include "../includes/header.h"
 
 static void	print_map(char **map);
+int			get_map_size(char **map);
 
-int	is_valid_map(t_map *map)
+int	check_map(char **map)
 {
-	if (!map || !map->content)
+	if (!map || get_map_size(map) < 3)
 		return (FALSE);
-	if (!check_map_elements(map->content))
+	if (!check_map_elements(map))
 		return (FALSE);
-	print_map(map->content);
-	if (!check_map_walls(map->content))
+	print_map(map);
+	if (!check_map_walls(map))
 		return (FALSE);
 	return (TRUE);
 }
