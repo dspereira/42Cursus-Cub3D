@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:01:43 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 09:54:20 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:22:04 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static int	get_number(char *src, int *index);
 static int	check_rgb_elemts(char *src);
 
-int	get_rgb(char *src, int *tex_count, int	actual_colour)
+void	get_rgb(char *src, int *tex_count, int *actual_colour)
 {
 	int	r;
 	int	g;
 	int	b;
 	int	index;
 
-	if (actual_colour != -1)
-		return (actual_colour);
+	if (*actual_colour != -1)
+		return ;
 	if (!check_rgb_elemts(src))
-		return (-1);
+		return ;
 	index = 2;
 	while ((src[index] >= 9 && src[index] <= 13) || src[index] == 32)
 		index++;
@@ -33,9 +33,9 @@ int	get_rgb(char *src, int *tex_count, int	actual_colour)
 	g = get_number(src, &index);
 	b = get_number(src, &index);
 	if (r == -1 || g == -1 || b == -1)
-		return (-1);
+		return ;
 	*tex_count += 1;
-	return ((r << 16) + (g << 8) + b);
+	*actual_colour = (r << 16) + (g << 8) + b;
 }
 
 static int	get_number(char *src, int *index)

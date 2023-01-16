@@ -6,17 +6,17 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:23:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 11:49:13 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:35:11 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-int					get_rgb(char *src, int *tex_count, int act_colour);
+void				get_rgb(char *src, int *tex_count, int *act_colour);
 static int			is_line_empty(char *line);
-static void			get_path(char *src, int *tex_c, char *actpath);
+static void			get_path(char *src, int *tex_c, char **actpath);
 
-int	get_map_textures(t_map *map, int fd)
+int	get_map_textures(t_map **map, int fd)
 {
 	char	*line;
 	int		tex_count;
@@ -26,28 +26,22 @@ int	get_map_textures(t_map *map, int fd)
 	while (tex_count < 6 && line)
 	{
 		if (!ft_strncmp(line, "NO", 2))
-			get_path(line, &tex_count, map->wall_textures[TEX_NO]);
+			get_path(line, &tex_count, &(*map)->wall_textures[TEX_NO]);
 		else if (!ft_strncmp(line, "SO", 2))
-			get_path(line, &tex_count, map->wall_textures[TEX_SO]);
+			get_path(line, &tex_count, &(*map)->wall_textures[TEX_SO]);
 		else if (!ft_strncmp(line, "WE", 2))
-			get_path(line, &tex_count, map->wall_textures[TEX_WE]);
+			get_path(line, &tex_count, &(*map)->wall_textures[TEX_WE]);
 		else if (!ft_strncmp(line, "EA", 2))
-			get_path(line, &tex_count, map->wall_textures[TEX_EA]);
+			get_path(line, &tex_count, &(*map)->wall_textures[TEX_EA]);
 		else if (line[0] == 'C')
-			get_rgb(line, &tex_count, map->rgb_colors[RGB_C]);
+			get_rgb(line, &tex_count, &(*map)->rgb_colors[RGB_C]);
 		else if (line[0] == 'F')
-			get_rgb(line, &tex_count, map->rgb_colors[RGB_F]);
+			get_rgb(line, &tex_count, &(*map)->rgb_colors[RGB_F]);
 		free(line);
 		line = get_next_line(fd);
 	}
-	printf("NO -> %s\n", map->wall_textures[TEX_NO]);
-	printf("SO -> %s\n", map->wall_textures[TEX_SO]);
-	printf("WE -> %s\n", map->wall_textures[TEX_WE]);
-	printf("EA -> %s\n", map->wall_textures[TEX_EA]);
-	printf("C -> %s\n", map->rgb_colors[RGB_C]);
-	printf("F -> %s\n", map->rgb_colors[RGB_F]);
-	/* if (!check_textures(map->wall_textures, map->rgb_colors))
-		return (FALSE); */
+	if (!check_textures((*map)->wall_textures, (*map)->rgb_colors))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -65,7 +59,7 @@ static int	is_line_empty(char *line)
 	return (TRUE);
 }
 
-static void	get_path(char *src, int *tex_c, char *actpath)
+static void	get_path(char *src, int *tex_c, char **actpath)
 {
 	int		i;
 	int		len;
@@ -81,7 +75,7 @@ static void	get_path(char *src, int *tex_c, char *actpath)
 		len++;
 	path = ft_calloc(len - i + 1, sizeof(char));
 	if (!path)
-		return (NULL);
+		return ;
 	len = 0;
 	while (src[i] != '\n')
 		path[len++] = src[i++];

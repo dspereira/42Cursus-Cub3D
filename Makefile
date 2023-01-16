@@ -1,4 +1,4 @@
-NAME = parser
+NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
@@ -19,19 +19,18 @@ SRC_NAME =	main.c							\
 			ft_calloc.c						\
 			ft_strncmp.c					\
 			ft_strlen.c						\
-			get_file_info.c					\
 			get_map_textures.c				\
 			get_map_textures_rgb.c			\
 			check_textures.c				\
 			check_file.c					\
 			check_file_type.c				\
+			map.c							\
 			get_map.c						\
 			get_map_utils.c					\
 			check_map.c						\
 			check_map_elements.c			\
 			check_map_walls.c				\
 			get_next_line.c					\
-			free_memory.c					\
 			error_msgs.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
@@ -42,7 +41,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
-	@echo "\033[1;36m[PARSER COMPILED]\033[0m"
+	@echo "\033[1;36m[cub3D COMPILED]\033[0m"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects

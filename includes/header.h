@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 11:47:49 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:34:18 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ size_t		ft_strlen(const char *src);
 void		putstr_error(char *str);
 
 int			check_file(char *filename);
-t_file		*get_file_info(const char *filename);
+// t_file		*get_file_info(const char *filename);
 int			is_valid_file_type(char *file);
 
-int			check_textures(t_textures *tex);
-t_textures	*get_file_textures(char **content, int *tex_line_end);
+int			check_textures(char **textures, int *rgb_colors);
+int			get_map_textures(t_map **map, int fd);
 
-void		free_memory(t_file	*file);
+// void		free_memory(t_file	*file);
 
 void		print_error_msg(char *msg);
 
@@ -65,6 +65,6 @@ int			check_map_elements(char **map);
 int			check_map_walls(char **map);
 
 t_map		*init_map_struct(void);
-int			get_all_map_info(t_map *map, filename);
+int			get_all_map_info(t_map **map, char *filename);
 
 #endif

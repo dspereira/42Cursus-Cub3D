@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:00:26 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 11:50:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:14:32 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 		if (check_file(av[1]))
 		{
 			map = init_map_struct();
-			if (!get_all_map_info(map, av[1]))
+			if (!get_all_map_info(&map, av[1]))
 			{
 				//free_memory(map);
 				return (-1);
