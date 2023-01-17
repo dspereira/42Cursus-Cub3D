@@ -30,7 +30,7 @@
 # define ORIENTATION_N	90
 # define ORIENTATION_S	270
 # define ORIENTATION_E	0
-# define ORIENTATION_O	180
+# define ORIENTATION_W	180
 
 typedef struct s_pos
 {
@@ -71,6 +71,8 @@ void		print_error_msg(char *msg);
 char		*get_next_line(int fd);
 
 int			get_map_content(char ***content, int fd);
+int			get_player_info(char **map, int *orientation, t_pos *pos);
+
 
 int			check_map(char **map);
 int			check_map_elements(char **map);

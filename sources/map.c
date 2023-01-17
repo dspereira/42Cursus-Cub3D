@@ -47,5 +47,8 @@ int	get_all_map_info(t_map **map, char *filename)
 		// Free map Memory
 		printf("Errors!\n");
 	}
+	get_player_info((*map)->content, &(*map)->orientation, &(*map)->pos);
+	printf("PLAYER -> [%d][%d]\n", (*map)->pos.y, (*map)->pos.x);
+	printf("ORIENTATION -> %d\n", (*map)->orientation);
 	return (TRUE);
 }
