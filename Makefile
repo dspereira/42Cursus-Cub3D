@@ -1,7 +1,8 @@
 NAME = cube3D
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
+#CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
+CFLAGS = -g -I./includes
 EXTRA_FLAGS = -Imlx_linux -O3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -f
@@ -16,7 +17,8 @@ SRC_PATH = ./sources
 
 OBJ_PATH = ./objects
 
-SRC_NAME =	main.c							\
+SRC_NAME =	main.c		\
+			mlx_utils.c	\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
