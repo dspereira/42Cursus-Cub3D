@@ -30,11 +30,11 @@ int	main(int ac, char **av)
 			myfile->map = get_map(myfile->content, myfile->end_tex_line);
 			check_textures(myfile->tex);
 			is_valid_map(myfile->map); */
-			printf("Map OK");
+			printf("Map OK\n");
 		}
 		else
 		{
-			printf("Map KO");
+			printf("Map KO\n");
 			return (-1);
 		}
 		//free_memory(myfile);

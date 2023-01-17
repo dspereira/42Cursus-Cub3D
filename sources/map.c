@@ -42,12 +42,12 @@ int	get_all_map_info(t_map **map, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (!fd)
 		return (0);
-	if (!get_map_textures(map, fd) || !get_map_content(&(*map)->content, fd))
+	if (!get_map_textures(map, fd) || !get_map_content(&(*map)->content, fd)
+		|| !get_player_info((*map)->content, &(*map)->orientation, &(*map)->pos))
 	{
 		// Free map Memory
 		printf("Errors!\n");
 	}
-	get_player_info((*map)->content, &(*map)->orientation, &(*map)->pos);
 	printf("PLAYER -> [%d][%d]\n", (*map)->pos.y, (*map)->pos.x);
 	printf("ORIENTATION -> %d\n", (*map)->orientation);
 	return (TRUE);
