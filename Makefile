@@ -17,8 +17,9 @@ SRC_PATH = ./sources
 
 OBJ_PATH = ./objects
 
-SRC_NAME =	main.c		\
-			mlx_utils.c	\
+SRC_NAME =	main.c			\
+			mlx_utils.c		\
+			math_utils.c	\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 

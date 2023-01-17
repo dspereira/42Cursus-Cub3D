@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/17 12:10:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:30:42 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ typedef struct s_pos
 	int y;
 }	t_pos;
 
-void mlx_draw_line(t_win win, t_pos init, t_pos end, int color);
+// math_utils.c
+int math_abs(int n);
 
+// mlx_utils.c
+void mlx_draw_line(t_win win, t_pos init, t_pos end, int color);
+void mlx_draw_stroke_square(t_win win, t_pos init, int size, int color);
+void mlx_draw_fill_square(t_win win, t_pos init, int size, int color);
 
 #endif
