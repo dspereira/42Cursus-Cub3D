@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/18 17:27:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:59:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #define MAP_WIDTH		24
 #define WIN_HEIGHT		480
 #define WIN_WIDTH		480
-//#define SQUARE_SIZE		WIN_HEIGHT / MAP_HEIGHT;
 
 typedef struct s_win
 {
@@ -35,6 +34,22 @@ typedef struct s_pos
 	int x;
 	int y;
 }	t_pos;
+
+typedef struct s_ray 
+{
+	t_pos	pos;
+	int		dir;
+	int		side;
+	int		dist_ray;
+	int		dist_wall;
+}	t_ray;
+
+typedef struct s_player 
+{
+	t_pos	pos;
+	int		dir;
+	t_ray	*rays;
+}	t_player;
 
 // math_utils.c
 int math_abs(int n);

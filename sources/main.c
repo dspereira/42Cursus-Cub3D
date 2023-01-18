@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/18 17:34:23 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:01:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int main(void) 
 {
-	t_win	win;
-	t_pos	pos1;
-	t_pos	pos2;
-	int		red;
-	int 	size;
+	t_win		win;
+	t_pos		pos1;
+	t_pos		pos2;
+	int			red;
+	int 		size;
+	t_player	player;
 
 	char map[24][24] = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
