@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:03 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/17 16:01:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:57:24 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,4 @@ void mlx_draw_fill_square(t_win win, t_pos init, int size, int color)
 		end.y++;
 		i++;
 	}
-
-	
 }

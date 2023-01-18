@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/17 15:30:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:27:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <mlx.h>
+
+#define MAP_HEIGHT		24
+#define MAP_WIDTH		24
+#define WIN_HEIGHT		480
+#define WIN_WIDTH		480
+//#define SQUARE_SIZE		WIN_HEIGHT / MAP_HEIGHT;
 
 typedef struct s_win
 {
@@ -37,5 +43,8 @@ int math_abs(int n);
 void mlx_draw_line(t_win win, t_pos init, t_pos end, int color);
 void mlx_draw_stroke_square(t_win win, t_pos init, int size, int color);
 void mlx_draw_fill_square(t_win win, t_pos init, int size, int color);
+
+//render_scene_2d.c
+void render_scene_2d(t_win	win, char map[MAP_WIDTH][MAP_HEIGHT]);
 
 #endif
