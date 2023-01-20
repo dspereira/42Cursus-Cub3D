@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/18 17:59:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:01:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #define WIN_HEIGHT		480
 #define WIN_WIDTH		480
 
+#define CAMERA_ANGLE	60
+
 typedef struct s_win
 {
 	void	*mlx;
@@ -38,7 +40,7 @@ typedef struct s_pos
 typedef struct s_ray 
 {
 	t_pos	pos;
-	int		dir;
+	float	dir;
 	int		side;
 	int		dist_ray;
 	int		dist_wall;
@@ -47,7 +49,7 @@ typedef struct s_ray
 typedef struct s_player 
 {
 	t_pos	pos;
-	int		dir;
+	float	dir;
 	t_ray	*rays;
 }	t_player;
 
@@ -60,6 +62,9 @@ void mlx_draw_stroke_square(t_win win, t_pos init, int size, int color);
 void mlx_draw_fill_square(t_win win, t_pos init, int size, int color);
 
 //render_scene_2d.c
-void render_scene_2d(t_win	win, char map[MAP_WIDTH][MAP_HEIGHT]);
+void render_scene_2d(t_win	win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT]);
+
+//player.c
+t_player *init_player (t_pos pos, int dir);
 
 #endif

@@ -21,6 +21,7 @@ SRC_NAME =	main.c				\
 			mlx_utils.c			\
 			math_utils.c		\
 			render_scene_2d.c	\
+			player.c			\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 

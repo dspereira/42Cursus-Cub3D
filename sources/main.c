@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/18 18:01:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:02:15 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(void)
 	t_pos		pos2;
 	int			red;
 	int 		size;
-	t_player	player;
+	t_player	*player;
 
 	char map[24][24] = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -49,21 +49,15 @@ int main(void)
 	};
 
 
+	player = init_player((t_pos){50, 50}, 10);
 
-	red = 0x00FF0000;
-	
-	size = 150;
-	pos1.x = 50;
-	pos1.y = 50;
-
-	pos2.x = pos1.x + size + 5;
-	pos2.y = 50;
+	printf("player: %i, %i, %f\n", player->pos.x, player->pos.y, player->dir);
 
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	//mlx_draw_stroke_square(win, pos1, size, red);
 	//mlx_draw_fill_square(win, pos2, size, red);
-	render_scene_2d(win, map);
+	render_scene_2d(win, *player, map);
 	mlx_loop(win.mlx);
 	return (0);
 }
