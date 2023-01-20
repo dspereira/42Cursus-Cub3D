@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/20 12:01:30 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:02:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define WIN_WIDTH		480
 
 #define CAMERA_ANGLE	60
+#define DIST_BTW_ANGLE	1
 
 typedef struct s_win
 {
@@ -55,6 +56,7 @@ typedef struct s_player
 
 // math_utils.c
 int math_abs(int n);
+float normalizeAngles(float angle);
 
 // mlx_utils.c
 void mlx_draw_line(t_win win, t_pos init, t_pos end, int color);

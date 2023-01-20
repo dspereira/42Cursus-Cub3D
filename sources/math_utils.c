@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/17 16:04:04 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:02:38 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,12 @@ int math_abs(int n)
 	else
 		return (n * -1);
 }
+
+float normalizeAngles(float angle)
+{
+	if (angle < 0)
+		angle += 360;
+	else if (angle >= 360)
+		angle -= 360;
+	return angle;
+}	
