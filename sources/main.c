@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/20 16:45:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:34:56 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int main(void)
 
 
 	printf("player: %i, %i, %f\n", player->pos.x, player->pos.y, player->dir);
-	printf("ray angle: %f\n", player->rays[50].dir);
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	//mlx_draw_stroke_square(win, pos1, size, red);
