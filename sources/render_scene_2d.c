@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 14:36:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:39:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT])
 			pos.y = i * square_size;
 			if (map[i][j])
 				mlx_draw_fill_square(win, pos, square_size, WALL_COLOR);
-			//else 
-				//mlx_draw_stroke_square(win, p, square_size, 0x002596BE);
+			else 
+				mlx_draw_stroke_square(win, pos, square_size, 0x002596BE);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 15:11:01 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:09:51 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,4 @@ double cos_degree(double angle)
 double sin_degree(double angle)
 {
 	return (sin(angle * 0.0174532925));
-}
-
-t_pos get_new_pos(t_pos init, double scale_x, double scale_y, int dist)
-{
-	t_pos	pos;
-
-	pos.x = dist * scale_x + init.x;
-	pos.y = dist * scale_y + init.y;
-	return (pos);
 }
