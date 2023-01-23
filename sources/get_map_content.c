@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 16:45:43 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:50:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			is_line_empty(char *line);
 void		map_resizer(char ***src);
 static void	get_map_line(char **content, char *src);
-static void	realloc_map(int	actual_len, char ***content);
+static void	realloc_map(int actual_len, char ***content);
 static void	clear_map(char ***map);
 static char	*get_begin_line(int fd);
 
@@ -82,7 +82,7 @@ static void	get_map_line(char **content, char *src)
 	}
 }
 
-static void	realloc_map(int	actual_len, char ***content)
+static void	realloc_map(int actual_len, char ***content)
 {
 	char	**new_content;
 	int		i;

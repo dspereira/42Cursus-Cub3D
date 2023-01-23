@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 14:59:28 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/23 09:42:29 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_pos
 
 typedef struct s_map
 {
-	char 		**wall_textures;
+	char		**wall_textures;
 	int			*rgb_colors;
 	char		**content;
 	int			orientation;
@@ -64,7 +64,7 @@ int			is_valid_file_type(char *file);
 int			check_textures(char **textures, int *rgb_colors);
 int			get_map_textures(t_map **map, int fd);
 
-// void		free_memory(t_file	*file);
+void		free_memory(t_map *map);
 
 void		print_error_msg(char *msg);
 
@@ -72,7 +72,6 @@ char		*get_next_line(int fd);
 
 int			get_map_content(char ***content, int fd);
 int			get_player_info(char **map, int *orientation, t_pos *pos);
-
 
 int			check_map(char **map);
 int			check_map_elements(char **map);

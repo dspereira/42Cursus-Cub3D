@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 14:55:23 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/23 09:21:37 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,8 @@ int	get_all_map_info(t_map **map, char *filename)
 	if (!fd)
 		return (0);
 	if (!get_map_textures(map, fd) || !get_map_content(&(*map)->content, fd)
-		|| !get_player_info((*map)->content, &(*map)->orientation, &(*map)->pos))
-	{
-		// Free map Memory
-		printf("Errors!\n");
-	}
-	printf("PLAYER -> [%d][%d]\n", (*map)->pos.y, (*map)->pos.x);
-	printf("ORIENTATION -> %d\n", (*map)->orientation);
+		|| !get_player_info((*map)->content, &(*map)->orientation, \
+		&(*map)->pos))
+		return (FALSE);
 	return (TRUE);
 }

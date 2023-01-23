@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:23:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 12:35:11 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/23 09:54:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static void			get_path(char *src, int *tex_c, char **actpath);
 
 int	get_map_textures(t_map **map, int fd)
 {
-	char	*line;
-	int		tex_count;
+	char		*line;
+	static int	tex_count;
 
-	tex_count = 0;
 	line = get_next_line(fd);
 	while (tex_count < 6 && line)
 	{
@@ -40,6 +39,7 @@ int	get_map_textures(t_map **map, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free (line);
 	if (!check_textures((*map)->wall_textures, (*map)->rgb_colors))
 		return (FALSE);
 	return (TRUE);

@@ -33,6 +33,7 @@ SRC_NAME =	main.c							\
 			get_player_info.c				\
 			get_map_utils.c					\
 			get_next_line.c					\
+			free_memory.c					\
 			error_msgs.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))

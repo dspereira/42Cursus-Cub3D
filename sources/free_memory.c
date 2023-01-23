@@ -6,70 +6,57 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:19:08 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:20:28 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:25:19 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-static void	free_file(t_file *file);
-static void	free_textures(t_textures *tex);
-static void	free_map(t_map *map);
+static void	free_textures(char **textures, int *rgb_colors);
+static void	free_content(char **contente);
 
-void	free_memory(t_file *file)
+void	free_memory(t_map *map)
 {
-	if (file)
+	if (map)
 	{
-		free_map(file->map);
-		free_textures(file->tex);
-		free_file(file);
+		free_textures(map->wall_textures, map->rgb_colors);
+		free_content(map->content);
+		free (map);
 	}
 }
 
-static void	free_file(t_file *file)
+static void	free_textures(char **textures, int *rgb_colors)
+{
+	int	i;
+
+	if (textures)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			if (textures[i])
+				free (textures[i]);
+			i++;
+		}
+		free (textures);
+	}
+	if (rgb_colors)
+		free (rgb_colors);
+}
+
+static void	free_content(char **contente)
 {
 	int	i;
 
 	i = 0;
-	while (i < file->nbr_lines)
+	if (contente)
 	{
-		if (file->content[i])
-			free(file->content[i]);
-		i++;
+		while (contente[i])
+		{
+			if (contente[i])
+				free (contente[i]);
+			i++;
+		}
+		free (contente);
 	}
-	free(file->content);
-	free(file);
-}
-
-static void	free_textures(t_textures *tex)
-{
-	int	i;
-
-	i = 0;
-	if (!tex)
-		return ;
-	while (i < 4)
-	{
-		if (tex[i].path)
-			free(tex[i].path);
-		i++;
-	}
-	free(tex);
-}
-
-static void	free_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	if (!map)
-		return ;
-	while (map->content[i])
-	{
-		free(map->content[i]);
-		i++;
-	}
-	if (map->content)
-		free(map->content);
-	free(map);
 }
