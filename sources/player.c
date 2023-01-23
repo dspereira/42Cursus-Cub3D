@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 14:33:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:38:28 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT])
 	set_distace_win(ray, map_pos, pos);
 
 	
-	printf("===========================\n");
+	/* printf("===========================\n");
 	printf("angle: %f\n", ray->dir);
 	printf("cos: %f  sin: %f\n", ray->cos, ray->sin);
 	printf("sx: %f  sy: %f\n", ray->sx, ray->sy);
 	printf("step_x: %i step_y: %i\n", step_x, step_y);
 	printf("ray->dir: %f\n", ray->dir);
 	printf("map_pos.x: %i  map_pos.y: %i\n", map_pos.x, map_pos.y);
-	printf("destance: %i\n", ray->length_win);
+	printf("destance: %i\n", ray->length_win); */
 }
 
 static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)

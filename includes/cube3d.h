@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 14:55:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:54:20 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@
 #define MAP_HEIGHT		24
 #define MAP_WIDTH		24
 
-/*
-#define WIN_HEIGHT		480
-#define WIN_WIDTH		480
-*/
-
 #define WIN_HEIGHT		960
 #define WIN_WIDTH		960
 
-//#define SQUARE_SIZE		WIN_HEIGHT / MAP_HEIGHT
-
 #define CAMERA_ANGLE	60
 #define DIST_BTW_ANGLE	1
-//#define NUM_RAYS		CAMERA_ANGLE / DIST_BTW_ANGLE
+
+#define KEY_W			119
+#define KEY_S			115
+#define KEY_A			97
+#define KEY_D			100
+
+#define KEY_ARROW_L		65361
+#define KEY_ARROW_R		65363
+
+#define ROT_STEP		5
 
 typedef struct s_win
 {
@@ -73,6 +75,15 @@ typedef struct s_player
 	float	dir;
 	t_ray	*rays;
 }	t_player;
+
+
+typedef struct s_data
+{
+	t_player	*player;
+	char 		**map;
+}	t_data; 
+
+
 
 // math_utils.c
 int		math_abs(int n);
