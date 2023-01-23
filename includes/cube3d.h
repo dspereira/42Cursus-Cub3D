@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 19:35:44 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:55:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,15 @@
 
 #define MAP_HEIGHT		24
 #define MAP_WIDTH		24
+
+/*
 #define WIN_HEIGHT		480
 #define WIN_WIDTH		480
+*/
+
+#define WIN_HEIGHT		960
+#define WIN_WIDTH		960
+
 //#define SQUARE_SIZE		WIN_HEIGHT / MAP_HEIGHT
 
 #define CAMERA_ANGLE	60
@@ -50,6 +57,8 @@ typedef struct s_ray
 {
 	float	dir;
 	int		length;
+	int		length_win;
+	int		length_map;
 	int		dist_wall;
 	int		side;
 	double	cos;
@@ -80,6 +89,7 @@ void	mlx_draw_fill_square(t_win win, t_pos init, int size, int color);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
+t_pos		get_win_pos(t_pos pos);
 
 //render_scene_2d.c
 void	render_scene_2d(t_win	win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT]);

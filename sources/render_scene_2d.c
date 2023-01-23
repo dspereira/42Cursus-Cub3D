@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 19:39:08 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:05:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,23 @@ static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT])
 
 static void render_player(t_win win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT])
 {
-	mlx_draw_fill_square(win, player.pos, PLAYER_SIZE, PLAYER_COLOR);
+	int		i;
+	int		n_rays;
+	t_pos	end;
+	t_pos	p_pos;
+
+
+	p_pos.x = player.pos.x - PLAYER_SIZE / 2;
+	p_pos.y = player.pos.y - PLAYER_SIZE / 2;
+
+	mlx_draw_fill_square(win, p_pos, PLAYER_SIZE, PLAYER_COLOR);
+
+	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	i = 0;
+	while (i < n_rays)
+	{
+		end = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
+		mlx_draw_line(win, player.pos, end, 0x00FF0000);
+		i++;
+	}
 }

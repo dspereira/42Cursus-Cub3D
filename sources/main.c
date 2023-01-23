@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 20:42:11 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:42:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(void)
 	};
 
 
-	player = init_player((t_pos){80, 120}, 90);
+	player = init_player((t_pos){60, 120}, 0);
 	ray_cast(player, map);
 
 	//printf("player: %i, %i, %f\n", player->pos.x, player->pos.y, player->dir);

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 20:40:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:33:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static t_ray init_ray(float dir);
 static void add_rays_to_player(t_player *player);
 static void get_hyp_length_scale(t_ray *ray, t_pos pos);
 static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT]);
+static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos);
 
 t_player *init_player (t_pos pos, int dir)
 {
@@ -65,6 +66,9 @@ static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT])
 
 	map_pos = get_map_pos(pos);
 	map_pos_dec = get_map_pos_decimal(pos);
+
+	//printf("mapa inicial map_pos.x: %i  map_pos.y: %i\n", map_pos.x, map_pos.y);
+	//printf("sx: %f  sy: %f", ray->sx, ray->sy);
 	
 	if (ray->cos < 0)
 	{
@@ -99,36 +103,51 @@ static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT])
 			side = 2 * step_y;
 		}
 	}
+	ray->side = side;
 
+	set_distace_win(ray, map_pos, pos);
+
+	
 	printf("===========================\n");
+	printf("angle: %f\n", ray->dir);
+	printf("cos: %f  sin: %f\n", ray->cos, ray->sin);
+	printf("sx: %f  sy: %f\n", ray->sx, ray->sy);
 	printf("step_x: %i step_y: %i\n", step_x, step_y);
 	printf("ray->dir: %f\n", ray->dir);
 	printf("map_pos.x: %i  map_pos.y: %i\n", map_pos.x, map_pos.y);
-	
+	printf("destance: %i\n", ray->length_win);
 }
 
-static void get_hyp_length_scale(t_ray *ray, t_pos pos)
+static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 {
-	t_pos   final_pos;
-	int     dx;
-	int     dy;
-	
-	//sx = 1 / cos
-	//sy = 1 / sen
+	t_pos	win_pos;
+	t_pos	final_pos;
+	int		square_size;
 
-	final_pos = get_new_pos(pos, ray->cos, ray->sin, 2000);
-	dx = final_pos.x - pos.x;
-	dy = final_pos.y - pos.y;
-	ray->sx = sqrt(1 + (((double)dy/dx) * ((double)dy/dx)));
-	ray->sy = sqrt(1 + (((double)dx/dy) * ((double)dx/dy)));
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+	win_pos = get_win_pos(map_pos);
 
-
-	printf("================================\n");
-	printf("ray->dir : %f\n", ray->dir);
-	printf("ray->sx : %0.10f\n", ray->sx);
-	printf("ray->sy : %0.10f\n", ray->sy);
-	printf("ray->sin: %0.10f\n", ray->sin);
-	printf("ray->cos: %0.10f\n", ray->cos);
+	if (ray->side == 1) {
+		final_pos.x = win_pos.x;
+		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
+		/*
+		printf("===========================\n");
+		printf("map_pos.x: %i  map_pos.y: %i\n", map_pos.x, map_pos.y);
+		printf("end point win_pos.x: %i  win_pos.y: %i\n", win_pos.x, win_pos.y);
+		*/
+	}
+	else if (ray->side == 2) {
+		final_pos.y = win_pos.y;
+		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
+	}
+	else if (ray->side == -2) {
+		final_pos.y = win_pos.y + square_size;
+		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
+	}
+	else if (ray->side == -1) {
+		final_pos.x = win_pos.x + square_size;
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
+	}
 }
 
 static t_ray init_ray(float dir)
@@ -137,7 +156,7 @@ static t_ray init_ray(float dir)
 
 	ray.dir = dir;
 	ray.cos = cos_degree(dir);
-	ray.sin = sin_degree(dir) * -1;	
+	ray.sin = sin_degree(dir) * -1;
 	ray.sx = 1 / ray.cos;
 	ray.sy = 1 / ray.sin;
 
@@ -145,11 +164,6 @@ static t_ray init_ray(float dir)
 		ray.sx *= -1;
 	if (ray.sy < 0)
 		ray.sy *= -1;
-			
-
-	//printf("cos: %f  sin: %f\n", cos_degree(dir), sin_degree(dir));
-	//printf("sin: %f\n", ray.sin);
-
 	return (ray);
 }
 
@@ -166,7 +180,6 @@ static void add_rays_to_player(t_player *player)
 	{
 		angle -= DIST_BTW_ANGLE;
 		player->rays[i] = init_ray(normalizeAngles(angle));
-		//get_hyp_length_scale(&(player->rays[i]), player->pos);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 19:49:06 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:20:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ t_pos_dec get_map_pos_decimal(t_pos pos)
     map_pos.x = (double)pos.x / square_size;
     map_pos.y = (double)pos.y / square_size;
     return (map_pos);
+}
+
+t_pos get_win_pos(t_pos pos)
+{
+    t_pos   win_pos;
+    int     square_size;
+
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+    win_pos.x = pos.x * square_size;
+    win_pos.y = pos.y * square_size;
+    return (win_pos);
 }
