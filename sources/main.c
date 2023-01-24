@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 17:20:33 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:01:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	key(int keycode, t_player *player);
 int render_win(void *data);
+
+// Just for debug
+char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT]);
 
 int main(void) 
 {
@@ -23,8 +26,10 @@ int main(void)
 	int			red;
 	int 		size;
 	t_player	*player;
+	t_map		map;
+	t_data		data;
 
-	char map[24][24] = {
+	char map1[24][24] = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -51,60 +56,48 @@ int main(void)
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
 
-	t_data *data;
-
+	map.content = fill_map_debug(map1);
+	if (map.content == NULL)
+		return (0);
 
 	player = init_player((t_pos){60, 120}, 45);
-	ray_cast(player, map);
+	//ray_cast(player, map);
 
-	//data->map = map;
-	//data->player = player;
 
-	//printf("player: %i, %i, %f\n", player->pos.x, player->pos.y, player->dir);
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
-	//mlx_draw_stroke_square(win, pos1, size, red);
-	//mlx_draw_fill_square(win, pos2, size, red);
-	render_scene_2d(win, *player, map);
+
+	data.win = win;
+	data.player = player;
+	data.map = map;
+
+	//render_scene_2d(win, *player, map);
+	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_key_hook(win.mlx_win, key, player);
-	mlx_loop_hook(win.mlx, render_win, (void*)data);
 	mlx_loop(win.mlx);
 	return (0);
 }
 
 int render_win(void *data)
 {
-	//t_player *player;
+	t_player	*player;
+	t_map		map;
+	t_win		win;
 
-	//player = ((t_data*)data)->player;
+	player = ((t_data*)data)->player;
+	map = ((t_data*)data)->map;
+	win = ((t_data*)data)->win;
 
-	printf("teste\n");
-	
+	ray_cast(player, map.content);
+	render_scene_2d(win, *player, map.content);
 }
 
-void update_vision(t_player *player, int key)
-{
-	int		n_rays;
-	int 	i;
-	int 	rot_val;
-	t_ray	*rays;
 
-	rays = player->rays;
-	if (key == KEY_ARROW_L)
-		rot_val = ROT_STEP;
-	else
-		rot_val = -ROT_STEP;
-	player->dir = normalizeAngles(player->dir + rot_val);
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
-	i = -1;
-	while (++i < n_rays)
-		rays[i].dir  = normalizeAngles(rays[i].dir + rot_val);
-}
 
 int	key(int keycode, t_player *player)
 {
 	
-	printf("player: %f\n", player->dir);
+	//printf("player: %f\n", player->dir);
 	if (keycode == KEY_W || keycode == KEY_A
 		|| keycode == KEY_S || keycode == KEY_D)
 	{
@@ -149,4 +142,50 @@ int	key(int keycode, t_player *player)
 	}
 	*/
 	return (0);
+}
+
+char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
+{
+	char	**m;
+	int		i;
+	int		j;
+
+	m = malloc(sizeof(char *) * MAP_HEIGHT);
+	if (!map)
+		return (NULL);
+	i = 0;
+	while (i < MAP_HEIGHT)
+	{
+		m[i] = malloc(sizeof(char) * MAP_WIDTH);
+		if (!m[i])
+			return (NULL);
+		i++; 
+	}
+	i = 0;
+	j = 0;
+	while (i < MAP_HEIGHT)
+	{
+		j = 0;
+		while (j < MAP_WIDTH)
+		{
+			m[i][j] = map[i][j];
+			j++;
+		}
+		i++;
+	}
+	/*i = 0;
+	j = 0;
+	while (i < MAP_HEIGHT)
+	{
+		j = 0;
+		while (j < MAP_WIDTH)
+		{
+			printf("%i ",m[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}*/
+
+	return (m);
 }

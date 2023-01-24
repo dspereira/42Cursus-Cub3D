@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 16:54:20 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:23:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ typedef struct s_win
 	void	*mlx_win;
 }	t_win;
 
+typedef struct s_map
+{
+	char **content;
+}	t_map;
+
 typedef struct s_pos
 {
 	int x;
@@ -76,13 +81,12 @@ typedef struct s_player
 	t_ray	*rays;
 }	t_player;
 
-
 typedef struct s_data
 {
+	t_win		win;
+	t_map		map;
 	t_player	*player;
-	char 		**map;
 }	t_data; 
-
 
 
 // math_utils.c
@@ -103,10 +107,11 @@ t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 
 //render_scene_2d.c
-void	render_scene_2d(t_win	win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT]);
+void	render_scene_2d(t_win	win, t_player player, char **map);
 
 //player.c
 t_player	*init_player (t_pos pos, int dir);
-void 		ray_cast(t_player *player, char map[MAP_WIDTH][MAP_HEIGHT]);
+void 		ray_cast(t_player *player, char **map);
+void		update_vision(t_player *player, int key);
 
 #endif

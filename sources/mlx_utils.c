@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:03 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/18 16:57:24 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:43:32 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void mlx_draw_fill_square(t_win win, t_pos init, int size, int color)
 {
 	t_pos	end;
 	int		i;
-	
 	end = init;
 	end.x += size;
 	i = 0;

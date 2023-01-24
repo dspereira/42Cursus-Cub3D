@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 15:38:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:26:35 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static t_ray init_ray(float dir);
 static void add_rays_to_player(t_player *player);
 static void get_hyp_length_scale(t_ray *ray, t_pos pos);
-static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT]);
+static void ray_cast1(t_ray *ray, t_pos pos, char **map);
 static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos);
+static void update_ray(t_ray *ray, float rot_angle);
 
 t_player *init_player (t_pos pos, int dir)
 {
@@ -40,7 +41,7 @@ t_player *init_player (t_pos pos, int dir)
 	return (player);
 }
 
-void ray_cast(t_player *player, char map[MAP_WIDTH][MAP_HEIGHT])
+void ray_cast(t_player *player, char **map)
 {
 	int i;
 	int n_rays;
@@ -52,9 +53,39 @@ void ray_cast(t_player *player, char map[MAP_WIDTH][MAP_HEIGHT])
 		ray_cast1(&(player->rays[i]), player->pos, map);
 		i++;
 	}
+	//printf("ray Direction: %f\n", player->rays[0].dir);
+	//printf("ray distance: %d\n", player->rays[0].length_win);
 }
 
-static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT])
+void update_vision(t_player *player, int key)
+{
+	int		n_rays;
+	int 	i;
+	int 	rot_val;
+	t_ray	*rays;
+
+	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	rays = player->rays;
+	if (key == KEY_ARROW_L)
+		rot_val = ROT_STEP;
+	else
+		rot_val = -ROT_STEP;
+	player->dir = normalizeAngles(player->dir + rot_val);
+	i = -1;
+	while (++i < n_rays)
+		update_ray(&rays[i], rot_val);
+}
+
+static void update_ray(t_ray *ray, float rot_angle)
+{
+	ray->dir = normalizeAngles(ray->dir + rot_angle);
+	ray->cos = cos_degree(ray->dir);
+	ray->sin = sin_degree(ray->dir) * -1;
+	ray->sx = 1 / ray->cos;
+	ray->sy = 1 / ray->sin;
+}
+
+static void ray_cast1(t_ray *ray, t_pos pos, char **map)
 {
 	int		step_x;
 	int		step_y;
@@ -106,7 +137,6 @@ static void ray_cast1(t_ray *ray, t_pos pos, char map[MAP_WIDTH][MAP_HEIGHT])
 	ray->side = side;
 
 	set_distace_win(ray, map_pos, pos);
-
 	
 	/* printf("===========================\n");
 	printf("angle: %f\n", ray->dir);

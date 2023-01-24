@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 15:05:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:44:00 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 #define PLAYER_COLOR	0x00E28743
 #define WALL_COLOR		0x002596BE
 
-static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT]);
-static void render_player(t_win win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT]);
+static void render_map(t_win win, char **map);
+static void render_player(t_win win, t_player player, char **map);
 
-void render_scene_2d(t_win win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT])
+void render_scene_2d(t_win win, t_player player, char **map)
 {
 	render_map(win, map);
 	render_player(win, player, map);
 }
 
-static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT])
+static void render_map(t_win win, char **map)
 {
 	int		square_size;
 	int		i;
@@ -36,6 +36,7 @@ static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT])
 	i = 0;
 	while (i < MAP_HEIGHT) 
 	{
+		
 		j = 0;
 		while (j < MAP_WIDTH)
 		{
@@ -44,14 +45,14 @@ static void render_map(t_win win, char map[MAP_WIDTH][MAP_HEIGHT])
 			if (map[i][j])
 				mlx_draw_fill_square(win, pos, square_size, WALL_COLOR);
 			else 
-				mlx_draw_stroke_square(win, pos, square_size, 0x002596BE);
+				mlx_draw_stroke_square(win, pos, square_size, WALL_COLOR);
 			j++;
 		}
 		i++;
 	}
 }
 
-static void render_player(t_win win, t_player player, char map[MAP_WIDTH][MAP_HEIGHT])
+static void render_player(t_win win, t_player player, char **map)
 {
 	int		i;
 	int		n_rays;
