@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/24 12:23:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:47:47 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,30 @@
 
 #define ROT_STEP		5
 
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_win
 {
 	void	*mlx;
 	void	*mlx_win;
+	t_img	frame;
 }	t_win;
+
+/*
+typedef struct s_mlx_data
+{
+	void	*mlx;
+	void	*win;
+	t_img	frame;
+}	t_mlx_data;
+*/
 
 typedef struct s_map
 {
@@ -83,7 +102,7 @@ typedef struct s_player
 
 typedef struct s_data
 {
-	t_win		win;
+	t_win		*win;
 	t_map		map;
 	t_player	*player;
 }	t_data; 
@@ -96,9 +115,10 @@ double	cos_degree(double angle);
 double	sin_degree(double angle);
 
 // mlx_utils.c
-void	mlx_draw_line(t_win win, t_pos init, t_pos end, int color);
-void	mlx_draw_stroke_square(t_win win, t_pos init, int size, int color);
-void	mlx_draw_fill_square(t_win win, t_pos init, int size, int color);
+void	mlx_draw_line(t_win *win, t_pos init, t_pos end, int color);
+void	mlx_draw_stroke_square(t_win *win, t_pos init, int size, int color);
+void	mlx_draw_fill_square(t_win *win, t_pos init, int size, int color);
+void	img_pixel_put(t_img *img, int x, int y, int color);
 
 //utils.c
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
@@ -107,7 +127,7 @@ t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 
 //render_scene_2d.c
-void	render_scene_2d(t_win	win, t_player player, char **map);
+void render_scene_2d(t_win *win, t_player player, char **map);
 
 //player.c
 t_player	*init_player (t_pos pos, int dir);

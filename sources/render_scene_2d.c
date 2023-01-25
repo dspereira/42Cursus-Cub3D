@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/24 10:44:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:57:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@
 #define PLAYER_COLOR	0x00E28743
 #define WALL_COLOR		0x002596BE
 
-static void render_map(t_win win, char **map);
-static void render_player(t_win win, t_player player, char **map);
+static void render_map(t_win *win, char **map);
+static void render_player(t_win *win, t_player player, char **map);
+static void render_background(t_img *img, int color);
 
-void render_scene_2d(t_win win, t_player player, char **map)
+void render_scene_2d(t_win *win, t_player player, char **map)
 {
+	render_background(&(win->frame), 0x0021130d);
 	render_map(win, map);
 	render_player(win, player, map);
 }
 
-static void render_map(t_win win, char **map)
+static void render_map(t_win *win, char **map)
 {
 	int		square_size;
 	int		i;
 	int		j;
 	t_pos	pos;
-
 	square_size = WIN_HEIGHT / MAP_HEIGHT;
 	i = 0;
 	while (i < MAP_HEIGHT) 
@@ -52,7 +53,7 @@ static void render_map(t_win win, char **map)
 	}
 }
 
-static void render_player(t_win win, t_player player, char **map)
+static void render_player(t_win *win, t_player player, char **map)
 {
 	int		i;
 	int		n_rays;
@@ -73,4 +74,22 @@ static void render_player(t_win win, t_player player, char **map)
 		mlx_draw_line(win, player.pos, end, 0x00FF0000);
 		i++;
 	}
+}
+
+static void render_background(t_img *img, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIN_HEIGHT)
+	{
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			img_pixel_put(img, j, i, color);
+			j++;
+		}
+		i++;
+	}	
 }
