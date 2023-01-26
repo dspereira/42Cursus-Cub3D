@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/25 15:55:11 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:15:04 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,20 @@ int main(void)
 	if (map.content == NULL)
 		return (0);
 
-	player = init_player((t_pos){60, 120}, 45);
+	player = init_player((t_pos){80, 120}, 0);
 	//ray_cast(player, map);
 
 
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 
+	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
+	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
+
 	data.win = &win;
 	data.player = player;
 	data.map = map;
 
-	//render_scene_2d(win, *player, map);
 	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_key_hook(win.mlx_win, key, player);
 	mlx_loop(win.mlx);
@@ -89,8 +91,8 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	ray_cast(player, map.content);
-	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
-	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
+	//win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
+	//win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
 	//printf("--------> %c\n", *(win->frame.addr));
 	render_scene_2d(&win, *player, map.content);
 	//printf("--------> %c\n", (win.frame.addr)[0]);

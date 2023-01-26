@@ -6,13 +6,14 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/24 12:26:35 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:22:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static t_ray init_ray(float dir);
+//static t_ray init_ray(float dir);
+static void init_ray(t_ray *ray, float dir);
 static void add_rays_to_player(t_player *player);
 static void get_hyp_length_scale(t_ray *ray, t_pos pos);
 static void ray_cast1(t_ray *ray, t_pos pos, char **map);
@@ -78,11 +79,38 @@ void update_vision(t_player *player, int key)
 
 static void update_ray(t_ray *ray, float rot_angle)
 {
+	double value;
+
 	ray->dir = normalizeAngles(ray->dir + rot_angle);
 	ray->cos = cos_degree(ray->dir);
 	ray->sin = sin_degree(ray->dir) * -1;
+
 	ray->sx = 1 / ray->cos;
 	ray->sy = 1 / ray->sin;
+	if (ray->dir == 0 || ray->dir == 180)
+	{
+		ray->sin = 0.0;
+		ray->sy = 1000000;
+	}
+	if (ray->dir == 90 || ray->dir == 270)
+	{
+		ray->cos = 0.0; 
+		ray->sx = 1000000;
+	}
+	/*
+	if (ray->cos != 0)
+		ray->sx = 1 / ray->cos;
+	else
+		ray->sx = 1000000;
+	if (ray->sin != 0)
+		ray->sy = 1 / ray->sin;
+	else
+		ray->sy = 1000000;
+	*/
+	if (ray->sx < 0)
+		ray->sx *= -1;
+	if (ray->sy < 0)
+		ray->sy *= -1;
 }
 
 static void ray_cast1(t_ray *ray, t_pos pos, char **map)
@@ -104,23 +132,36 @@ static void ray_cast1(t_ray *ray, t_pos pos, char **map)
 	if (ray->cos < 0)
 	{
 		step_x = -1;
-		ray_length_x = (map_pos.x - map_pos_dec.x) * ray->sx;
+		ray_length_x = (map_pos_dec.x - (double)map_pos.x) * ray->sx;
 	}
 	else 
 	{
 		step_x = 1;
-		ray_length_x = ((map_pos.x + 1) - map_pos_dec.x) * ray->sx;
+		ray_length_x = ((double)(map_pos.x + 1) - map_pos_dec.x) * ray->sx;
 	}
 	if (ray->sin < 0)
 	{
 		step_y = -1;
-		ray_length_y = (map_pos.y - map_pos_dec.y) * ray->sy;
+		ray_length_y = (map_pos_dec.y - (double)map_pos.y) * ray->sy;
 	}
 	else
 	{
 		step_y = 1;
-		ray_length_y = ((map_pos.y + 1) - map_pos_dec.y) * ray->sy;
+		ray_length_y = ((double)(map_pos.y + 1) - map_pos_dec.y) * ray->sy;
 	}
+
+
+	/*if (ray->dir == 105)
+	{
+		printf("map_pos.x: %i\n", map_pos.x);
+		printf("map_pos.y: %i\n", map_pos.y);
+		printf("map_pos_dec.x: %f\n", map_pos_dec.x);
+		printf("map_pos_dec.y: %f\n", map_pos_dec.y);
+		printf("ray_length_x: %f\n", ray_length_x);
+		printf("ray_length_x: %f\n", ray_length_x);
+		printf("ray_length_y: %f\n", ray_length_y);
+	}*/
+	
 	while (!map[map_pos.y][map_pos.x])
 	{
 		if (ray_length_x < ray_length_y){
@@ -137,6 +178,9 @@ static void ray_cast1(t_ray *ray, t_pos pos, char **map)
 	ray->side = side;
 
 	set_distace_win(ray, map_pos, pos);
+	//ray->length_win = 20;
+
+
 	
 	/* printf("===========================\n");
 	printf("angle: %f\n", ray->dir);
@@ -154,6 +198,7 @@ static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 	t_pos	final_pos;
 	int		square_size;
 
+	//printf("Ray scale x: %f  y: %f\n", ray->sx, ray->sy);
     square_size = WIN_HEIGHT / MAP_HEIGHT;
 	win_pos = get_win_pos(map_pos);
 
@@ -178,8 +223,11 @@ static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 		final_pos.x = win_pos.x + square_size;
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
 	}
+	if (ray->length_win < 0)
+		ray->length_win *= -1;
 }
 
+/*
 static t_ray init_ray(float dir)
 {
 	t_ray ray;
@@ -196,6 +244,21 @@ static t_ray init_ray(float dir)
 		ray.sy *= -1;
 	return (ray);
 }
+*/
+
+static void init_ray(t_ray *ray, float dir)
+{
+	ray->dir = dir;
+	ray->cos = cos_degree(dir);
+	ray->sin = sin_degree(dir) * -1;
+	ray->sx = 1 / ray->cos;
+	ray->sy = 1 / ray->sin;
+
+	if (ray->sx < 0)
+		ray->sx *= -1;
+	if (ray->sy < 0)
+		ray->sy *= -1;
+}
 
 static void add_rays_to_player(t_player *player)
 {
@@ -209,7 +272,7 @@ static void add_rays_to_player(t_player *player)
 	while (i < n_rays)
 	{
 		angle -= DIST_BTW_ANGLE;
-		player->rays[i] = init_ray(normalizeAngles(angle));
+		init_ray(&(player->rays[i]), normalizeAngles(angle));
 		i++;
 	}
 }

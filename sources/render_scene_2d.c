@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/25 15:57:48 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:25:11 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ static void render_player(t_win *win, t_player player, char **map)
 		mlx_draw_line(win, player.pos, end, 0x00FF0000);
 		i++;
 	}
+
+/*	i = 29;
+
+	t_ray r = player.rays[i];
+*/
+/*
+	printf("============================\n");
+	printf("angulo raio: %f\n", r.dir);
+	printf("        cos: %0.16f\n", r.cos);
+	printf("        sin: %0.16f\n", r.sin);
+	printf("         sx: %f\n", r.sx);
+	printf("         sy: %f\n", r.sy);
+	printf("       side: %i\n", r.side);
+	printf("       leng: %i\n", r.length_win);
+*/
+
+	end = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
+	mlx_draw_line(win, player.pos, end, 0x00FF0000);
+
 }
 
 static void render_background(t_img *img, int color)

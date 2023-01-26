@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:03 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/25 15:53:03 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:31:13 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,12 @@
 
 void img_pixel_put(t_img *img, int x, int y, int color)
 {
-	/*int *pixel;
+	int *pixel;
 
-	printf("img_pixel_put\n");
+	if (x > WIN_WIDTH || y > WIN_HEIGHT)
+		return ;
 	pixel = (int *)(img->addr + (img->line_len * y) + (x * img->bpp / 8));
 	*pixel = color;
-	printf("img_pixel_put1\n");
-	*/
-	char    *pixel;
-
-	/*
-	printf("line_len: %i\n", img->line_len);
-	printf("img->bpp: %i\n", img->bpp);
-	printf("img->addr: %p\n", img->addr);
-	*/
-
-    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	
-	//printf("pixel: %d\n", (y * img->line_len + x * (img->bpp / 8)));
-	//printf("pixel: %p\n", pixel);
-
-	//printf("pixel: %c\n", *pixel);
-
-	//printf("pixel: %i \n", *pixel);
-	*(int *)pixel = color;
-	//printf("pixel: %i \n", *pixel);
 }
 
 void mlx_draw_line(t_win *win, t_pos init, t_pos end, int color)
