@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/27 14:29:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:05:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(void)
 	if (map.content == NULL)
 		return (0);
 
-	player = init_player((t_pos){80, 120}, 0);
+	player = player_init((t_pos){80, 120}, 0);
 	//ray_cast(player, map);
 
 
@@ -109,8 +109,10 @@ int	key(int keycode, t_player *player)
 		player_move(player, LEFT);
 	else if (keycode == KEY_D)
 		player_move(player, RIGHT);
-	else if (keycode == KEY_ARROW_R || keycode == KEY_ARROW_L)
-		update_vision(player, keycode);
+	else if (keycode == KEY_ARROW_R)
+		player_update_vision(player, -ROT_STEP);
+	else if (keycode == KEY_ARROW_L)
+		player_update_vision(player, ROT_STEP);
 	return (0);
 }
 

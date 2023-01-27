@@ -6,30 +6,26 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/27 14:21:46 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:10:11 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 //static t_ray init_ray(float dir);
-static void init_ray(t_ray *ray, float dir);
-static void add_rays_to_player(t_player *player);
+//static void init_ray(t_ray *ray, float dir);
+static void add_rays_to_player(t_player *player, int n_rays);
 static void get_hyp_length_scale(t_ray *ray, t_pos pos);
 static void ray_cast1(t_ray *ray, t_pos pos, char **map);
 static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos);
-static void update_ray(t_ray *ray, float rot_angle);
+//static void update_ray(t_ray *ray, float rot_angle);
 
-t_player *init_player (t_pos pos, int dir)
+t_player *player_init(t_pos pos, int dir)
 {
 	t_player    *player;
 	int         n_rays;
 
 	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
-	//NOTE: just for prtection in tests, remove in production
-	if (n_rays > 2000)
-		n_rays = 2000;
-
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
@@ -38,9 +34,39 @@ t_player *init_player (t_pos pos, int dir)
 	player->rays = malloc(n_rays * sizeof(t_ray));
 	if (!(player->rays))
 		return (0);
-	add_rays_to_player(player);
+	add_rays_to_player(player, n_rays);
 	return (player);
 }
+
+static void add_rays_to_player(t_player *player, int n_rays)
+{
+	int     i;
+	float   angle;
+
+	angle = player->dir + (CAMERA_ANGLE / 2);
+	i = 0;
+	while (i < n_rays)
+	{
+		angle -= DIST_BTW_ANGLE;
+		ray_init(&(player->rays[i]), angle);
+		i++;
+	}
+}
+
+void player_update_vision(t_player *player, int rot_angle)
+{
+	int		n_rays;
+	int 	i;
+	t_ray	*rays;
+
+	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	rays = player->rays;
+	player->dir = normalizeAngles(player->dir + rot_angle);
+	i = -1;
+	while (++i < n_rays)
+		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
+}
+
 
 void ray_cast(t_player *player, char **map)
 {
@@ -58,70 +84,15 @@ void ray_cast(t_player *player, char **map)
 	//printf("ray distance: %d\n", player->rays[0].length_win);
 }
 
-void update_vision(t_player *player, int key)
-{
-	int		n_rays;
-	int 	i;
-	int 	rot_val;
-	t_ray	*rays;
-
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
-	rays = player->rays;
-	if (key == KEY_ARROW_L)
-		rot_val = ROT_STEP;
-	else
-		rot_val = -ROT_STEP;
-	player->dir = normalizeAngles(player->dir + rot_val);
-	i = -1;
-	while (++i < n_rays)
-		update_ray(&rays[i], rot_val);
-}
 
 void player_move(t_player *player, int dir)
 {
 	float angle;
 
-	printf("player direction: %f\n", player->dir);
-	printf("	   direction: %i\n", dir);
 	angle = normalizeAngles((float)dir + player->dir);
 	player->pos = get_new_pos1(player->pos, angle, MOVE_STEP);
 }
 
-static void update_ray(t_ray *ray, float rot_angle)
-{
-	double value;
-
-	ray->dir = normalizeAngles(ray->dir + rot_angle);
-	ray->cos = cos_degree(ray->dir);
-	ray->sin = sin_degree(ray->dir) * -1;
-
-	ray->sx = 1 / ray->cos;
-	ray->sy = 1 / ray->sin;
-	if (ray->dir == 0 || ray->dir == 180)
-	{
-		ray->sin = 0.0;
-		ray->sy = 1000000;
-	}
-	if (ray->dir == 90 || ray->dir == 270)
-	{
-		ray->cos = 0.0; 
-		ray->sx = 1000000;
-	}
-	/*
-	if (ray->cos != 0)
-		ray->sx = 1 / ray->cos;
-	else
-		ray->sx = 1000000;
-	if (ray->sin != 0)
-		ray->sy = 1 / ray->sin;
-	else
-		ray->sy = 1000000;
-	*/
-	if (ray->sx < 0)
-		ray->sx *= -1;
-	if (ray->sy < 0)
-		ray->sy *= -1;
-}
 
 static void ray_cast1(t_ray *ray, t_pos pos, char **map)
 {
@@ -237,52 +208,3 @@ static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 		ray->length_win *= -1;
 }
 
-/*
-static t_ray init_ray(float dir)
-{
-	t_ray ray;
-
-	ray.dir = dir;
-	ray.cos = cos_degree(dir);
-	ray.sin = sin_degree(dir) * -1;
-	ray.sx = 1 / ray.cos;
-	ray.sy = 1 / ray.sin;
-
-	if (ray.sx < 0)
-		ray.sx *= -1;
-	if (ray.sy < 0)
-		ray.sy *= -1;
-	return (ray);
-}
-*/
-
-static void init_ray(t_ray *ray, float dir)
-{
-	ray->dir = dir;
-	ray->cos = cos_degree(dir);
-	ray->sin = sin_degree(dir) * -1;
-	ray->sx = 1 / ray->cos;
-	ray->sy = 1 / ray->sin;
-
-	if (ray->sx < 0)
-		ray->sx *= -1;
-	if (ray->sy < 0)
-		ray->sy *= -1;
-}
-
-static void add_rays_to_player(t_player *player)
-{
-	int     i;
-	int     n_rays;
-	float   angle;
-
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
-	angle = player->dir + (float) (CAMERA_ANGLE / 2);
-	i = 0;
-	while (i < n_rays)
-	{
-		angle -= DIST_BTW_ANGLE;
-		init_ray(&(player->rays[i]), normalizeAngles(angle));
-		i++;
-	}
-}

@@ -23,6 +23,7 @@ SRC_NAME =	main.c				\
 			utils.c				\
 			render_scene_2d.c	\
 			player.c			\
+			ray.c				\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
