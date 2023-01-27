@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/26 17:22:08 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:21:46 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ void update_vision(t_player *player, int key)
 	i = -1;
 	while (++i < n_rays)
 		update_ray(&rays[i], rot_val);
+}
+
+void player_move(t_player *player, int dir)
+{
+	float angle;
+
+	printf("player direction: %f\n", player->dir);
+	printf("	   direction: %i\n", dir);
+	angle = normalizeAngles((float)dir + player->dir);
+	player->pos = get_new_pos1(player->pos, angle, MOVE_STEP);
 }
 
 static void update_ray(t_ray *ray, float rot_angle)

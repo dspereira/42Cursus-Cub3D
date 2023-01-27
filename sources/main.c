@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/26 17:15:04 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:29:22 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,51 +101,16 @@ int render_win(void *data)
 
 int	key(int keycode, t_player *player)
 {
-	
-	//printf("player: %f\n", player->dir);
-	if (keycode == KEY_W || keycode == KEY_A
-		|| keycode == KEY_S || keycode == KEY_D)
-	{
-		printf("KEY - ");
-		switch (keycode)
-		{
-			case KEY_W:
-				printf("W\n");
-				break;
-			case KEY_A:
-				printf("A\n");
-				break;
-			case KEY_S:
-				printf("S\n");
-				break;
-			case KEY_D:
-				printf("D\n");
-				break;
-			default:
-				break;
-		}
-	}
-
+	if (keycode == KEY_W)
+		player_move(player, FORWARD);
+	else if (keycode == KEY_S)
+		player_move(player, BACKWARD);
+	else if (keycode == KEY_A)
+		player_move(player, LEFT);
+	else if (keycode == KEY_D)
+		player_move(player, RIGHT);
 	else if (keycode == KEY_ARROW_R || keycode == KEY_ARROW_L)
 		update_vision(player, keycode);
-
-	/*
-	else if (keycode == KEY_ARROW_R || keycode == KEY_ARROW_L)
-	{
-		printf("KEY - ");
-		switch (keycode)
-		{
-			case KEY_ARROW_R:
-				update_vision(player->rays, 1);
-				break;
-			case KEY_ARROW_L:
-				update_vision(player->rays, -1);
-				break;
-			default:
-				break;
-		}
-	}
-	*/
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/25 15:47:47 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:18:18 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@
 #define KEY_ARROW_L		65361
 #define KEY_ARROW_R		65363
 
+#define FORWARD			0
+#define BACKWARD		180
+#define LEFT			90
+#define RIGHT			270
+
 #define ROT_STEP		5
+#define MOVE_STEP		10
 
 typedef struct s_img
 {
@@ -125,6 +131,7 @@ t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
+t_pos		get_new_pos1(t_pos init, float dir, int dist);
 
 //render_scene_2d.c
 void render_scene_2d(t_win *win, t_player player, char **map);
@@ -133,5 +140,6 @@ void render_scene_2d(t_win *win, t_player player, char **map);
 t_player	*init_player (t_pos pos, int dir);
 void 		ray_cast(t_player *player, char **map);
 void		update_vision(t_player *player, int key);
+void		player_move(t_player *player, int dir);
 
 #endif

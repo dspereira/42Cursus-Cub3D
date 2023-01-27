@@ -6,12 +6,14 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/23 11:20:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:23:56 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
+
+// mudar esta função: scale_x e scale_y não se percebe que são cos e sin
 t_pos get_new_pos(t_pos init, double scale_x, double scale_y, int dist)
 {
 	t_pos	pos;
@@ -20,6 +22,16 @@ t_pos get_new_pos(t_pos init, double scale_x, double scale_y, int dist)
 	pos.y = dist * scale_y + init.y;
 	return (pos);
 }
+
+t_pos get_new_pos1(t_pos init, float dir, int dist)
+{
+	t_pos	pos;
+
+	pos.x = dist * cos_degree(dir) + init.x;
+	pos.y = -dist * sin_degree(dir) + init.y;
+	return (pos);
+}
+
 
 t_pos get_map_pos(t_pos pos)
 {
