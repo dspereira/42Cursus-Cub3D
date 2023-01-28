@@ -18,7 +18,7 @@ SRC_PATH = ./sources
 OBJ_PATH = ./objects
 
 SRC_NAME =	main.c				\
-			mlx_utils.c			\
+			draw_utils.c		\
 			math_utils.c		\
 			utils.c				\
 			render_scene_2d.c	\

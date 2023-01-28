@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 15:40:36 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:26:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,6 @@ float	normalizeAngles(float angle);
 double	cos_degree(double angle);
 double	sin_degree(double angle);
 
-// mlx_utils.c
-void	mlx_draw_line(t_win *win, t_pos init, t_pos end, int color);
-void	mlx_draw_stroke_square(t_win *win, t_pos init, int size, int color);
-void	mlx_draw_fill_square(t_win *win, t_pos init, int size, int color);
-void	img_pixel_put(t_img *img, int x, int y, int color);
-
 //utils.c
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
@@ -159,5 +153,11 @@ void	ray_update_dir(t_ray *ray, float dir);
 
 // raycast.c
 void	raycast_all(t_player *player, char **map);
+
+// draw_utils.c
+void draw_pixel(t_img img, int x, int y, int color);
+void draw_line(t_img img, t_pos init, t_pos end, int color);
+void draw_stroke_square(t_img img, t_pos init, int size, int color);
+void draw_fill_square(t_img img, t_pos init, int size, int color);
 
 #endif
