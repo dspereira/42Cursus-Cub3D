@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/27 18:17:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:40:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,19 +148,16 @@ t_pos		get_new_pos1(t_pos init, float dir, int dist);
 //render_scene_2d.c
 void render_scene_2d(t_win *win, t_player player, char **map);
 
-//player.c
+// player.c
 t_player	*player_init(t_pos pos, int dir);
-//void 		ray_cast(t_player *player, char **map);
-//void		update_vision(t_player *player, int key);
+void		player_update_vision(t_player *player, int rot_angle);
 void		player_move(t_player *player, int dir);
-void		player_ray_cast(t_player *player, char **map);
 
+// ray.c
+void	ray_init(t_ray *ray, float dir);
+void	ray_update_dir(t_ray *ray, float dir);
 
-void player_update_vision(t_player *player, int rot_angle);
-
-//ray.c
-void ray_init(t_ray *ray, float dir);
-void ray_update_dir(t_ray *ray, float dir);
-void ray_cast(t_ray *ray, t_pos pos, char **map);
+// raycast.c
+void	raycast_all(t_player *player, char **map);
 
 #endif
