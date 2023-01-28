@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/27 17:04:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:17:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,18 @@ typedef struct s_pos_dec
 	double y;
 }	t_pos_dec;
 
+typedef struct s_value
+{
+	int x;
+	int y;
+}	t_value;
+
+typedef struct s_value_dec
+{
+	double x;
+	double y;
+}	t_value_dec;
+
 typedef struct s_ray
 {
 	float	dir;
@@ -138,9 +150,10 @@ void render_scene_2d(t_win *win, t_player player, char **map);
 
 //player.c
 t_player	*player_init(t_pos pos, int dir);
-void 		ray_cast(t_player *player, char **map);
+//void 		ray_cast(t_player *player, char **map);
 //void		update_vision(t_player *player, int key);
 void		player_move(t_player *player, int dir);
+void		player_ray_cast(t_player *player, char **map);
 
 
 void player_update_vision(t_player *player, int rot_angle);
@@ -148,5 +161,6 @@ void player_update_vision(t_player *player, int rot_angle);
 //ray.c
 void ray_init(t_ray *ray, float dir);
 void ray_update_dir(t_ray *ray, float dir);
+void ray_cast(t_ray *ray, t_pos pos, char **map);
 
 #endif
