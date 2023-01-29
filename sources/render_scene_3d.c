@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 19:11:38 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:37:43 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,14 @@ static void render_walls(t_img img, t_ray *rays)
 		line_size.y = (int)((double)WIN_HEIGHT / rays[i].dist_wall);
 		pos.x += line_size.x;
 		pos.y = (WIN_HEIGHT / 2) - (line_size.y / 2);
-		draw_fill_rectangle(img, pos, line_size, WALL_COLOR1);
+		if (rays[i].side == 1)
+			draw_fill_rectangle(img, pos, line_size, GREEN_COLOR);
+		if (rays[i].side == -1)
+			draw_fill_rectangle(img, pos, line_size, RED_COLOR);
+		if (rays[i].side == 2)
+			draw_fill_rectangle(img, pos, line_size, BLUE_COLOR);
+		if (rays[i].side == -2)
+			draw_fill_rectangle(img, pos, line_size, YELLOW_COLOR);
 		i++;
 	}
 }

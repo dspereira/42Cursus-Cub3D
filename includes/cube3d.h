@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 18:32:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:32:39 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 #define MAP_HEIGHT		24
 #define MAP_WIDTH		24
 
-#define WIN_HEIGHT		960
-#define WIN_WIDTH		960
+#define WIN_HEIGHT		1008
+#define WIN_WIDTH		1008
 
 #define CAMERA_ANGLE	60
-#define DIST_BTW_ANGLE	0.08
+#define DIST_BTW_ANGLE	0.06
 
 #define KEY_W			119
 #define KEY_S			115
@@ -53,6 +53,11 @@
 //#define CEIL_COLOR		0x00A3E3FF
 #define CEIL_COLOR		0x00e4f7fa
 #define WALL_COLOR1		0x00FF0000
+
+#define RED_COLOR		0x00FF0000
+#define GREEN_COLOR		0x0000FF00
+#define BLUE_COLOR		0x000000FF
+#define YELLOW_COLOR	0x00FFFF00
 
 typedef struct s_img
 {
