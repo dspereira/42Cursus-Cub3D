@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 16:18:37 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 11:00:13 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,27 @@ void draw_pixel(t_img img, int x, int y, int color)
 
 void draw_line(t_img img, t_pos init, t_pos end, int color)
 {
-	int		steps;
-	double	x_inc;
-	double	y_inc;
-	double	x;
-	double	y;
+	int			steps;
+	t_value		delta;
+	t_value_dec	inc;
+	t_pos_dec	pos;
 
-	if (math_abs(end.x - init.x) >= math_abs(end.y - init.y))
-		steps = math_abs(end.x - init.x);
+
+	delta.x = end.x - init.x;
+	delta.y = end.y - init.y;
+	if (math_abs(delta.x) >= math_abs(delta.y))
+		steps = math_abs(delta.x);
 	else 
-		steps = math_abs(end.y - init.y);
-	x_inc = (double)(end.x - init.x) / steps;
-	y_inc = (double)(end.y - init.y) / steps;
-	x = init.x;
-	y = init.y;
+		steps = math_abs(delta.y);
+	inc.x = (double)delta.x / steps;
+	inc.y = (double)delta.y / steps;
+	pos.x = init.x;
+	pos.y = init.y;
 	while (steps-- > 0)
 	{
-		draw_pixel(img, x, y, color);
-		x += x_inc;
-		y += y_inc;
+		draw_pixel(img, pos.x, pos.y, color);
+		pos.x += inc.x;
+		pos.y += inc.y;
 	}
 	draw_pixel(img, end.x, end.y, color);
 }
