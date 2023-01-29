@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 15:24:39 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 11:27:44 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,20 @@ static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 
     square_size = WIN_HEIGHT / MAP_HEIGHT;
 	win_pos = get_win_pos(map_pos);
-	if (ray->side == 1) {
+	if (ray->side == 1) 
 		final_pos.x = win_pos.x;
-		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
-	}
-	else if (ray->side == 2) {
+	else if (ray->side == 2) 
 		final_pos.y = win_pos.y;
-		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
-	}
-	else if (ray->side == -2) {
+	else if (ray->side == -2) 
 		final_pos.y = win_pos.y + square_size;
-		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
-	}
-	else if (ray->side == -1) {
+	else if (ray->side == -1)
 		final_pos.x = win_pos.x + square_size;
-		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
-	}
-	if (ray->length_win < 0)
-		ray->length_win *= -1;
+	if (ray->side == 1) 
+		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
+	else if (ray->side == 2) 
+		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
+	else if (ray->side == -2) 
+		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
+	else if (ray->side == -1) 
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;	
 }

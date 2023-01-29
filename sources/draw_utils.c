@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 11:00:13 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 11:02:26 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void draw_line(t_img img, t_pos init, t_pos end, int color)
 	t_value		delta;
 	t_value_dec	inc;
 	t_pos_dec	pos;
-
 
 	delta.x = end.x - init.x;
 	delta.y = end.y - init.y;
