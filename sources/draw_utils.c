@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 11:02:26 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:30:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,28 @@ void draw_fill_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	end;
 	int		i;
+
 	end = init;
 	end.x += size;
 	i = 0;
 	while (i < size)
+	{
+		draw_line(img, init, end, color);
+		init.y++;
+		end.y++;
+		i++;
+	}
+}
+
+void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
+{
+	t_pos	end;
+	int		i;
+
+	end = init;
+	end.x += size.x;
+	i = 0;
+	while (i < size.y)
 	{
 		draw_line(img, init, end, color);
 		init.y++;

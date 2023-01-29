@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 11:27:44 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:08:41 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map)
 	t_value		step;
 	t_value_dec	ray_length;
 	t_pos		map_pos;
-	int			side;
-	
+
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
@@ -43,15 +42,18 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map)
 		if (ray_length.x < ray_length.y){
 			map_pos.x += step.x;
 			ray_length.x += ray->sx;
-			side = 1 * step.x;
+			ray->side = 1 * step.x;
 		}
 		else {
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
-			side = 2 * step.y;
+			ray->side = 2 * step.y;
 		}
 	}
-	ray->side = side;
+	if (ray->side == 1 || ray->side == -1)
+		ray->dist_wall = ray_length.x - ray->sx;
+	if (ray->side == 2 || ray->side == -2)
+		ray->dist_wall = ray_length.y - ray->sy;
 	set_distace_win(ray, map_pos, p_pos);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 12:43:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:32:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #define WIN_HEIGHT		960
 #define WIN_WIDTH		960
 
-#define CAMERA_ANGLE	61
-#define DIST_BTW_ANGLE	0.5
+#define CAMERA_ANGLE	60
+#define DIST_BTW_ANGLE	0.08
 
 #define KEY_W			119
 #define KEY_S			115
@@ -48,6 +48,12 @@
 #define PLAYER_COLOR	0x00E28743
 #define WALL_COLOR		0x002596BE
 
+// render 3D
+#define FLOOR_COLOR		0x003a2e27
+//#define CEIL_COLOR		0x00A3E3FF
+#define CEIL_COLOR		0x00e4f7fa
+#define WALL_COLOR1		0x00FF0000
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -64,14 +70,6 @@ typedef struct s_win
 	t_img	frame;
 }	t_win;
 
-/*
-typedef struct s_mlx_data
-{
-	void	*mlx;
-	void	*win;
-	t_img	frame;
-}	t_mlx_data;
-*/
 
 typedef struct s_map
 {
@@ -108,7 +106,7 @@ typedef struct s_ray
 	int		length;
 	int		length_win;
 	int		length_map;
-	int		dist_wall;
+	double	dist_wall;
 	int		side;
 	double	cos;
 	double	sin;
@@ -147,6 +145,9 @@ t_pos		get_new_pos1(t_pos init, float dir, int dist);
 //render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);
 
+// render_scene_3d.c
+void render_scene_3d(t_img img, t_player player);
+
 // player.c
 t_player	*player_init(t_pos pos, int dir);
 void		player_update_vision(t_player *player, int rot_angle);
@@ -164,5 +165,6 @@ void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
+void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 
 #endif

@@ -22,6 +22,7 @@ SRC_NAME =	main.c				\
 			math_utils.c		\
 			utils.c				\
 			render_scene_2d.c	\
+			render_scene_3d.c	\
 			player.c			\
 			ray.c				\
 			raycast.c			\
