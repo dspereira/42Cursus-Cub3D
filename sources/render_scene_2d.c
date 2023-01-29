@@ -6,101 +6,69 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 16:26:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 12:43:06 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-#define PLAYER_SIZE		10
-#define PLAYER_COLOR	0x00E28743
-#define WALL_COLOR		0x002596BE
+static void render_map(t_img img, char **map);
+static void render_player(t_img img, t_player player, char **map);
+static void render_background(t_img img, int color);
 
-static void render_map(t_win *win, char **map);
-static void render_player(t_win *win, t_player player, char **map);
-static void render_background(t_img *img, int color);
-
-void render_scene_2d(t_win *win, t_player player, char **map)
+void render_scene_2d(t_img img, t_player player, char **map)
 {
-	render_background(&(win->frame), 0x0021130d);
-	render_map(win, map);
-	render_player(win, player, map);
+	render_background(img, 0x0021130d);
+	render_map(img, map);
+	render_player(img, player, map);
 }
 
-static void render_map(t_win *win, char **map)
+static void render_map(t_img img, char **map)
 {
+	t_pos	map_pos;
+	t_pos	win_pos;
 	int		square_size;
-	int		i;
-	int		j;
-	t_pos	pos;
+
 	square_size = WIN_HEIGHT / MAP_HEIGHT;
-	i = 0;
-	while (i < MAP_HEIGHT) 
+	map_pos.y = 0;
+	while (map_pos.y < MAP_HEIGHT) 
 	{
-		
-		j = 0;
-		while (j < MAP_WIDTH)
+		map_pos.x = 0;
+		while (map_pos.x < MAP_WIDTH)
 		{
-			pos.x = j * square_size;
-			pos.y = i * square_size;
-			if (map[i][j])
-				//mlx_draw_fill_square(win, pos, square_size, WALL_COLOR);
-				draw_fill_square(win->frame, pos, square_size, WALL_COLOR);
+			win_pos.x = map_pos.x * square_size;
+			win_pos.y = map_pos.y * square_size;
+			if (map[map_pos.y][map_pos.x])
+				draw_fill_square(img, win_pos, square_size, WALL_COLOR);
 			else
-				draw_stroke_square(win->frame, pos, square_size, WALL_COLOR);
-				//mlx_draw_stroke_square(win, pos, square_size, WALL_COLOR);
-			j++;
+				draw_stroke_square(img, win_pos, square_size, WALL_COLOR);
+			map_pos.x++;
 		}
-		i++;
+		map_pos.y++;
 	}
 }
 
-static void render_player(t_win *win, t_player player, char **map)
+static void render_player(t_img img, t_player player, char **map)
 {
 	int		i;
 	int		n_rays;
-	t_pos	end;
 	t_pos	p_pos;
-
-
-	p_pos.x = player.pos.x - PLAYER_SIZE / 2;
-	p_pos.y = player.pos.y - PLAYER_SIZE / 2;
-
-	//mlx_draw_fill_square(win, p_pos, PLAYER_SIZE, PLAYER_COLOR);
-	draw_fill_square(win->frame, p_pos, PLAYER_SIZE, PLAYER_COLOR);
+	t_pos	ray_end_pos;
 
 	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	p_pos.x = player.pos.x - PLAYER_SIZE / 2;
+	p_pos.y = player.pos.y - PLAYER_SIZE / 2;
+	draw_fill_square(img, p_pos, PLAYER_SIZE, PLAYER_COLOR);
 	i = 0;
 	while (i < n_rays)
 	{
-		end = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
-		//mlx_draw_line(win, player.pos, end, 0x00FF0000);
-		draw_line(win->frame, player.pos, end, 0x00FF0000);
+		ray_end_pos = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
+		draw_line(img, player.pos, ray_end_pos, 0x00FF0000);
 		i++;
 	}
-
-/*	i = 29;
-
-	t_ray r = player.rays[i];
-*/
-/*
-	printf("============================\n");
-	printf("angulo raio: %f\n", r.dir);
-	printf("        cos: %0.16f\n", r.cos);
-	printf("        sin: %0.16f\n", r.sin);
-	printf("         sx: %f\n", r.sx);
-	printf("         sy: %f\n", r.sy);
-	printf("       side: %i\n", r.side);
-	printf("       leng: %i\n", r.length_win);
-*/
-
-	end = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
-	//mlx_draw_line(win, player.pos, end, 0x00FF0000);
-	draw_line(win->frame, player.pos, end, 0x00FF0000);
-
 }
 
-static void render_background(t_img *img, int color)
+static void render_background(t_img img, int color)
 {
 	int	i;
 	int	j;
@@ -111,8 +79,7 @@ static void render_background(t_img *img, int color)
 		j = 0;
 		while (j < WIN_WIDTH)
 		{
-			//img_pixel_put(img, j, i, color);
-			draw_pixel(*img, j, i, color);
+			draw_pixel(img, j, i, color);
 			j++;
 		}
 		i++;

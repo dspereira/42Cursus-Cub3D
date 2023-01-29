@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 16:26:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/29 12:43:22 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@
 
 #define ROT_STEP		5
 #define MOVE_STEP		10
+
+// render 2D
+#define PLAYER_SIZE		10
+#define PLAYER_COLOR	0x00E28743
+#define WALL_COLOR		0x002596BE
 
 typedef struct s_img
 {
@@ -140,7 +145,7 @@ t_pos		get_win_pos(t_pos pos);
 t_pos		get_new_pos1(t_pos init, float dir, int dist);
 
 //render_scene_2d.c
-void render_scene_2d(t_win *win, t_player player, char **map);
+void render_scene_2d(t_img img, t_player player, char **map);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
