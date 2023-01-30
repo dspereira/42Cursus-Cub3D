@@ -24,6 +24,9 @@
 #define WIN_HEIGHT		1008
 #define WIN_WIDTH		1008
 
+//#define WIN_HEIGHT		720
+//#define WIN_WIDTH		1080
+
 #define CAMERA_ANGLE	60
 #define DIST_BTW_ANGLE	0.06
 
@@ -57,7 +60,7 @@
 #define RED_COLOR		0x00FF0000
 #define GREEN_COLOR		0x0000FF00
 #define BLUE_COLOR		0x000000FF
-#define YELLOW_COLOR	0x00FFFF00
+#define YELLOW_COLOR	0x00ff9933
 
 typedef struct s_img
 {

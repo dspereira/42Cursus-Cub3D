@@ -12,10 +12,13 @@
 
 #include "cube3d.h"
 
-static void			raycast(t_ray *ray, t_pos p_pos, char **map);
+//static void			raycast(t_ray *ray, t_pos p_pos, char **map);
+static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir);
 static t_value		ray_cast_get_step(t_ray ray);
 static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos map_pos, t_pos p_pos);
 static void			set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos);
+
+static void update_dist_to_wall(t_ray *ray, t_value_dec ray_len, float p_dir);
 
 void raycast_all(t_player *player, char **map)
 {
@@ -25,10 +28,10 @@ void raycast_all(t_player *player, char **map)
 	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
 	i = -1;
 	while (++i < n_rays)
-		raycast(&(player->rays[i]), player->pos, map);
+		raycast(&(player->rays[i]), player->pos, map,player->dir);
 }
 
-static void raycast(t_ray *ray, t_pos p_pos, char **map)
+static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 {
 	t_value		step;
 	t_value_dec	ray_length;
@@ -50,10 +53,12 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map)
 			ray->side = 2 * step.y;
 		}
 	}
-	if (ray->side == 1 || ray->side == -1)
-		ray->dist_wall = ray_length.x - ray->sx;
+	/*if (ray->side == 1 || ray->side == -1)
+		ray->dist_wall = (ray_length.x - ray->sx);
 	if (ray->side == 2 || ray->side == -2)
-		ray->dist_wall = ray_length.y - ray->sy;
+		ray->dist_wall = (ray_length.y - ray->sy);*/
+	
+	update_dist_to_wall(ray, ray_length, p_dir);
 	set_distace_win(ray, map_pos, p_pos);
 }
 
@@ -111,4 +116,20 @@ static void set_distace_win(t_ray *ray, t_pos map_pos, t_pos p_pos)
 		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
 	else if (ray->side == -1) 
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;	
+}
+
+static void update_dist_to_wall(t_ray *ray, t_value_dec ray_len, float p_dir)
+{
+	float	angle;
+	double	distance;
+
+	if (ray->side == 1 || ray->side == -1)
+		distance = (ray_len.x - ray->sx);
+	if (ray->side == 2 || ray->side == -2)
+		distance = (ray_len.y - ray->sy);
+
+	angle = p_dir - ray->dir;
+	if (angle > CAMERA_ANGLE / 2)
+		angle = p_dir + 360 - ray->dir;
+	ray->dist_wall = distance * cos_degree(angle);
 }
