@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 12:24:07 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:19:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	key(int keycode, t_player *player);
 int render_win(void *data);
-
-void get_angle_step(void);
 
 // Just for debug
 char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT]);
@@ -65,8 +63,6 @@ int main(void)
 	player = player_init((t_pos){80, 120}, 0);
 	//ray_cast(player, map);
 
-	get_angle_step();
-
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 
@@ -85,6 +81,7 @@ int main(void)
 
 int render_win(void *data)
 {
+	static int	frames_count = 0;
 	t_player	*player;
 	t_map		map;
 	t_win		win;
@@ -97,6 +94,14 @@ int render_win(void *data)
 	//render_scene_2d(win.frame, *player, map.content);
 	render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
+
+	frames_count++;
+	if (check_time_ms(1000))
+	{
+		printf("fps: %d\n", frames_count);
+		frames_count = 0;
+	}
+	
 }
 
 int	key(int keycode, t_player *player)
@@ -160,13 +165,4 @@ char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
 	}*/
 
 	return (m);
-}
-
-void get_angle_step(void)
-{
-	int		n_rays;
-	float	angle_step;
-	
-	n_rays = WIN_WIDTH;
-	angle_step = (float)CAMERA_ANGLE / n_rays;
 }

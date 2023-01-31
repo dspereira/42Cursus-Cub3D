@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 12:44:55 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:23:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <sys/time.h>
 #include <mlx.h>
 
 #define MAP_HEIGHT		24
 #define MAP_WIDTH		24
 
 #define WIN_HEIGHT		700
-#define WIN_WIDTH		1500
-
-//#define WIN_HEIGHT		720
-//#define WIN_WIDTH		1080
-
-/*
-#define CAMERA_ANGLE	60
-#define DIST_BTW_ANGLE	0.06
-*/
-
+#define WIN_WIDTH		1000
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
-//#define DIST_BTW_ANGLE	0.025
-
 
 #define KEY_W			119
 #define KEY_S			115
@@ -182,5 +172,8 @@ void draw_line(t_img img, t_pos init, t_pos end, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+
+// time.c
+unsigned long	check_time_ms(unsigned long time);
 
 #endif
