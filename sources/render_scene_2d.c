@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 12:43:06 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:34:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ static void render_map(t_img img, char **map)
 static void render_player(t_img img, t_player player, char **map)
 {
 	int		i;
-	int		n_rays;
+	//int		n_rays;
 	t_pos	p_pos;
 	t_pos	ray_end_pos;
 
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	//n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
 	p_pos.x = player.pos.x - PLAYER_SIZE / 2;
 	p_pos.y = player.pos.y - PLAYER_SIZE / 2;
 	draw_fill_square(img, p_pos, PLAYER_SIZE, PLAYER_COLOR);
 	i = 0;
-	while (i < n_rays)
+	while (i < NUMBER_RAYS)
 	{
 		ray_end_pos = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
 		draw_line(img, player.pos, ray_end_pos, 0x00FF0000);

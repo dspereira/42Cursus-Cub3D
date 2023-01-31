@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 10:28:34 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:20:01 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,27 @@ static void render_ceil_and_floor(t_img img)
 
 static void render_walls(t_img img, t_ray *rays)
 {
-	int		n_rays;
-	int 	i;
 	t_value	line_size;
 	t_pos	pos;
 
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
-	line_size.x = WIN_WIDTH / n_rays;
+	line_size.x = 1;
 	pos.y = 0;
 	pos.x = 0;
-	i = 0;
 
-	//printf("N rays: %i\n", n_rays);
-	//printf("line size: %i\n", line_size.x);
-	while (i < n_rays)
+	while (pos.x < NUMBER_RAYS - 1)
 	{
-		line_size.y = (int)(WIN_HEIGHT / (rays[i].dist_wall * 1.5));
+		line_size.y = (int)((WIN_HEIGHT) / rays[pos.x].dist_wall);
 		if (line_size.y > WIN_HEIGHT)
 			line_size.y = WIN_HEIGHT;
-		pos.x += line_size.x;
 		pos.y = (WIN_HEIGHT / 2) - (line_size.y / 2);
-		if (rays[i].side == 1)
+		if (rays[pos.x].side == 1)
 			draw_fill_rectangle(img, pos, line_size, GREEN_COLOR);
-		if (rays[i].side == -1)
+		if (rays[pos.x].side == -1)
 			draw_fill_rectangle(img, pos, line_size, RED_COLOR);
-		if (rays[i].side == 2)
+		if (rays[pos.x].side == 2)
 			draw_fill_rectangle(img, pos, line_size, BLUE_COLOR);
-		if (rays[i].side == -2)
+		if (rays[pos.x].side == -2)
 			draw_fill_rectangle(img, pos, line_size, YELLOW_COLOR);
-		i++;
+		pos.x++;
 	}
 }
-

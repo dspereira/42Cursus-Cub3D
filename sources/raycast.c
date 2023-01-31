@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 19:08:41 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:36:45 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static void update_dist_to_wall(t_ray *ray, t_value_dec ray_len, float p_dir);
 
 void raycast_all(t_player *player, char **map)
 {
-	int	n_rays;
+	//int	n_rays;
 	int	i;
 
-	n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
+	//n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
 	i = -1;
-	while (++i < n_rays)
+	while (++i < NUMBER_RAYS)
 		raycast(&(player->rays[i]), player->pos, map,player->dir);
 }
 

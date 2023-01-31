@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 19:01:09 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:24:07 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	key(int keycode, t_player *player);
 int render_win(void *data);
+
+void get_angle_step(void);
 
 // Just for debug
 char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT]);
@@ -63,6 +65,7 @@ int main(void)
 	player = player_init((t_pos){80, 120}, 0);
 	//ray_cast(player, map);
 
+	get_angle_step();
 
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
@@ -157,4 +160,13 @@ char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
 	}*/
 
 	return (m);
+}
+
+void get_angle_step(void)
+{
+	int		n_rays;
+	float	angle_step;
+	
+	n_rays = WIN_WIDTH;
+	angle_step = (float)CAMERA_ANGLE / n_rays;
 }
