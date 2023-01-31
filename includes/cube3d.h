@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 15:23:37 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:30:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define MAP_WIDTH		24
 
 #define WIN_HEIGHT		700
-#define WIN_WIDTH		1000
+#define WIN_WIDTH		1500
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -175,5 +175,8 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
+
+// key_controls.c
+int	key(int keycode, t_player *player);
 
 #endif

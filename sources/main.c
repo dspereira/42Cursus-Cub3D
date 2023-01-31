@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 15:19:48 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:29:29 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int main(void)
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 
+
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
-
 	data.win = &win;
 	data.player = player;
 	data.map = map;
@@ -90,6 +90,7 @@ int render_win(void *data)
 	map = ((t_data*)data)->map;
 	win = *((t_data*)data)->win;
 
+
 	raycast_all(player, map.content);
 	//render_scene_2d(win.frame, *player, map.content);
 	render_scene_3d(win.frame, *player);
@@ -101,24 +102,6 @@ int render_win(void *data)
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}
-	
-}
-
-int	key(int keycode, t_player *player)
-{
-	if (keycode == KEY_W)
-		player_move(player, FORWARD);
-	else if (keycode == KEY_S)
-		player_move(player, BACKWARD);
-	else if (keycode == KEY_A)
-		player_move(player, LEFT);
-	else if (keycode == KEY_D)
-		player_move(player, RIGHT);
-	else if (keycode == KEY_ARROW_R)
-		player_update_vision(player, -ROT_STEP);
-	else if (keycode == KEY_ARROW_L)
-		player_update_vision(player, ROT_STEP);
-	return (0);
 }
 
 char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
