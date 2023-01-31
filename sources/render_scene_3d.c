@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 19:37:43 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/01/31 10:08:01 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static void render_walls(t_img img, t_ray *rays)
 	printf("line size: %i\n", line_size.x);
 	while (i < n_rays)
 	{
-		line_size.y = (int)((double)WIN_HEIGHT / rays[i].dist_wall);
+		line_size.y = (int)((double)WIN_HEIGHT / (rays[i].dist_wall * 1.5));
+		if (line_size.y > WIN_HEIGHT)
+			line_size.y == WIN_HEIGHT;
 		pos.x += line_size.x;
 		pos.y = (WIN_HEIGHT / 2) - (line_size.y / 2);
 		if (rays[i].side == 1)
