@@ -170,6 +170,7 @@ void	raycast_all(t_player *player, char **map);
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
+void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);

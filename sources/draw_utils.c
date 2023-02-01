@@ -48,6 +48,15 @@ void draw_line(t_img img, t_pos init, t_pos end, int color)
 	draw_pixel(img, end.x, end.y, color);
 }
 
+void draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
+{
+	int i;
+
+	i = -1;
+	while (++i < height)
+		draw_pixel(img, init_pos.x, init_pos.y++, color);
+}
+
 void draw_stroke_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	new_init;
