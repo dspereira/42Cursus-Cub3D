@@ -114,6 +114,7 @@ typedef struct s_ray
 	double	dist_wall;
 	int		side;
 	double	cos;
+	double	cos2;
 	double	sin;
 	double	sx;
 	double	sy;
@@ -160,7 +161,7 @@ void		player_update_vision(t_player *player, int rot_angle);
 void		player_move(t_player *player, int dir);
 
 // ray.c
-void	ray_init(t_ray *ray, float dir);
+void	ray_init(t_ray *ray, float dir, float p_dir);
 void	ray_update_dir(t_ray *ray, float dir);
 
 // raycast.c

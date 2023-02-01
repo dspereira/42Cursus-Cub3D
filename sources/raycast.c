@@ -53,12 +53,12 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 			ray->side = 2 * step.y;
 		}
 	}
-	/*if (ray->side == 1 || ray->side == -1)
-		ray->dist_wall = (ray_length.x - ray->sx);
+	if (ray->side == 1 || ray->side == -1)
+		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
 	if (ray->side == 2 || ray->side == -2)
-		ray->dist_wall = (ray_length.y - ray->sy);*/
+		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
 	
-	update_dist_to_wall(ray, ray_length, p_dir);
+	//update_dist_to_wall(ray, ray_length, p_dir);
 	set_distace_win(ray, map_pos, p_pos);
 }
 

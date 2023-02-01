@@ -12,9 +12,12 @@
 
 #include "cube3d.h"
 
-void ray_init(t_ray *ray, float dir)
+static double get_cos_btw_ray_player(float ray_dir, float p_dir);
+
+void ray_init(t_ray *ray, float dir, float p_dir)
 {
 	ray_update_dir(ray, dir);
+	ray->cos2 = get_cos_btw_ray_player(ray->dir, p_dir);
 }
 
 void ray_update_dir(t_ray *ray, float dir)
@@ -39,3 +42,27 @@ void ray_update_dir(t_ray *ray, float dir)
 	if (ray->sy < 0)
 		ray->sy *= -1;
 }
+
+static double get_cos_btw_ray_player(float ray_dir, float p_dir)
+{
+	float	angle;
+
+	angle = p_dir - ray_dir;
+	if (angle > CAMERA_ANGLE / 2)
+		angle = p_dir + 360 - ray_dir;
+	return (cos_degree(angle));
+}
+
+/*
+static void update_dist_to_wall(t_ray *ray, t_value_dec ray_len, float p_dir)
+{
+	float	angle;
+	double	distance;
+
+	angle = p_dir - ray->dir;
+	if (angle > CAMERA_ANGLE / 2)
+		angle = p_dir + 360 - ray->dir;
+	ray->dist_wall = distance * cos_degree(angle);
+}
+
+*/

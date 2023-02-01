@@ -17,18 +17,13 @@ static void add_rays_to_player(t_player *player, int n_rays);
 t_player *player_init(t_pos pos, int dir)
 {
 	t_player    *player;
-	//int         n_rays;
 
-	//n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
 	player->pos = pos;
 	player->dir = (float) dir;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
-
-	printf("angle step: %f\n", player->angle_step);
-
 	player->rays = malloc(NUMBER_RAYS * sizeof(t_ray));
 	if (!(player->rays))
 		return (0);
@@ -38,11 +33,9 @@ t_player *player_init(t_pos pos, int dir)
 
 void player_update_vision(t_player *player, int rot_angle)
 {
-	//int		n_rays;
 	t_ray	*rays;
 	int 	i;
 
-	//n_rays = CAMERA_ANGLE / DIST_BTW_ANGLE;
 	rays = player->rays;
 	player->dir = normalizeAngles(player->dir + rot_angle);
 	i = -1;
@@ -68,7 +61,7 @@ static void add_rays_to_player(t_player *player, int n_rays)
 	while (i < n_rays)
 	{
 		angle -= player->angle_step;
-		ray_init(&(player->rays[i]), angle);
+		ray_init(&(player->rays[i]), angle, player->dir);
 		i++;
 	}
 }
