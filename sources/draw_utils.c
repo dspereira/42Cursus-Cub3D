@@ -101,14 +101,11 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
 	t_pos	end;
 	int		i;
 
-	end = init;
-	end.x += size.x;
 	i = 0;
-	while (i < size.y)
+	while (i < size.x)
 	{
-		draw_line(img, init, end, color);
-		init.y++;
-		end.y++;
+		draw_vertical_line(img, init, size.y, color);
 		i++;
+		init.x++;
 	}
 }
