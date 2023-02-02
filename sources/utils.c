@@ -32,7 +32,6 @@ t_pos get_new_pos1(t_pos init, float dir, int dist)
 	return (pos);
 }
 
-
 t_pos get_map_pos(t_pos pos)
 {
     int square_size;
@@ -63,4 +62,31 @@ t_pos get_win_pos(t_pos pos)
     win_pos.x = pos.x * square_size;
     win_pos.y = pos.y * square_size;
     return (win_pos);
+}
+
+int	hex_to_int(const char *str)
+{
+	int	n;
+	int	i;
+	int	num;
+
+	if (!str || (16 < 2 || 16 > 16))
+		return (0);
+	i = 0;
+	num = 0;
+	while (str[i])
+	{
+		n = str[i];
+		if (n >= '0' && n <= '9')
+			n -= '0';
+		else if (n >= 'a' && n <= 'f')
+			n -= 'a' - 10;
+		else if (n >= 'A' && n <= 'F')
+			n -= 'A' - 10;
+		else
+			return (0);
+		num = num * 16 + n;
+		++i;
+	}
+	return (num);
 }

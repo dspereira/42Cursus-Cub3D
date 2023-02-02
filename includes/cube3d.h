@@ -67,6 +67,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_win
@@ -133,6 +135,7 @@ typedef struct s_data
 	t_win		*win;
 	t_map		map;
 	t_player	*player;
+	t_img		tex;
 }	t_data; 
 
 
@@ -148,6 +151,7 @@ t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos		get_new_pos1(t_pos init, float dir, int dist);
+int			hex_to_int(const char *str);
 
 //render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);
@@ -180,5 +184,9 @@ unsigned long	check_time_ms(unsigned long time);
 
 // key_controls.c
 int	key(int keycode, t_player *player);
+
+
+void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
+
 
 #endif

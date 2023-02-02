@@ -22,6 +22,30 @@ void draw_pixel(t_img img, int x, int y, int color)
 	*pixel = color;
 }
 
+unsigned int get_tex_color(t_img tex, t_pos pos)
+{
+	unsigned int *color;
+
+	color = (int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
+	return(*color);
+}
+
+void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height)
+{
+	int		end_y;
+	int		color;
+
+	end_y = f_pos.y + f_height;
+	while (f_pos.y < end_y)
+	{
+		color = get_tex_color(tex, tex_pos);
+		draw_pixel(frame, f_pos.x, f_pos.y, color);
+		f_pos.y++;
+		tex_pos.y++;
+	}
+}
+
+
 void draw_line(t_img img, t_pos init, t_pos end, int color)
 {
 	int			steps;

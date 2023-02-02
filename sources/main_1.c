@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
+/*   Updated: 2023/01/31 16:29:29 by dsilveri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cube3d.h"
 
@@ -17,7 +28,6 @@ int main(void)
 	t_player	*player;
 	t_map		map;
 	t_data		data;
-    t_img       tex;
 
 	char map1[24][24] = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -57,30 +67,6 @@ int main(void)
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 
 
-    tex.mlx_img = mlx_xpm_file_to_image(win.mlx, "textures/bricksx64.xpm", &(tex.width), &(tex.height));
-    tex.addr = mlx_get_data_addr(tex.mlx_img, &(tex.bpp), &(tex.line_len), &(tex.endian));
-    data.tex = tex;
-
-    // int i = 0;
-    // int j = 0;
-    // while (i < 64 * tex.line_len)
-    // {
-    //     j = 0;
-    //     while (j < tex.line_len)
-    //     {
-    //         printf("%d", tex.addr[i + j]);
-    //         j++;
-    //     }
-    //     printf("\n");
-    //     i += tex.line_len;
-    // }
-    /*printf("%d\n", tex.bpp);
-    printf("%u\n", tex.addr[0]);
-    printf("%u\n", tex.addr[1]);
-    printf("%u\n", tex.addr[2]);
-    printf("%u\n", tex.addr[3]);*/
-    //return(0);
-
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
 	data.win = &win;
@@ -99,21 +85,17 @@ int render_win(void *data)
 	t_player	*player;
 	t_map		map;
 	t_win		win;
-    t_img       tex;
 
 	player = ((t_data*)data)->player;
 	map = ((t_data*)data)->map;
 	win = *((t_data*)data)->win;
-    tex = ((t_data*)data)->tex;
+
 
 	raycast_all(player, map.content);
-
-    draw_fill_rectangle(win.frame, (t_pos){WIN_WIDTH / 2 - 64, WIN_HEIGHT / 2 - 64}, (t_value){64, 64}, WALL_COLOR);
-
-    for (int i = 0; i < 64; i++)
-        draw_tex_line(win.frame, tex, (t_pos){(WIN_WIDTH / 2 - 64) + i, WIN_HEIGHT / 2 - 64}, (t_pos){i, 0}, 64);
-
+	//render_scene_2d(win.frame, *player, map.content);
+	render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
+
 	frames_count++;
 	if (check_time_ms(1000))
 	{
@@ -167,4 +149,3 @@ char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
 
 	return (m);
 }
-

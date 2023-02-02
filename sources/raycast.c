@@ -45,20 +45,24 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 		if (ray_length.x < ray_length.y){
 			map_pos.x += step.x;
 			ray_length.x += ray->sx;
-			ray->side = 1 * step.x;
+			ray->side = 1;
 		}
 		else {
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
-			ray->side = 2 * step.y;
+			ray->side = 2;
 		}
 	}
+	if (ray->side == 1)
+		ray->side *= step.x;
+	else
+		ray->side *= step.y;
+
 	if (ray->side == 1 || ray->side == -1)
 		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
 	if (ray->side == 2 || ray->side == -2)
 		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
 	
-	//update_dist_to_wall(ray, ray_length, p_dir);
 	set_distace_win(ray, map_pos, p_pos);
 }
 
@@ -82,13 +86,13 @@ static t_value_dec ray_cast_get_leng(t_ray ray, t_pos map_pos, t_pos p_pos)
 
 	map_pos_dec = get_map_pos_decimal(p_pos);
 	if (ray.cos < 0)
-		leng.x = (map_pos_dec.x - (double)map_pos.x) * ray.sx;
+		leng.x = (map_pos_dec.x - map_pos.x) * ray.sx;
 	else 
-		leng.x = ((double)(map_pos.x + 1) - map_pos_dec.x) * ray.sx;
+		leng.x = ((map_pos.x + 1) - map_pos_dec.x) * ray.sx;
 	if (ray.sin < 0)
-		leng.y = (map_pos_dec.y - (double)map_pos.y) * ray.sy;
+		leng.y = (map_pos_dec.y - map_pos.y) * ray.sy;
 	else
-		leng.y = ((double)(map_pos.y + 1) - map_pos_dec.y) * ray.sy;
+		leng.y = ((map_pos.y + 1) - map_pos_dec.y) * ray.sy;
 	return (leng);
 }
 
