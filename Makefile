@@ -1,8 +1,10 @@
-NAME = cub3D
+NAME = cube3D
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-EXTRA_FLAGS = 
+#CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
+CFLAGS = -g -I./includes
+EXTRA_FLAGS = -Imlx_linux -O3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+
 RM = rm -f
 
 #$(VERBOSE).SILENT:
@@ -34,7 +36,17 @@ SRC_NAME =	main.c							\
 			get_map_utils.c					\
 			get_next_line.c					\
 			free_memory.c					\
-			error_msgs.c
+			error_msgs.c					\
+			draw_utils.c					\
+			math_utils.c					\
+			utils.c							\
+			render_scene_2d.c				\
+			render_scene_3d.c				\
+			player.c						\
+			ray.c							\
+			raycast.c						\
+			time.c							\
+			key_controls.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 

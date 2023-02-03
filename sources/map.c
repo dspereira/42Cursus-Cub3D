@@ -12,13 +12,8 @@
 
 #include "../includes/header.h"
 
-t_map	*init_map_struct(void)
+int	init_map_struct(t_map *init)
 {
-	t_map	*init;
-
-	init = ft_calloc(1, sizeof(t_map));
-	if (!init)
-		return (NULL);
 	init->wall_textures = ft_calloc(4, sizeof(char *));
 	init->rgb_colors = ft_calloc(2, sizeof(int));
 	if (!init->wall_textures || !init->rgb_colors)
@@ -27,12 +22,11 @@ t_map	*init_map_struct(void)
 			free(init->wall_textures);
 		if (init->rgb_colors)
 			free(init->rgb_colors);
-		free(init);
-		return (NULL);
+		return (FALSE);
 	}
 	init->rgb_colors[RGB_C] = RGB_NO_COLOR;
 	init->rgb_colors[RGB_F] = RGB_NO_COLOR;
-	return (init);
+	return (TRUE);
 }
 
 int	get_all_map_info(t_map **map, char *filename)

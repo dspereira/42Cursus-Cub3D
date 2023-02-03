@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include "cube3d.h"
 
 # define TEX_NO	0
 # define TEX_SO	1
@@ -31,21 +32,6 @@
 # define ORIENTATION_S	270
 # define ORIENTATION_E	0
 # define ORIENTATION_W	180
-
-typedef struct s_pos
-{
-	int	x;
-	int	y;
-}				t_pos;
-
-typedef struct s_map
-{
-	char		**wall_textures;
-	int			*rgb_colors;
-	char		**content;
-	int			orientation;
-	t_pos		pos;
-}				t_map;
 
 # define BUFFER_SIZE	13
 
@@ -77,7 +63,9 @@ int			check_map(char **map);
 int			check_map_elements(char **map);
 int			check_map_walls(char **map);
 
-t_map		*init_map_struct(void);
+// t_map		*init_map_struct(void);
+int			init_map_struct(t_map *init);
+
 int			get_all_map_info(t_map **map, char *filename);
 
 #endif
