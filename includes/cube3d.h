@@ -20,8 +20,8 @@
 #include <fcntl.h>
 #include <mlx.h>
 
-#define MAP_HEIGHT		24
-#define MAP_WIDTH		24
+#define MAP_HEIGHT		26
+#define MAP_WIDTH		26
 
 #define WIN_HEIGHT		700
 #define WIN_WIDTH		1500
@@ -91,6 +91,8 @@ typedef struct s_map
 	char		**content;
 	int			orientation;
 	t_pos		pos;
+	int			height;
+	int			width;
 }				t_map;
 
 typedef struct s_pos_dec
