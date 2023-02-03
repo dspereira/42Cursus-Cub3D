@@ -55,6 +55,7 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 all: $(NAME)
 
 $(NAME) : $(OBJS)
+	cd mlx_linux && make && cd ..
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
 	@echo "\033[1;36m[cub3D COMPILED]\033[0m"
 
@@ -67,6 +68,7 @@ norminette:
 	@./norm.sh
 
 clean:
+	cd mlx_linux && make clean && cd ..
 	rm -rf $(OBJ_PATH)
 	@echo "\033[1;33mAll $(NAME).o files are removed\033[0m"
 
