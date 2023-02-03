@@ -23,7 +23,7 @@ void raycast_all(t_player *player, char **map)
 
 	i = -1;
 	while (++i < NUMBER_RAYS)
-		raycast(&(player->rays[i]), player->pos, map,player->dir);
+		raycast(&(player->rays[i]), player->pos, map, player->dir);
 }
 
 static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
@@ -35,14 +35,17 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-	while (!map[map_pos.y][map_pos.x])
+
+	while (map[map_pos.y][map_pos.x] == '0')
 	{
-		if (ray_length.x < ray_length.y){
+		if (ray_length.x < ray_length.y)
+		{
 			map_pos.x += step.x;
 			ray_length.x += ray->sx;
 			ray->side = 1;
 		}
-		else {
+		else 
+		{
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
 			ray->side = 2;
@@ -59,8 +62,6 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
 	set_distace_win(ray, map_pos, p_pos);
 }
-
-
 
 static t_value ray_cast_get_step(t_ray ray)
 {

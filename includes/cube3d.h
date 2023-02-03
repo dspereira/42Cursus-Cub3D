@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
+#include <fcntl.h>
 #include <mlx.h>
 
 #define MAP_HEIGHT		24
@@ -77,16 +78,20 @@ typedef struct s_win
 	t_img	frame;
 }	t_win;
 
-typedef struct s_map
-{
-	char **content;
-}	t_map;
-
 typedef struct s_pos
 {
 	int x;
 	int y;
 }	t_pos;
+
+typedef struct s_map
+{
+	char		**wall_textures;
+	int			*rgb_colors;
+	char		**content;
+	int			orientation;
+	t_pos		pos;
+}				t_map;
 
 typedef struct s_pos_dec
 {

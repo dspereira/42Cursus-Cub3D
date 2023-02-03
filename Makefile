@@ -17,17 +17,36 @@ SRC_PATH = ./sources
 
 OBJ_PATH = ./objects
 
-SRC_NAME =	main.c				\
-			draw_utils.c		\
-			math_utils.c		\
-			utils.c				\
-			render_scene_2d.c	\
-			render_scene_3d.c	\
-			player.c			\
-			ray.c				\
-			raycast.c			\
-			time.c				\
-			key_controls.c		\
+SRC_NAME =	main.c							\
+			ft_calloc.c						\
+			ft_strncmp.c					\
+			ft_strlen.c						\
+			get_map_textures.c				\
+			get_map_textures_rgb.c			\
+			check_textures.c				\
+			check_file.c					\
+			check_file_type.c				\
+			map.c							\
+			map_resizer.c					\
+			check_map.c						\
+			check_map_walls.c				\
+			check_map_elements.c			\
+			get_map_content.c				\
+			get_player_info.c				\
+			get_map_utils.c					\
+			get_next_line.c					\
+			free_memory.c					\
+			error_msgs.c					\
+			draw_utils.c					\
+			math_utils.c					\
+			utils.c							\
+			render_scene_2d.c				\
+			render_scene_3d.c				\
+			player.c						\
+			ray.c							\
+			raycast.c						\
+			time.c							\
+			key_controls.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
@@ -37,7 +56,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
-	@echo "\033[1;36m[PARSER COMPILED]\033[0m"
+	@echo "\033[1;36m[cub3D COMPILED]\033[0m"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects

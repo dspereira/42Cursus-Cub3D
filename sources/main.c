@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "cube3d.h"
+#include "../includes/header.h"
 
 int	key(int keycode, t_player *player);
 int render_win(void *data);
+static int get_game_configs(int ac, char **av, t_map *map);
 
-// Just for debug
-char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT]);
-
-int main(void) 
+int main(int argc, char **argv) 
 {
 	t_win		win;
 	t_pos		pos1;
@@ -29,37 +28,9 @@ int main(void)
 	t_map		map;
 	t_data		data;
 
-	char map1[24][24] = {
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	};
+	get_game_configs(argc, argv, &map);
 
-	map.content = fill_map_debug(map1);
-	if (map.content == NULL)
-		return (0);
-	player = player_init((t_pos){80, 120}, 0);
+	player = player_init((t_pos){100, 100}, 0);
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -70,6 +41,7 @@ int main(void)
 	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_key_hook(win.mlx_win, key, player);
 	mlx_loop(win.mlx);
+	
 	return (0);
 }
 
@@ -97,34 +69,24 @@ int render_win(void *data)
 	}
 }
 
-char **fill_map_debug(char map[MAP_WIDTH][MAP_HEIGHT])
+static int get_game_configs(int ac, char **av, t_map *map)
 {
-	char	**m;
-	int		i;
-	int		j;
-
-	m = malloc(sizeof(char *) * MAP_HEIGHT);
-	if (!map)
-		return (NULL);
-	i = 0;
-	while (i < MAP_HEIGHT)
+	if (ac == 2)
 	{
-		m[i] = malloc(sizeof(char) * MAP_WIDTH);
-		if (!m[i])
-			return (NULL);
-		i++; 
-	}
-	i = 0;
-	j = 0;
-	while (i < MAP_HEIGHT)
-	{
-		j = 0;
-		while (j < MAP_WIDTH)
+		if (check_file(av[1]))
 		{
-			m[i][j] = map[i][j];
-			j++;
+			if (!init_map_struct(map))
+				return (-1);
+			if (!get_all_map_info(&map, av[1]))
+				printf("Map KO\n");
+			else
+				printf("Map OK\n");
 		}
-		i++;
+		else
+			printf("Map KO\n");
+		//free_memory(map);
+		return (0);
 	}
-	return (m);
+	printf("Error: Invalid number of Arguments\n");
+	return (-1);
 }
