@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:52:23 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/28 15:19:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:13:24 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,3 @@ static double get_cos_btw_ray_player(float ray_dir, float p_dir)
 		angle = p_dir + 360 - ray_dir;
 	return (cos_degree(angle));
 }
-
-/*
-static void update_dist_to_wall(t_ray *ray, t_value_dec ray_len, float p_dir)
-{
-	float	angle;
-	double	distance;
-
-	angle = p_dir - ray->dir;
-	if (angle > CAMERA_ANGLE / 2)
-		angle = p_dir + 360 - ray->dir;
-	ray->dist_wall = distance * cos_degree(angle);
-}
-
-*/

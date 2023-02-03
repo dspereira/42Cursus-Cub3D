@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 16:30:37 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:23:28 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@
 
 // render 3D
 #define FLOOR_COLOR		0x003a2e27
-//#define CEIL_COLOR		0x00A3E3FF
 #define CEIL_COLOR		0x00e4f7fa
 #define WALL_COLOR1		0x00FF0000
 
@@ -150,7 +149,7 @@ t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
-t_pos		get_new_pos1(t_pos init, float dir, int dist);
+t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
 int			hex_to_int(const char *str);
 
 //render_scene_2d.c

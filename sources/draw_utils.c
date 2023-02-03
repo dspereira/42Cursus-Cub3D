@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/29 15:30:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:09:07 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,31 @@ void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_hei
 	}
 }
 
+void draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
+{
+	int i;
 
+	i = -1;
+	while (++i < height)
+		draw_pixel(img, init_pos.x, init_pos.y++, color);
+}
+
+//Will be changed by a new one that print textures instead of colors
+void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
+{
+	t_pos	end;
+	int		i;
+
+	i = 0;
+	while (i < size.x)
+	{
+		draw_vertical_line(img, init, size.y, color);
+		i++;
+		init.x++;
+	}
+}
+
+// render 2D
 void draw_line(t_img img, t_pos init, t_pos end, int color)
 {
 	int			steps;
@@ -72,15 +96,7 @@ void draw_line(t_img img, t_pos init, t_pos end, int color)
 	draw_pixel(img, end.x, end.y, color);
 }
 
-void draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
-{
-	int i;
-
-	i = -1;
-	while (++i < height)
-		draw_pixel(img, init_pos.x, init_pos.y++, color);
-}
-
+// render 2D
 void draw_stroke_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	new_init;
@@ -103,6 +119,7 @@ void draw_stroke_square(t_img img, t_pos init, int size, int color)
 	draw_line(img, new_init, end, color);
 }
 
+// render 2D
 void draw_fill_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	end;
@@ -117,19 +134,5 @@ void draw_fill_square(t_img img, t_pos init, int size, int color)
 		init.y++;
 		end.y++;
 		i++;
-	}
-}
-
-void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
-{
-	t_pos	end;
-	int		i;
-
-	i = 0;
-	while (i < size.x)
-	{
-		draw_vertical_line(img, init, size.y, color);
-		i++;
-		init.x++;
 	}
 }

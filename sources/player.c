@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 12:36:26 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:23:42 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void player_move(t_player *player, int dir)
 	float angle;
 
 	angle = normalizeAngles((float)dir + player->dir);
-	player->pos = get_new_pos1(player->pos, angle, MOVE_STEP);
+	player->pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
 }
 
 static void add_rays_to_player(t_player *player, int n_rays)

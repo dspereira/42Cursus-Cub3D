@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:05:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 15:11:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:51:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ unsigned long check_time_ms(unsigned long time)
 	}
 	return (0);
 }
-
 
 static unsigned long get_actual_time_ms(void)
 {
@@ -65,5 +64,3 @@ static unsigned long get_offset_time(void)
 	}
 	return (offset);
 }
-
-

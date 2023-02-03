@@ -59,20 +59,14 @@ int main(void)
 	map.content = fill_map_debug(map1);
 	if (map.content == NULL)
 		return (0);
-
 	player = player_init((t_pos){80, 120}, 0);
-	//ray_cast(player, map);
-
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
-
-
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
 	data.win = &win;
 	data.player = player;
 	data.map = map;
-
 	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_key_hook(win.mlx_win, key, player);
 	mlx_loop(win.mlx);
