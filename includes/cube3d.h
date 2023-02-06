@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:23:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:44:13 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 #include <fcntl.h>
 #include <mlx.h>
 
-#define MAP_HEIGHT		24
-#define MAP_WIDTH		24
+#define MAP_HEIGHT		26
+#define MAP_WIDTH		26
 
-#define WIN_HEIGHT		700
-#define WIN_WIDTH		1500
+#define WIN_HEIGHT		1040
+#define WIN_WIDTH		1040
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH

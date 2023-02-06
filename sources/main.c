@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 16:29:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:45:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	raycast_all(player, map.content);
-	//render_scene_2d(win.frame, *player, map.content);
-	render_scene_3d(win.frame, *player);
+	render_scene_2d(win.frame, *player, map.content);
+	//render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 
 	frames_count++;
