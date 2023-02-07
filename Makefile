@@ -3,7 +3,7 @@ NAME = cube3D
 CC = gcc
 #CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
 CFLAGS = -g -I./includes
-EXTRA_FLAGS = -Imlx_linux -O3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+EXTRA_FLAGS = -Imlx_linux -O3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz #-fsanitize=address
 
 RM = rm -f
 
@@ -46,7 +46,9 @@ SRC_NAME =	main.c							\
 			ray.c							\
 			raycast.c						\
 			time.c							\
-			key_controls.c
+			key_controls.c					\
+			collisions.c					\
+
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 

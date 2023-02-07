@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/06 10:44:13 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:29:58 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,9 @@ unsigned long	check_time_ms(unsigned long time);
 
 // key_controls.c
 int	key(int keycode, t_player *player);
+
+// collisions.c
+int check_collisions(t_pos p_pos, char **map);
 
 
 void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
