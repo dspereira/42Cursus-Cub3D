@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 16:29:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:40:51 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int main(int argc, char **argv)
 	t_map		map;
 	t_data		data;
 
-	get_game_configs(argc, argv, &map);
+	if (!get_game_configs(argc, argv, &map))
+		return (-1);
 
 	player = player_init((t_pos){100, 100}, 0);
 	win.mlx = mlx_init();
@@ -76,17 +77,23 @@ static int get_game_configs(int ac, char **av, t_map *map)
 		if (check_file(av[1]))
 		{
 			if (!init_map_struct(map))
-				return (-1);
+				return (0);
 			if (!get_all_map_info(&map, av[1]))
+			{
 				printf("Map KO\n");
+				return (0);
+			}
 			else
 				printf("Map OK\n");
 		}
 		else
+		{
 			printf("Map KO\n");
+			return (0);
+		}
 		//free_memory(map);
-		return (0);
+		return (1);
 	}
 	printf("Error: Invalid number of Arguments\n");
-	return (-1);
+	return (0);
 }
