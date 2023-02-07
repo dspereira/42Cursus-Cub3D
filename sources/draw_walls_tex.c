@@ -1,4 +1,7 @@
 //void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
+#include <cube3d.h>
+#include <header.h>
+
 void	draw_wall_1(t_img frame, t_img tex)
 {
 	int		f_height = 3000;
@@ -52,3 +55,6 @@ void	draw_wall_2(t_img frame, t_img tex)
 		i++;
 	}
 }
+
+
+

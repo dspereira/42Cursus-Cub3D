@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 13:12:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:28:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	else
 		ray->side *= step.y;
 
-	if (ray->side == 1 || ray->side == -1)
+	if (ray->side == EA_SIDE || ray->side == WE_SIDE)
 		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
-	if (ray->side == 2 || ray->side == -2)
+	if (ray->side == SO_SIDE || ray->side == NO_SIDE)
 		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
 	set_distace_win(ray, map_pos, p_pos);
 }
@@ -102,20 +102,20 @@ static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 
     square_size = WIN_HEIGHT / MAP_HEIGHT;
 	win_pos = get_win_pos(m_pos);
-	if (ray->side == 1) 
+	if (ray->side == EA_SIDE)
 		final_pos.x = win_pos.x;
-	else if (ray->side == 2) 
+	else if (ray->side == SO_SIDE)
 		final_pos.y = win_pos.y;
-	else if (ray->side == -2) 
+	else if (ray->side == NO_SIDE)
 		final_pos.y = win_pos.y + square_size;
-	else if (ray->side == -1)
+	else if (ray->side == WE_SIDE)
 		final_pos.x = win_pos.x + square_size;
-	if (ray->side == 1) 
+	if (ray->side == EA_SIDE)
 		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
-	else if (ray->side == 2) 
+	else if (ray->side == SO_SIDE)
 		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
-	else if (ray->side == -2) 
+	else if (ray->side == NO_SIDE)
 		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
-	else if (ray->side == -1)
+	else if (ray->side == WE_SIDE)
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;	
 }

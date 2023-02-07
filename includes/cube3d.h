@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:23:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:22:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@
 #define GREEN_COLOR		0x0000FF00
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
+
+#define NO_SIDE			-2	//amarelo
+#define SO_SIDE			2	//azul
+#define EA_SIDE			1	//verde
+#define WE_SIDE			-1	//vermelho
 
 typedef struct s_img
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/31 14:42:03 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:23:09 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static void render_walls(t_img img, t_ray *rays)
 		if (line_height > WIN_HEIGHT)
 			line_height = WIN_HEIGHT;
 		pos.y = (WIN_HEIGHT / 2) - (line_height / 2);
-		if (rays[pos.x].side == 1)
+		if (rays[pos.x].side == EA_SIDE)
 			draw_vertical_line(img, pos, line_height, GREEN_COLOR);
-		if (rays[pos.x].side == -1)
+		if (rays[pos.x].side == WE_SIDE)
 			draw_vertical_line(img, pos, line_height, RED_COLOR);
-		if (rays[pos.x].side == 2)
+		if (rays[pos.x].side == SO_SIDE)
 			draw_vertical_line(img, pos, line_height, BLUE_COLOR);
-		if (rays[pos.x].side == -2)
+		if (rays[pos.x].side == NO_SIDE)
 			draw_vertical_line(img, pos, line_height, YELLOW_COLOR);
 		pos.x++;
 	}
