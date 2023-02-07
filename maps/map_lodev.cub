@@ -1,7 +1,7 @@
-NO ./textures/NO_Texture
-SO ./textures/SO_Texture
-WE ./textures/WE_Texture
-EA ./textures/EA_Texture
+NO ./textures/arrow.xpm
+SO ./textures/arrow.xpm
+WE ./textures/arrow.xpm
+EA ./textures/arrow.xpm
 
 F 220,100,0
 C 221,10,0

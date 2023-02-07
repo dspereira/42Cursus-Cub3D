@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 11:28:21 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:17:30 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_value		ray_cast_get_step(t_ray ray);
 static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos);
 static void			set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos);
 
-void raycast_all(t_player *player, char **map)
+void	raycast_all(t_player *player, char **map)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void raycast_all(t_player *player, char **map)
 		raycast(&(player->rays[i]), player->pos, map, player->dir);
 }
 
-static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
+static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 {
 	t_value		step;
 	t_value_dec	ray_length;
@@ -35,27 +35,25 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-
 	while (map[map_pos.y][map_pos.x] == '0')
 	{
 		if (ray_length.x < ray_length.y)
 		{
 			map_pos.x += step.x;
 			ray_length.x += ray->sx;
-			ray->side = 1;
+			ray->side = EA_SIDE;
 		}
-		else 
+		else
 		{
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
-			ray->side = 2;
+			ray->side = SO_SIDE;
 		}
 	}
-	if (ray->side == 1)
+	if (ray->side == EA_SIDE)
 		ray->side *= step.x;
 	else
 		ray->side *= step.y;
-
 	if (ray->side == EA_SIDE || ray->side == WE_SIDE)
 		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
 	if (ray->side == SO_SIDE || ray->side == NO_SIDE)
@@ -63,7 +61,7 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	set_distace_win(ray, map_pos, p_pos);
 }
 
-static t_value ray_cast_get_step(t_ray ray)
+static t_value	ray_cast_get_step(t_ray ray)
 {
 	t_value step;
 
@@ -76,7 +74,7 @@ static t_value ray_cast_get_step(t_ray ray)
 	return (step);
 }
 
-static t_value_dec ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos)
+static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos)
 {
 	t_value_dec	leng;
 	t_pos_dec	map_pos_dec;
@@ -94,11 +92,13 @@ static t_value_dec ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos)
 }
 
 // Set distance to raycast 2D
-static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
+static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
 	t_pos	win_pos;
 	t_pos	final_pos;
 	int		square_size;
+
+	t_pos	wall_pos;
 
     square_size = WIN_HEIGHT / MAP_HEIGHT;
 	win_pos = get_win_pos(m_pos);
@@ -117,5 +117,16 @@ static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 	else if (ray->side == NO_SIDE)
 		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
 	else if (ray->side == WE_SIDE)
-		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;	
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
+	
+	wall_pos = get_new_dist_pos(p_pos, ray->dir, ray->length_win);
+
+	if (ray->side == EA_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal(wall_pos).y;
+	else if (ray->side == SO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal(wall_pos).x;
+	else if (ray->side == NO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal(wall_pos).x;
+	else if (ray->side == WE_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal(wall_pos).y;
 }

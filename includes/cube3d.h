@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 11:22:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:43:26 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,14 @@ typedef struct s_pos
 	int y;
 }	t_pos;
 
+typedef struct s_tex
+{
+	t_img	no;
+	t_img	so;
+	t_img	ea;
+	t_img	we;
+}				t_tex;
+
 typedef struct s_map
 {
 	char		**wall_textures;
@@ -131,6 +139,8 @@ typedef struct s_ray
 	double	sin;
 	double	sx;
 	double	sy;
+
+	double	map_wall_pos;
 }	t_ray;
 
 typedef struct s_player 
@@ -141,14 +151,21 @@ typedef struct s_player
 	t_ray	*rays;
 }	t_player;
 
+typedef struct s_wall_data
+{
+	t_img		tex;
+	t_pos		win_start_pos;
+	double		map_wall_pos;
+	int			height;
+}	t_wall_data;
+
 typedef struct s_data
 {
 	t_win		*win;
 	t_map		map;
 	t_player	*player;
-	t_img		tex;
-}	t_data; 
-
+	t_tex		tex;
+}	t_data;
 
 // math_utils.c
 int		math_abs(int n);
@@ -169,6 +186,7 @@ void render_scene_2d(t_img img, t_player player, char **map);
 
 // render_scene_3d.c
 void render_scene_3d(t_img img, t_player player);
+void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
@@ -185,6 +203,7 @@ void	raycast_all(t_player *player, char **map);
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
+void draw_line_tex(t_img frame, t_wall_data wall);
 void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
