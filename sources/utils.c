@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:50:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:26:11 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_pos get_new_dist_pos(t_pos init, float dir, int dist)
 {
 	t_pos	pos;
 
-	pos.x = dist * cos_degree(dir) + init.x;
-	pos.y = -dist * sin_degree(dir) + init.y;
+	pos.x = round(dist * cos_degree(dir) + init.x);
+	pos.y = round(-dist * sin_degree(dir) + init.y);
 	return (pos);
 }
 

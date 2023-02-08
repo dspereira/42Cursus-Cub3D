@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 11:36:49 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:28:17 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
 
-#define PLAYER_RADIUS	10
+#define PLAYER_RADIUS	5
 
 typedef struct s_img
 {
