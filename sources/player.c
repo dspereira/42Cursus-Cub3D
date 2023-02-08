@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 15:32:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:43:49 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ void player_update_vision(t_player *player, int rot_angle)
 		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
 }
 
-void player_move(t_player *player, int dir)
+void player_move(t_player *player, char **map, int dir)
 {
-	float angle;
+	t_pos	new_pos;
+	float	angle;
 
 	angle = normalizeAngles((float)dir + player->dir);
-	player->pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
+	new_pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
+	if (!check_collisions(new_pos, map))	
+		player->pos = new_pos;
 }
 
 static void add_rays_to_player(t_player *player, int n_rays)

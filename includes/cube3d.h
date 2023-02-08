@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 11:02:12 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:36:49 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
 
-#define PLAYER_RADIUS	15
+#define PLAYER_RADIUS	10
 
 typedef struct s_img
 {
@@ -169,7 +169,7 @@ void render_scene_3d(t_img img, t_player player);
 // player.c
 t_player	*player_init(t_pos pos, int dir);
 void		player_update_vision(t_player *player, int rot_angle);
-void		player_move(t_player *player, int dir);
+void 		player_move(t_player *player, char **map, int dir);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
@@ -190,7 +190,7 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 unsigned long	check_time_ms(unsigned long time);
 
 // key_controls.c
-int	key(int keycode, t_player *player);
+int	key(int keycode, t_data *data);
 
 // collisions.c
 int check_collisions(t_pos p_pos, char **map);

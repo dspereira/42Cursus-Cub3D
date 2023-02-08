@@ -6,14 +6,13 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 09:34:58 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:44:27 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "../includes/header.h"
 
-int	key(int keycode, t_player *player);
 int render_win(void *data);
 static int get_game_configs(int ac, char **av, t_map *map);
 
@@ -39,7 +38,7 @@ int main(int argc, char **argv)
 	data.player = player;
 	data.map = map;
 	mlx_loop_hook(win.mlx, render_win, &data);
-	mlx_key_hook(win.mlx_win, key, player);
+	mlx_key_hook(win.mlx_win, key, &data);
 	mlx_loop(win.mlx);
 	
 	return (0);
@@ -57,9 +56,9 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	raycast_all(player, map.content);
-	render_scene_2d(win.frame, *player, map.content);
-	check_collisions(player->pos, map.content);
-	//render_scene_3d(win.frame, *player);
+	//render_scene_2d(win.frame, *player, map.content);
+	//check_collisions(player->pos, map.content);
+	render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 
 	frames_count++;
