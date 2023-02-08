@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 15:50:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:13:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #define KEY_S			115
 #define KEY_A			97
 #define KEY_D			100
+#define KEY_ESC			65307
 
 #define KEY_ARROW_L		65361
 #define KEY_ARROW_R		65363
