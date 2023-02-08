@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 12:28:17 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:50:42 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,9 @@ void render_scene_3d(t_img img, t_player player);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
-void		player_update_vision(t_player *player, int rot_angle);
+void		player_update_vision(t_player *player, float rot_angle);
 void 		player_move(t_player *player, char **map, int dir);
+void 		player_rotation(t_win win, t_player *player);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
