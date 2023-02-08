@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 14:20:30 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:57:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void render_player_circle(t_img img, t_player player, char **map)
 	i = 0;
 	while (i <= 360)
 	{
-		point_pos = get_new_dist_pos(p_pos, i, 15);
+		point_pos = get_new_dist_pos(p_pos, i, PLAYER_RADIUS);
 		draw_pixel(img, point_pos.x, point_pos.y, PLAYER_COLOR);
 		i += 0.1;
 	}

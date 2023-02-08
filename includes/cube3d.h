@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 15:29:58 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:02:12 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@
 #define GREEN_COLOR		0x0000FF00
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
+
+#define PLAYER_RADIUS	15
 
 typedef struct s_img
 {
@@ -148,6 +150,7 @@ int		math_abs(int n);
 float	normalizeAngles(float angle);
 double	cos_degree(double angle);
 double	sin_degree(double angle);
+int		clamp(int min, int max, int value);
 
 //utils.c
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);

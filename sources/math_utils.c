@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/01/21 20:09:51 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/08 09:41:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,17 @@ double cos_degree(double angle)
 double sin_degree(double angle)
 {
 	return (sin(angle * 0.0174532925));
+}
+
+int clamp(int min, int max, int value)
+{
+	int result;
+
+	if (value >= min && value <= max)
+		result = value;
+	else if (value < min)
+		result = min;
+	else if (value > max)
+		result = max;
+	return (result);
 }
