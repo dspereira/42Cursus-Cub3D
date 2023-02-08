@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 15:42:56 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:04:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,14 @@ static void render_walls_tex(t_img img, t_ray *rays, t_tex tex)
 void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 {
 	data->height = (int)((WIN_HEIGHT) / ray.dist_wall);
-	if (data->height > WIN_HEIGHT)
-		data->height = WIN_HEIGHT;
+	//if (data->height > WIN_HEIGHT)
+	//	data->height = WIN_HEIGHT;
 	data->win_start_pos.x = win_x_pos;
 	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
+	/* if (data->win_start_pos.y < 0) {
+		data->win_start_pos.y = 0;
+	} */
+	
 	data->map_wall_pos = ray.map_wall_pos;
 	if (ray.side == EA_SIDE)
 		data->tex = tex.ea;

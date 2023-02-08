@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 17:14:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:04:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void draw_pixel(t_img img, int x, int y, int color)
 {
 	int *pixel;
 
-	if (x > WIN_WIDTH || y > WIN_HEIGHT)
+	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
 	*pixel = color;
@@ -48,17 +48,15 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 void draw_line_tex(t_img frame, t_wall_data wall)
 {
 	int		i;
-	double	scale;
 	double	xperce;
 	t_pos	spot;
 
 	i = 0;
-	scale = (double)1 / wall.height;
 	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
 	while (i < wall.height)
 	{
 		spot.x = xperce;
-		spot.y = (i * scale) * wall.tex.height;
+		spot.y = (float)i / wall.height * wall.tex.height;
 		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
 			get_tex_color(wall.tex, spot));
 		i++;
