@@ -6,13 +6,14 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:04:44 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:26:45 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void render_ceil_and_floor(t_img img);
+static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb);
 static void render_walls(t_img img, t_ray *rays);
 
 static void render_walls_tex(t_img img, t_ray *rays, t_tex tex);
@@ -28,6 +29,7 @@ void render_scene_3d(t_img img, t_player player)
 void render_scene_3d_tex(t_img img, t_player player, t_tex tex)
 {
 	render_ceil_and_floor(img);
+	render_ceil_and_floor_rgb(img, tex.ceil_rgb, tex.floor_rgb);
 	render_walls(img, player.rays);
 	render_walls_tex(img, player.rays, tex);
 }
@@ -42,6 +44,18 @@ static void render_ceil_and_floor(t_img img)
 	size.x = WIN_WIDTH;	
 	draw_fill_rectangle(img, (t_pos){0, 0}, size, CEIL_COLOR);
 	draw_fill_rectangle(img, (t_pos){0, size.y}, size, FLOOR_COLOR);
+}
+
+static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb)
+{
+	t_pos	init_ceil;
+	t_pos	init_floor;
+	t_value	size;
+
+	size.y = WIN_HEIGHT / 2;
+	size.x = WIN_WIDTH;	
+	draw_fill_rectangle(img, (t_pos){0, 0}, size, ceil_rgb);
+	draw_fill_rectangle(img, (t_pos){0, size.y}, size, floor_rgb);
 }
 
  static void render_walls(t_img img, t_ray *rays)
@@ -93,14 +107,8 @@ static void render_walls_tex(t_img img, t_ray *rays, t_tex tex)
 void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 {
 	data->height = (int)((WIN_HEIGHT) / ray.dist_wall);
-	//if (data->height > WIN_HEIGHT)
-	//	data->height = WIN_HEIGHT;
 	data->win_start_pos.x = win_x_pos;
 	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
-	/* if (data->win_start_pos.y < 0) {
-		data->win_start_pos.y = 0;
-	} */
-	
 	data->map_wall_pos = ray.map_wall_pos;
 	if (ray.side == EA_SIDE)
 		data->tex = tex.ea;

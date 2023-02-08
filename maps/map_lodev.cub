@@ -1,10 +1,10 @@
-NO ./textures/arrow.xpm
-SO ./textures/arrow.xpm
-WE ./textures/arrow.xpm
-EA ./textures/arrow.xpm
+NO ./textures/redbrick.xpm
+SO ./textures/redbrick.xpm
+WE ./textures/redbrick.xpm
+EA ./textures/redbrick.xpm
 
-F 220,100,0
-C 221,10,0
+F 31,100,32
+C 140,189,214
 
 111111111111111111111111
 100000000000000000000001

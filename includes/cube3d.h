@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 15:43:26 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:19:00 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_tex
 	t_img	so;
 	t_img	ea;
 	t_img	we;
+	int		ceil_rgb;
+	int		floor_rgb;
 }				t_tex;
 
 typedef struct s_map

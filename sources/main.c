@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 16:04:14 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:19:33 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	key(int keycode, t_player *player);
 int render_win(void *data);
 static int get_game_configs(int ac, char **av, t_map *map);
-void	setup_textures(char **tex_files, t_tex *texture, void *mlx);
+void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 
 int main(int argc, char **argv) 
 {
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
-	setup_textures(map.wall_textures, &tex, win.mlx);
+	setup_textures(map.wall_textures, map.rgb_colors, &tex, win.mlx);
 	data.win = &win;
 	data.player = player;
 	data.map = map;
@@ -102,7 +102,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 	return (0);
 }
 
-void	setup_textures(char **tex_files, t_tex *texture, void *mlx)
+void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx)
 {
 	texture->no.mlx_img = mlx_xpm_file_to_image(mlx, tex_files[TEX_NO], \
 		&(texture->no.width), &(texture->no.height));
@@ -120,4 +120,6 @@ void	setup_textures(char **tex_files, t_tex *texture, void *mlx)
 		&(texture->we.width), &(texture->we.height));
 	texture->we.addr = mlx_get_data_addr(texture->we.mlx_img, \
 		&(texture->we.bpp), &(texture->we.line_len), &(texture->we.endian));
+	texture->ceil_rgb = rgb[RGB_C];
+	texture->floor_rgb = rgb[RGB_F];
 }
