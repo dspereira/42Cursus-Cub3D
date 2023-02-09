@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:04:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:28:24 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 {
 	unsigned int *color;
 
-	color = (int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
+	color = (unsigned int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
 	return(*color);
 }
 
@@ -50,13 +50,16 @@ void draw_line_tex(t_img frame, t_wall_data wall)
 	int		i;
 	double	xperce;
 	t_pos	spot;
+	float	scale;
 
 	i = 0;
-	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
+	scale = ((double)1) / wall.height;
+	xperce = ((wall.map_wall_pos - floor(wall.map_wall_pos)) * (double)wall.tex.width);
+	printf("%.10f\n", wall.map_wall_pos);
 	while (i < wall.height)
 	{
-		spot.x = xperce;
-		spot.y = (float)i / wall.height * wall.tex.height;
+		spot.x = floor(xperce);
+		spot.y = floor((i * scale) * wall.tex.height);
 		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
 			get_tex_color(wall.tex, spot));
 		i++;

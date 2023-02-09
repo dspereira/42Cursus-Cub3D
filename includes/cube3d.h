@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:19:00 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:20:57 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
-#define WIN_HEIGHT		700
-#define WIN_WIDTH		1500
+#define WIN_HEIGHT		720
+#define WIN_WIDTH		1080
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
