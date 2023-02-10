@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 16:18:18 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:21:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../includes/header.h"
 
 int render_win(void *data);
-int mouse_hook(int keycode, void *data);
 static int get_game_configs(int ac, char **av, t_map *map);
 
 int main(int argc, char **argv) 
@@ -38,19 +37,15 @@ int main(int argc, char **argv)
 	data.win = &win;
 	data.player = player;
 	data.map = map;
+	
+	mouse_init(win, &data.mouse_state);
 	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	//mlx_mouse_hide(win.mlx, win.mlx_win);
 	mlx_key_hook(win.mlx_win, key, &data);
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
 	
 	return (0);
-}
-
-int mouse_hook(int keycode, void *data)
-{
-	printf("mouse click: %i\n", keycode);
 }
 
 int render_win(void *data)
@@ -66,13 +61,19 @@ int render_win(void *data)
 
 	raycast_all(player, map.content);
 	//render_scene_2d(win.frame, *player, map.content);
+
+	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
+		player_rotation(win, player, mouse_get_pos(win));
+	mouse_control(win, &((t_data*)data)->mouse_state);
+	
 	render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
+
+
 
 	frames_count++;
 	if (check_time_ms(1000))
 	{
-		player_rotation(win, player);
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}

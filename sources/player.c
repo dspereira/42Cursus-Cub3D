@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 15:53:37 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:06:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,18 @@ void player_update_vision(t_player *player, float rot_angle)
 		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
 }
 
-void player_rotation(t_win win, t_player *player)
+void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 {
-	t_pos	mouse_pos;
+	//t_pos	mouse_pos;
 
 	int		rot_pixels;
 	float	rot_angle;
 
-
-	mlx_mouse_get_pos(win.mlx, win.mlx_win, &mouse_pos.x, &mouse_pos.y);
-
+	//mlx_mouse_get_pos(win.mlx, win.mlx_win, &mouse_pos.x, &mouse_pos.y);
+	//printf("value of mouse: x: %i, y: %i\n", mouse_pos.x, mouse_pos.y);
 	rot_pixels = (WIN_WIDTH / 2) - mouse_pos.x;
 	rot_angle = rot_pixels * ((float)CAMERA_ANGLE / NUMBER_RAYS);
 	player_update_vision(player, rot_angle);
-	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 }
 
 void player_move(t_player *player, char **map, int dir)
