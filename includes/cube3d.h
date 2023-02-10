@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 15:20:40 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:51:01 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #define KEY_D				100
 #define KEY_Q				113
 #define KEY_ESC				65307
+#define KEY_CTRL			65507
 
 #define BUTTON_LEFT_CLICK	1
 
