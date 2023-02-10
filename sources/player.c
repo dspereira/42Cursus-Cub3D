@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 12:06:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:51:15 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_player *player_init(t_pos pos, int dir)
 		return (0);
 	player->pos = pos;
 	player->dir = (float) dir;
+	player->dir_y = WIN_WIDTH / 2;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
 	player->rays = malloc(NUMBER_RAYS * sizeof(t_ray));
 	if (!(player->rays))
@@ -43,19 +44,39 @@ void player_update_vision(t_player *player, float rot_angle)
 		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
 }
 
+
+void player_rotation_y(t_win win, t_player *player, t_pos mouse_pos)
+{
+	int rot_pixels;
+
+	rot_pixels = (WIN_HEIGHT / 2) - mouse_pos.y;
+	if (rot_pixels < 0 && player->dir_y < (WIN_HEIGHT / 2) / 2)
+		return ;
+	else if (rot_pixels > 0 && player->dir_y > WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2))
+		return ;
+	player->dir_y += rot_pixels;
+	if (player->dir_y > WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2))
+		player->dir_y = WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2);
+	else if (player->dir_y < (WIN_HEIGHT / 2) / 2)
+		player->dir_y = (WIN_HEIGHT / 2) / 2;
+}
+
+
 void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 {
-	//t_pos	mouse_pos;
-
 	int		rot_pixels;
 	float	rot_angle;
 
-	//mlx_mouse_get_pos(win.mlx, win.mlx_win, &mouse_pos.x, &mouse_pos.y);
-	//printf("value of mouse: x: %i, y: %i\n", mouse_pos.x, mouse_pos.y);
 	rot_pixels = (WIN_WIDTH / 2) - mouse_pos.x;
 	rot_angle = rot_pixels * ((float)CAMERA_ANGLE / NUMBER_RAYS);
+
+	//player_rotation_y(win, player, mouse_pos);
+
+	//printf("eixo do y: %i\n", player->dir_y);
 	player_update_vision(player, rot_angle);
+	player_rotation_y(win, player, mouse_pos);
 }
+
 
 void player_move(t_player *player, char **map, int dir)
 {

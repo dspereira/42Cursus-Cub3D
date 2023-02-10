@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 15:51:01 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:19:46 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_player
 {
 	t_pos	pos;
 	float	dir;
+	int		dir_y;
 	float	angle_step;
 	t_ray	*rays;
 }	t_player;

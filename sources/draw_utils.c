@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:09:07 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:04:55 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
 
 	i = -1;
 	while (++i < height)
-		draw_pixel(img, init_pos.x, init_pos.y++, color);
+	{
+		if ((init_pos.x >= 0 && init_pos.x <= WIN_WIDTH) && (init_pos.y >= 0 && init_pos.y <= WIN_HEIGHT))
+			draw_pixel(img, init_pos.x, init_pos.y, color);
+		init_pos.y++;
+	}
 }
 
 //Will be changed by a new one that print textures instead of colors
