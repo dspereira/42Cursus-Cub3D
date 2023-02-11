@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 15:21:52 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:54:07 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	mouse_init(win, &data.mouse_state);
 	mlx_loop_hook(win.mlx, render_win, &data);
 	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	mlx_key_hook(win.mlx_win, key, &data);
+	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
 	

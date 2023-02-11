@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 17:51:15 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:33:00 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,24 @@ void player_update_vision(t_player *player, float rot_angle)
 		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
 }
 
-
 void player_rotation_y(t_win win, t_player *player, t_pos mouse_pos)
 {
 	int rot_pixels;
+	int half_height_win;
 
-	rot_pixels = (WIN_HEIGHT / 2) - mouse_pos.y;
-	if (rot_pixels < 0 && player->dir_y < (WIN_HEIGHT / 2) / 2)
+	half_height_win = WIN_HEIGHT / 2;
+
+	rot_pixels = half_height_win - mouse_pos.y;
+	if (rot_pixels < 0 && player->dir_y < half_height_win / 2)
 		return ;
-	else if (rot_pixels > 0 && player->dir_y > WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2))
+	else if (rot_pixels > 0 && player->dir_y > WIN_HEIGHT - (half_height_win / 2))
 		return ;
 	player->dir_y += rot_pixels;
-	if (player->dir_y > WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2))
-		player->dir_y = WIN_HEIGHT - ((WIN_HEIGHT / 2) / 2);
-	else if (player->dir_y < (WIN_HEIGHT / 2) / 2)
-		player->dir_y = (WIN_HEIGHT / 2) / 2;
+	if (player->dir_y > WIN_HEIGHT - (half_height_win / 2))
+		player->dir_y = WIN_HEIGHT - (half_height_win / 2);
+	else if (player->dir_y < half_height_win / 2)
+		player->dir_y = half_height_win / 2;
 }
-
 
 void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 {
@@ -69,10 +70,6 @@ void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 
 	rot_pixels = (WIN_WIDTH / 2) - mouse_pos.x;
 	rot_angle = rot_pixels * ((float)CAMERA_ANGLE / NUMBER_RAYS);
-
-	//player_rotation_y(win, player, mouse_pos);
-
-	//printf("eixo do y: %i\n", player->dir_y);
 	player_update_vision(player, rot_angle);
 	player_rotation_y(win, player, mouse_pos);
 }

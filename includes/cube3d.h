@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/10 16:19:46 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:52:47 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 #define KEY_ESC				65307
 #define KEY_CTRL			65507
 
+#define KEY_PRESS			2
+#define KEY_PRESS_MASK		1L
+
 #define BUTTON_LEFT_CLICK	1
 
 #define KEY_ARROW_L		65361
@@ -47,8 +50,8 @@
 #define LEFT			90
 #define RIGHT			270
 
-#define ROT_STEP		5
-#define MOVE_STEP		10
+#define ROT_STEP		2
+#define MOVE_STEP		2
 
 // render 2D
 #define PLAYER_SIZE		10
