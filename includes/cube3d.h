@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/11 15:52:47 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:39:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@
 #define MOUSE_CHANGE_SHOW	3
 #define MOUSE_CHANGE_HIDE	4
 
+#define NO_SIDE			-2	//amarelo
+#define SO_SIDE			2	//azul
+#define EA_SIDE			1	//verde
+#define WE_SIDE			-1	//vermelho
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -130,7 +135,8 @@ typedef struct s_ray
 {
 	float	dir;
 	int		length;
-	int		length_win;
+	//int		length_win;
+	double	length_win;
 	int		length_map;
 	double	dist_wall;
 	int		side;
@@ -139,6 +145,7 @@ typedef struct s_ray
 	double	sin;
 	double	sx;
 	double	sy;
+	double	map_wall_pos;
 }	t_ray;
 
 typedef struct s_player 
@@ -174,6 +181,10 @@ t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
 int			hex_to_int(const char *str);
+
+t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
+
 
 //render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);

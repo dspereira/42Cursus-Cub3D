@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 13:12:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:40:46 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static void raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
 	if (ray->side == 2 || ray->side == -2)
 		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
+
 	set_distace_win(ray, map_pos, p_pos);
+
+	printf("valor: %.5f\n",ray->map_wall_pos);
 }
 
 static t_value ray_cast_get_step(t_ray ray)
@@ -94,6 +97,7 @@ static t_value_dec ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos)
 }
 
 // Set distance to raycast 2D
+/*
 static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
 	t_pos	win_pos;
@@ -118,4 +122,45 @@ static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
 	else if (ray->side == -1)
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;	
+}
+*/
+
+static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
+{
+	t_pos	win_pos;
+	t_pos	final_pos;
+	int		square_size;
+
+	t_pos_dec	wall_pos;
+
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+	win_pos = get_win_pos(m_pos);
+	if (ray->side == EA_SIDE)
+		final_pos.x = win_pos.x;
+	else if (ray->side == SO_SIDE)
+		final_pos.y = win_pos.y;
+	else if (ray->side == NO_SIDE)
+		final_pos.y = win_pos.y + square_size;
+	else if (ray->side == WE_SIDE)
+		final_pos.x = win_pos.x + square_size;
+	if (ray->side == EA_SIDE)
+		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
+	else if (ray->side == SO_SIDE)
+		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
+	else if (ray->side == NO_SIDE)
+		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
+	else if (ray->side == WE_SIDE)
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
+	
+	// perde precisão aqui
+	wall_pos = get_new_dist_pos_dec(p_pos, ray->dir, ray->length_win);
+
+	if (ray->side == EA_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
+	else if (ray->side == SO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == NO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == WE_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
 }

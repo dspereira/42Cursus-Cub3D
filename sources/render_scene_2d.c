@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:57:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:29:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void render_scene_2d(t_img img, t_player player, char **map)
 {
 	render_background(img, 0x0021130d);
 	render_map(img, map);
-	//render_player(img, player, map);
-	render_player_circle(img, player, map);
+	render_player(img, player, map);
+	//render_player_circle(img, player, map);
 }
 
 static void render_map(t_img img, char **map)

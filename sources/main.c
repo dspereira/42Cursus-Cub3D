@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/11 15:54:07 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:47:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	raycast_all(player, map.content);
-	//render_scene_2d(win.frame, *player, map.content);
-
+	
+	//exit(0);
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 		player_rotation(win, player, mouse_get_pos(win));
 	mouse_control(win, &((t_data*)data)->mouse_state);
 	
+	//render_scene_2d(win.frame, *player, map.content);
 	render_scene_3d(win.frame, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 
