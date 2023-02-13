@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 11:22:39 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:03:57 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,18 @@
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
 
-#define KEY_W			119
-#define KEY_S			115
-#define KEY_A			97
-#define KEY_D			100
+#define KEY_W				119
+#define KEY_S				115
+#define KEY_A				97
+#define KEY_D				100
+#define KEY_Q				113
+#define KEY_ESC				65307
+#define KEY_CTRL			65507
+
+#define KEY_PRESS			2
+#define KEY_PRESS_MASK		1L
+
+#define BUTTON_LEFT_CLICK	1
 
 #define KEY_ARROW_L		65361
 #define KEY_ARROW_R		65363
@@ -42,8 +50,8 @@
 #define LEFT			90
 #define RIGHT			270
 
-#define ROT_STEP		5
-#define MOVE_STEP		10
+#define ROT_STEP		2
+#define MOVE_STEP		2
 
 // render 2D
 #define PLAYER_SIZE		10
@@ -59,6 +67,13 @@
 #define GREEN_COLOR		0x0000FF00
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
+
+#define PLAYER_RADIUS	5
+
+#define MOUSE_HIDE			1
+#define MOUSE_SHOW			2
+#define MOUSE_CHANGE_SHOW	3
+#define MOUSE_CHANGE_HIDE	4
 
 #define NO_SIDE			-2	//amarelo
 #define SO_SIDE			2	//azul
@@ -132,7 +147,8 @@ typedef struct s_ray
 {
 	float	dir;
 	int		length;
-	int		length_win;
+	//int		length_win;
+	double	length_win;
 	int		length_map;
 	double	dist_wall;
 	int		side;
@@ -141,7 +157,6 @@ typedef struct s_ray
 	double	sin;
 	double	sx;
 	double	sy;
-
 	double	map_wall_pos;
 }	t_ray;
 
@@ -149,6 +164,7 @@ typedef struct s_player
 {
 	t_pos	pos;
 	float	dir;
+	int		dir_y;
 	float	angle_step;
 	t_ray	*rays;
 }	t_player;
@@ -167,13 +183,16 @@ typedef struct s_data
 	t_map		map;
 	t_player	*player;
 	t_tex		tex;
-}	t_data;
+	int			mouse_state;
+}	t_data; 
+
 
 // math_utils.c
 int		math_abs(int n);
 float	normalizeAngles(float angle);
 double	cos_degree(double angle);
 double	sin_degree(double angle);
+int		clamp(int min, int max, int value);
 
 //utils.c
 t_pos_dec	get_new_dist_pos_dec(t_pos init, float dir, double dist);
@@ -185,6 +204,10 @@ t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
 int			hex_to_int(const char *str);
 
+t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
+
+
 //render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);
 
@@ -194,8 +217,9 @@ void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
-void		player_update_vision(t_player *player, int rot_angle);
-void		player_move(t_player *player, int dir);
+void		player_update_vision(t_player *player, float rot_angle);
+void 		player_move(t_player *player, char **map, int dir);
+void 		player_rotation(t_win win, t_player *player, t_pos mouse_pos);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
@@ -217,10 +241,18 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 unsigned long	check_time_ms(unsigned long time);
 
 // key_controls.c
-int	key(int keycode, t_player *player);
+int	key(int keycode, t_data *data);
 
+// collisions.c
+int check_collisions(t_pos p_pos, char **map);
 
 void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
+
+// mouse.c
+void	mouse_init(t_win win, int *mouse_state);
+t_pos	mouse_get_pos(t_win win);
+void	mouse_control(t_win win, int *mouse_state);
+int		mouse_hook(int button, int x, int y, t_data *data);
 
 
 #endif

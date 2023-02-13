@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 11:20:45 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:02:24 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "../includes/header.h"
 
-int	key(int keycode, t_player *player);
 int render_win(void *data);
 static int get_game_configs(int ac, char **av, t_map *map);
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
@@ -41,9 +40,12 @@ int main(int argc, char **argv)
 	data.win = &win;
 	data.player = player;
 	data.map = map;
+	mouse_init(win, &data.mouse_state);
 	data.tex = tex;
 	mlx_loop_hook(win.mlx, render_win, &data);
-	mlx_key_hook(win.mlx_win, key, player);
+	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
+	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
 	
 	return (0);
@@ -61,10 +63,18 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	raycast_all(player, map.content);
+	
+	//exit(0);
+	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
+		player_rotation(win, player, mouse_get_pos(win));
+	mouse_control(win, &((t_data*)data)->mouse_state);
+	
 	//render_scene_2d(win.frame, *player, map.content);
 	render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
+
+
 
 	frames_count++;
 	if (check_time_ms(1000))
