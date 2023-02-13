@@ -58,12 +58,12 @@ char		*get_next_line(int fd);
 
 int			get_map_content(char ***content, int fd);
 int			get_player_info(char **map, int *orientation, t_pos *pos);
+int         get_map_dimensions(t_map **map);
 
 int			check_map(char **map);
 int			check_map_elements(char **map);
 int			check_map_walls(char **map);
 
-// t_map		*init_map_struct(void);
 int			init_map_struct(t_map *init);
 
 int			get_all_map_info(t_map **map, char *filename);

@@ -55,3 +55,24 @@ int	get_map_size(char **map)
 		i++;
 	return (i);
 }
+
+int	get_map_dimensions(t_map **map)
+{
+	int	x;
+	int	y;
+	char **cont;
+
+	cont = (*map)->content;
+	while (cont[0][x])
+		x++;
+	while (cont[y])
+		y++;
+	if (y < 3)
+		return (FALSE);
+	(*map)->height = y;
+	(*map)->width = x;
+	printf("----------------------\n");
+	printf("Map Height - %d\nMap Width  - %d\n", (*map)->height, (*map)->width);
+	printf("----------------------\n");
+	return (TRUE);
+}
