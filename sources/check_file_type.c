@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_type.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/04 13:28:29 by codespace        ###   ########.fr       */
+/*   Updated: 2023/02/07 08:55:02 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,18 @@ static int	ft_strcmp(char *s1, char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-/*
-	Function to find the index of the last appeereance of char in a string.
-	Returns -1 if the charecter is not founded
-	Returns the index of the char in the string.
-
-	Parameters:
-	file		-> string to serch the character
-	to_find		-> character to find in the string
-*/
 static int	find_last_char_index(char *file, char to_find)
 {
 	int	i;
-	int	exist;
 
 	i = 0;
-	exist = -1;
 	while (file[i])
 		i++;
 	while (i >= 0)
 	{
 		if (file[i] == to_find)
-		{
-			exist = i;
 			break ;
-		}
 		i--;
 	}
-	return (exist);
+	return (i);
 }

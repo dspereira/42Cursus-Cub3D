@@ -38,7 +38,7 @@ int	get_all_map_info(t_map **map, char *filename)
 		return (0);
 	if (!get_map_textures(map, fd) || !get_map_content(&(*map)->content, fd)
 		|| !get_player_info((*map)->content, &(*map)->orientation, \
-		&(*map)->pos))
+		&(*map)->pos) || !get_map_dimensions(map))
 		return (FALSE);
 	return (TRUE);
 }

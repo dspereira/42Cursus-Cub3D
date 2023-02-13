@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:09:07 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:52:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void draw_pixel(t_img img, int x, int y, int color)
 {
 	int *pixel;
 
-	if (x > WIN_WIDTH || y > WIN_HEIGHT)
+	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
 	*pixel = color;
@@ -26,11 +26,11 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 {
 	unsigned int *color;
 
-	color = (int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
+	color = (unsigned int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
 	return(*color);
 }
 
-void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height)
+/* void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height)
 {
 	int		end_y;
 	int		color;
@@ -42,6 +42,26 @@ void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_hei
 		draw_pixel(frame, f_pos.x, f_pos.y, color);
 		f_pos.y++;
 		tex_pos.y++;
+	}
+} */
+
+void draw_line_tex(t_img frame, t_wall_data wall)
+{
+	int		i;
+	double	xperce;
+	t_pos	spot;
+	float	scale;
+
+	i = 0;
+	scale = ((double)1) / wall.height;
+	xperce = ((wall.map_wall_pos - floor(wall.map_wall_pos)) * (double)wall.tex.width);
+	while (i < wall.height)
+	{
+		spot.x = floor(xperce);
+		spot.y = floor((i * scale) * wall.tex.height);
+		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
+			get_tex_color(wall.tex, spot));
+		i++;
 	}
 }
 

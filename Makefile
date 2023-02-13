@@ -1,9 +1,9 @@
 NAME = cube3D
 
-CC = gcc
+CC = cc
 #CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
-CFLAGS = -g -I./includes
-EXTRA_FLAGS = -Imlx_linux -O3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+CFLAGS = 
+EXTRA_FLAGS = -O3 -Imlx_linux -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
 
 RM = rm -f
 
@@ -55,18 +55,20 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 all: $(NAME)
 
 $(NAME) : $(OBJS)
+	cd mlx_linux && make && cd ..
 	$(CC) $(CFLAGS) $(OBJS) $(INC) $(EXTRA_FLAGS) -o $(NAME)
 	@echo "\033[1;36m[cub3D COMPILED]\033[0m"
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects
-	$(CC) -c $(CFLAGS) $(EXTRA_FLAGS) $(INCLUDES) $< -o $@
+	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:
 	clear
 	@./norm.sh
 
 clean:
+	#cd mlx_linux && make clean && cd ..
 	rm -rf $(OBJ_PATH)
 	@echo "\033[1;33mAll $(NAME).o files are removed\033[0m"
 

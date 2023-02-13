@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:50:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:18:42 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ t_pos get_new_dist_pos(t_pos init, float dir, int dist)
 	pos.x = dist * cos_degree(dir) + init.x;
 	pos.y = -dist * sin_degree(dir) + init.y;
 	return (pos);
+}
+
+t_pos_dec get_new_dist_pos_dec(t_pos init, float dir, double dist)
+{
+	t_pos_dec   pos;
+
+	pos.x = dist * cos_degree(dir) + init.x;
+	pos.y = -dist * sin_degree(dir) + init.y;
+	return (pos);
+}
+
+t_pos_dec get_map_pos_decimal_1(t_pos_dec pos)
+{
+    t_pos_dec map_pos;
+    double square_size;
+
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+    map_pos.x = (double)pos.x / square_size;
+    map_pos.y = (double)pos.y / square_size;
+    return (map_pos);
 }
 
 t_pos get_map_pos(t_pos pos)
