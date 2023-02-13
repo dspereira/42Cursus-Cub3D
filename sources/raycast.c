@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/07 14:17:30 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:19:29 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 	t_pos	final_pos;
 	int		square_size;
 
-	t_pos	wall_pos;
+	t_pos_dec	wall_pos;
 
     square_size = WIN_HEIGHT / MAP_HEIGHT;
 	win_pos = get_win_pos(m_pos);
@@ -119,14 +119,14 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 	else if (ray->side == WE_SIDE)
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
 	
-	wall_pos = get_new_dist_pos(p_pos, ray->dir, ray->length_win);
+	wall_pos = get_new_dist_pos_dec(p_pos, ray->dir, ray->length_win);
 
 	if (ray->side == EA_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal(wall_pos).y;
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
 	else if (ray->side == SO_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal(wall_pos).x;
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
 	else if (ray->side == NO_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal(wall_pos).x;
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
 	else if (ray->side == WE_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal(wall_pos).y;
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
 }

@@ -1,7 +1,7 @@
 NO ./textures/bricks.xpm
 SO ./textures/bricks.xpm
 WE ./textures/bricks.xpm
-EA ./textures/bricks.xpm
+EA ./textures/dragon.xpm
 
 F 31,100,32
 C 140,189,214

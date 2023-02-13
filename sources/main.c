@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:19:33 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:20:45 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int render_win(void *data)
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}
+	return (0);
 }
 
 static int get_game_configs(int ac, char **av, t_map *map)

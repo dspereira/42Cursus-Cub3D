@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/09 13:28:24 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:52:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void draw_line_tex(t_img frame, t_wall_data wall)
 	i = 0;
 	scale = ((double)1) / wall.height;
 	xperce = ((wall.map_wall_pos - floor(wall.map_wall_pos)) * (double)wall.tex.width);
-	printf("%.10f\n", wall.map_wall_pos);
 	while (i < wall.height)
 	{
 		spot.x = floor(xperce);

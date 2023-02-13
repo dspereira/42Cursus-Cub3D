@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/09 13:20:57 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:22:39 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
-#define WIN_HEIGHT		720
-#define WIN_WIDTH		1080
+#define WIN_HEIGHT		1040
+#define WIN_WIDTH		1040
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -176,6 +176,8 @@ double	cos_degree(double angle);
 double	sin_degree(double angle);
 
 //utils.c
+t_pos_dec	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);

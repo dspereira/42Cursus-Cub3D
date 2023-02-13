@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 10:26:45 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:58:56 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void render_walls_tex(t_img img, t_ray *rays, t_tex tex)
 	t_pos		pos;
 	t_wall_data	wall_data;
 	
-	n_rays = NUMBER_RAYS - 1;
+	n_rays = NUMBER_RAYS;
 	pos.y = 0;
 	pos.x = 0;
 	while (pos.x < n_rays)
