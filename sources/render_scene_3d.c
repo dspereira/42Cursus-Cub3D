@@ -3,62 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 12:58:56 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:16:57 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void render_ceil_and_floor(t_img img);
+static void render_ceil_and_floor(t_img img, int mid_pos_y);
 static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb);
-static void render_walls(t_img img, t_ray *rays);
-
-static void render_walls_tex(t_img img, t_ray *rays, t_tex tex);
+static void render_walls(t_img img, t_ray *rays, int mid_pos_y);
 void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data);
-
 
 void render_scene_3d(t_img img, t_player player)
 {
-	render_ceil_and_floor(img);
-	render_walls(img, player.rays);
+	render_ceil_and_floor(img, player.dir_y);
+	render_walls(img, player.rays, player.dir_y);
 }
 
-void render_scene_3d_tex(t_img img, t_player player, t_tex tex)
-{
-	render_ceil_and_floor(img);
-	render_ceil_and_floor_rgb(img, tex.ceil_rgb, tex.floor_rgb);
-	render_walls(img, player.rays);
-	render_walls_tex(img, player.rays, tex);
-}
-
-static void render_ceil_and_floor(t_img img)
+static void render_ceil_and_floor(t_img img, int mid_pos_y)
 {
 	t_pos	init_ceil;
 	t_pos	init_floor;
 	t_value	size;
 
-	size.y = WIN_HEIGHT / 2;
+	size.y = mid_pos_y;
 	size.x = WIN_WIDTH;	
 	draw_fill_rectangle(img, (t_pos){0, 0}, size, CEIL_COLOR);
-	draw_fill_rectangle(img, (t_pos){0, size.y}, size, FLOOR_COLOR);
+	size.y = WIN_HEIGHT - mid_pos_y;
+	draw_fill_rectangle(img, (t_pos){0, mid_pos_y}, size, FLOOR_COLOR);
 }
 
-static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb)
-{
-	t_pos	init_ceil;
-	t_pos	init_floor;
-	t_value	size;
-
-	size.y = WIN_HEIGHT / 2;
-	size.x = WIN_WIDTH;	
-	draw_fill_rectangle(img, (t_pos){0, 0}, size, ceil_rgb);
-	draw_fill_rectangle(img, (t_pos){0, size.y}, size, floor_rgb);
-}
-
- static void render_walls(t_img img, t_ray *rays)
+static void render_walls(t_img img, t_ray *rays, int mid_pos_y)
 {
 	int		line_height;
 	t_pos	pos;
@@ -72,10 +50,8 @@ static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb)
 	while (pos.x < n_rays)
 	{
 		line_height = (int)((WIN_HEIGHT) / rays[pos.x].dist_wall);
-		if (line_height > WIN_HEIGHT)
-			line_height = WIN_HEIGHT;
-		pos.y = (WIN_HEIGHT / 2) - (line_height / 2);
-		if (rays[pos.x].side == EA_SIDE)
+		pos.y = mid_pos_y - (line_height / 2);
+		if (rays[pos.x].side == 1)
 			draw_vertical_line(img, pos, line_height, GREEN_COLOR);
 		if (rays[pos.x].side == WE_SIDE)
 			draw_vertical_line(img, pos, line_height, RED_COLOR);
@@ -118,4 +94,24 @@ void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 		data->tex = tex.so;
 	else if (ray.side == NO_SIDE)
 		data->tex = tex.no;
+}
+
+static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb)
+{
+	t_pos	init_ceil;
+	t_pos	init_floor;
+	t_value	size;
+
+	size.y = WIN_HEIGHT / 2;
+	size.x = WIN_WIDTH;	
+	draw_fill_rectangle(img, (t_pos){0, 0}, size, ceil_rgb);
+	draw_fill_rectangle(img, (t_pos){0, size.y}, size, floor_rgb);
+}
+
+void render_scene_3d_tex(t_img img, t_player player, t_tex tex)
+{
+	//render_ceil_and_floor(img);
+	render_ceil_and_floor_rgb(img, tex.ceil_rgb, tex.floor_rgb);
+	//render_walls(img, player.rays);
+	render_walls_tex(img, player.rays, tex);
 }

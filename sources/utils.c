@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 11:18:42 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:05:44 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_pos get_new_dist_pos(t_pos init, float dir, int dist)
 {
 	t_pos	pos;
 
-	pos.x = dist * cos_degree(dir) + init.x;
-	pos.y = -dist * sin_degree(dir) + init.y;
+	pos.x = round(dist * cos_degree(dir) + init.x);
+	pos.y = round(-dist * sin_degree(dir) + init.y);
 	return (pos);
 }
 
@@ -39,17 +39,6 @@ t_pos_dec get_new_dist_pos_dec(t_pos init, float dir, double dist)
 	pos.x = dist * cos_degree(dir) + init.x;
 	pos.y = -dist * sin_degree(dir) + init.y;
 	return (pos);
-}
-
-t_pos_dec get_map_pos_decimal_1(t_pos_dec pos)
-{
-    t_pos_dec map_pos;
-    double square_size;
-
-    square_size = WIN_HEIGHT / MAP_HEIGHT;
-    map_pos.x = (double)pos.x / square_size;
-    map_pos.y = (double)pos.y / square_size;
-    return (map_pos);
 }
 
 t_pos get_map_pos(t_pos pos)
@@ -66,6 +55,17 @@ t_pos_dec get_map_pos_decimal(t_pos pos)
 {
     t_pos_dec map_pos;
     int square_size;
+
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+    map_pos.x = (double)pos.x / square_size;
+    map_pos.y = (double)pos.y / square_size;
+    return (map_pos);
+}
+
+t_pos_dec get_map_pos_decimal_1(t_pos_dec pos)
+{
+    t_pos_dec map_pos;
+    double square_size;
 
     square_size = WIN_HEIGHT / MAP_HEIGHT;
     map_pos.x = (double)pos.x / square_size;

@@ -46,7 +46,10 @@ SRC_NAME =	main.c							\
 			ray.c							\
 			raycast.c						\
 			time.c							\
-			key_controls.c
+			key_controls.c					\
+			collisions.c					\
+			mouse.c							\
+
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
