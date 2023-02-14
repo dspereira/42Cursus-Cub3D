@@ -114,6 +114,12 @@ typedef struct s_tex
 	int		floor_rgb;
 }				t_tex;
 
+typedef struct s_door
+{
+	t_pos	pos;
+	float	status;
+}			t_door;
+
 typedef struct s_map
 {
 	char		**wall_textures;
@@ -123,6 +129,7 @@ typedef struct s_map
 	t_pos		pos;
 	int			height;
 	int			width;
+	t_door		*doors;
 }				t_map;
 
 typedef struct s_pos_dec
@@ -207,6 +214,7 @@ int			hex_to_int(const char *str);
 t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
 t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
 
+void		*ft_calloc(size_t count, size_t size);
 
 //render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);

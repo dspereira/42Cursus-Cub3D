@@ -59,6 +59,7 @@ char		*get_next_line(int fd);
 int			get_map_content(char ***content, int fd);
 int			get_player_info(char **map, int *orientation, t_pos *pos);
 int         get_map_dimensions(t_map **map);
+int         get_doors_info(char **map, t_door **doors);
 
 int			check_map(char **map);
 int			check_map_elements(char **map);

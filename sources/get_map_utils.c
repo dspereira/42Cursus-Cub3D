@@ -65,8 +65,7 @@ int	get_map_dimensions(t_map **map)
 	cont = (*map)->content;
 	while (cont[0][x])
 		x++;
-	while (cont[y])
-		y++;
+	y = get_map_size(cont);
 	if (y < 3)
 		return (FALSE);
 	(*map)->height = y;

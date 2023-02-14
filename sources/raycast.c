@@ -61,7 +61,7 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 
 	set_distace_win(ray, map_pos, p_pos);
 
-	printf("valor: %.5f\n",ray->map_wall_pos);
+	//printf("valor: %.5f\n",ray->map_wall_pos);
 }
 
 static t_value	ray_cast_get_step(t_ray ray)

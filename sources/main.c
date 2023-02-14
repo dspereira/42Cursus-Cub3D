@@ -47,7 +47,6 @@ int main(int argc, char **argv)
 	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
-	
 	return (0);
 }
 
@@ -73,9 +72,6 @@ int render_win(void *data)
 	render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-
-
-
 	frames_count++;
 	if (check_time_ms(1000))
 	{

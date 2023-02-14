@@ -33,6 +33,7 @@ SRC_NAME =	main.c							\
 			check_map_elements.c			\
 			get_map_content.c				\
 			get_player_info.c				\
+			get_doors_info.c				\
 			get_map_utils.c					\
 			get_next_line.c					\
 			free_memory.c					\
