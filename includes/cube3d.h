@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 16:03:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:17:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@
 #include <fcntl.h>
 #include <mlx.h>
 
+// valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
+
+#define	MINIMAP_SQUARE_SIZE	15
 
 #define WIN_HEIGHT		1040
 #define WIN_WIDTH		1040
@@ -58,6 +61,8 @@
 #define PLAYER_COLOR	0x00E28743
 #define WALL_COLOR		0x002596BE
 
+#define PLAYER_MINIMAP_SIZE	4
+
 // render 3D
 #define FLOOR_COLOR		0x003a2e27
 #define CEIL_COLOR		0x00e4f7fa
@@ -68,7 +73,9 @@
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
 
-#define PLAYER_RADIUS	5
+#define BGD_MINIMAP_COLOR	0x00c0c1c2
+
+#define PLAYER_RADIUS	8
 
 #define MOUSE_HIDE			1
 #define MOUSE_SHOW			2
@@ -261,6 +268,9 @@ void	mouse_init(t_win win, int *mouse_state);
 t_pos	mouse_get_pos(t_win win);
 void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
+
+// minimap.c
+void	minimap_render(t_img img, t_player player, char **map);
 
 
 #endif
