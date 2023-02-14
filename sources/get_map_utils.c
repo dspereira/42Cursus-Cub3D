@@ -70,8 +70,8 @@ int	get_map_dimensions(t_map **map)
 		return (FALSE);
 	(*map)->height = y;
 	(*map)->width = x;
-	printf("----------------------\n");
-	printf("Map Height - %d\nMap Width  - %d\n", (*map)->height, (*map)->width);
-	printf("----------------------\n");
+	//printf("----------------------\n");
+	//printf("Map Height - %d\nMap Width  - %d\n", (*map)->height, (*map)->width);
+	//printf("----------------------\n");
 	return (TRUE);
 }

@@ -69,7 +69,7 @@ int render_win(void *data)
 	mouse_control(win, &((t_data*)data)->mouse_state);
 	
 	//render_scene_2d(win.frame, *player, map.content);
-	render_scene_3d(win.frame, *player);
+	//render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 	frames_count++;
@@ -85,6 +85,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 {
 	if (ac == 2)
 	{
+		printf("---------------\n");
 		if (check_file(av[1]))
 		{
 			if (!init_map_struct(map))
@@ -102,6 +103,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 			printf("Map KO\n");
 			return (0);
 		}
+		printf("---------------\n\n");
 		//free_memory(map);
 		return (1);
 	}
