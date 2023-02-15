@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/15 12:41:45 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:41:49 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,15 @@ static void render_player_circle(t_img img, t_player player, char **map)
     p_pos.x = p_pos.x / resize_scale;
     p_pos.y = p_pos.y / resize_scale;
 
-	
-
 	i = 0;
 	while (i <= 360)
 	{
 		point_pos = get_new_dist_pos(p_pos, i, 100);
 		//draw_pixel(img, point_pos.x, point_pos.y, PLAYER_COLOR);
         draw_line_1(img, p_pos, point_pos, map);
-        
-		i += 0.01;
+
+		//i += 0.01;
+		i++;
 	}
 	//draw_line(img, p_pos, get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
 }
@@ -136,10 +135,23 @@ static void draw_pixel_1(t_img img, int x, int y, int color, t_pos init_pos_play
 
 	x = (x + 200) - init_pos_player.x;
 	y = (y + 200) - init_pos_player.y;
-	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
+	if (x < 0 || y < 0)
 		return ;
+	if (x >= WIN_WIDTH || y >= WIN_HEIGHT)
+		return ;
+
+	//printf("x = %d y = %d\n", x, y);
+	//x = 179
+	//y = 297
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
-	*pixel = color;
+	//pixel = img.addr;(int *)(img.addr + (img.line_len * 0) + (0 * img.bpp / 8));
+	//printf("color %d\n", color);
+
+	/*if (!pixel)
+		return ;*/
+	*pixel = (unsigned int)color;
+
+	//*pixel = 0x00000000;
 }
 
 static t_pos get_map_pos_1(t_pos pos)
@@ -148,7 +160,6 @@ static t_pos get_map_pos_1(t_pos pos)
     pos.y = pos.y / MINIMAP_SQUARE_SIZE;
     return (pos);
 }
-
 
 static unsigned int get_pixel_map_color(int x, int y, char **map)
 {
@@ -172,6 +183,8 @@ static void draw_line_1(t_img img, t_pos init, t_pos end, char **map)
 	t_value_dec	inc;
 	t_pos_dec	pos;
 
+	float a;
+
 	delta.x = end.x - init.x;
 	delta.y = end.y - init.y;
 	if (math_abs(delta.x) >= math_abs(delta.y))
@@ -184,9 +197,16 @@ static void draw_line_1(t_img img, t_pos init, t_pos end, char **map)
 	pos.y = init.y;
 	while (steps-- > 0)
 	{
+		//a = 10 * 20 /*cos_degree(1.9876)*/ + 10;
+		//a = 10 * 30/*sin_degree(1.9876)*/ + 10;
 		draw_pixel_1(img, pos.x, pos.y, get_pixel_map_color(pos.x, pos.y, map), init);
 		pos.x += inc.x;
 		pos.y += inc.y;
 	}
 	draw_pixel_1(img, end.x, end.y, get_pixel_map_color(end.x, end.y, map), init);
+}
+
+static void transform_pos(void)
+{
+	
 }
