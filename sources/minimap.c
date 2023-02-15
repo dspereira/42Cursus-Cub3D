@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/15 15:41:49 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:14:10 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ static void draw_pixel_1(t_img img, int x, int y, int color, t_pos init_pos_play
 	//printf("color %d\n", color);
 
 	/*if (!pixel)
-		return ;*/
+		return ;*/	
 	*pixel = (unsigned int)color;
 
 	//*pixel = 0x00000000;
@@ -156,8 +156,10 @@ static void draw_pixel_1(t_img img, int x, int y, int color, t_pos init_pos_play
 
 static t_pos get_map_pos_1(t_pos pos)
 {
-    pos.x = pos.x / MINIMAP_SQUARE_SIZE;
-    pos.y = pos.y / MINIMAP_SQUARE_SIZE;
+	if (pos.x > 0)
+    	pos.x = pos.x / MINIMAP_SQUARE_SIZE;
+	if (pos.y > 0)
+		pos.y = pos.y / MINIMAP_SQUARE_SIZE;
     return (pos);
 }
 
@@ -168,7 +170,7 @@ static unsigned int get_pixel_map_color(int x, int y, char **map)
 	pos.x = x;
 	pos.y = y;
 	pos = get_map_pos_1(pos);
-	if (pos.x < 0 || pos.y < 0)
+	if (pos.x < 0 || pos.y < 0 || pos.x >= MAP_WIDTH || pos.y >= MAP_HEIGHT)
 		return (BGD_MINIMAP_COLOR);
 	if (map[pos.y][pos.x] == '1')
 		return (WALL_COLOR);
