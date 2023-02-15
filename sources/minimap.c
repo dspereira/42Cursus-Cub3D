@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/15 11:49:09 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:41:45 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ static void render_player_circle(t_img img, t_player player, char **map)
     p_pos.x = p_pos.x / resize_scale;
     p_pos.y = p_pos.y / resize_scale;
 
+	
+
 	i = 0;
 	while (i <= 360)
 	{
@@ -128,12 +130,12 @@ static void render_player_circle(t_img img, t_player player, char **map)
 	//draw_line(img, p_pos, get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
 }
 
-static void draw_pixel_1(t_img img, int x, int y, int color)
+static void draw_pixel_1(t_img img, int x, int y, int color, t_pos init_pos_player)
 {
 	int *pixel;
 
-	x += 500;
-	y += 500;
+	x = (x + 200) - init_pos_player.x;
+	y = (y + 200) - init_pos_player.y;
 	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
@@ -182,9 +184,9 @@ static void draw_line_1(t_img img, t_pos init, t_pos end, char **map)
 	pos.y = init.y;
 	while (steps-- > 0)
 	{
-		draw_pixel_1(img, pos.x, pos.y, get_pixel_map_color(pos.x, pos.y, map));
+		draw_pixel_1(img, pos.x, pos.y, get_pixel_map_color(pos.x, pos.y, map), init);
 		pos.x += inc.x;
 		pos.y += inc.y;
 	}
-	draw_pixel_1(img, end.x, end.y, get_pixel_map_color(end.x, end.y, map));
+	draw_pixel_1(img, end.x, end.y, get_pixel_map_color(end.x, end.y, map), init);
 }
