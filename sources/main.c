@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/14 17:25:06 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:26:02 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int render_win(void *data)
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 		player_rotation(win, player, mouse_get_pos(win));
 	mouse_control(win, &((t_data*)data)->mouse_state);
-	
+
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
-	//render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
+	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
 	minimap_render(win.frame, *player, map.content);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);

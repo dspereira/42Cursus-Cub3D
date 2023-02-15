@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/14 17:17:44 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:33:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
 
-#define BGD_MINIMAP_COLOR	0x00c0c1c2
+//#define BGD_MINIMAP_COLOR	0x00c0c1c2
+#define BGD_MINIMAP_COLOR	0x00000000
 
 #define PLAYER_RADIUS	8
 

@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/14 17:37:53 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:49:09 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ static void render_map(t_img img, char **map);
 static void render_background(t_img img);
 static void render_player(t_img img, t_player player, char **map);
 static void render_player_circle(t_img img, t_player player, char **map);
+static void draw_line_1(t_img img, t_pos init, t_pos end, char **map);
 
 void minimap_render(t_img img, t_player player, char **map)
 {
-	render_background(img);
-	render_map(img, map);
+	//render_background(img);
+	//render_map(img, map);
     
 	render_player_circle(img, player, map);
 	//render_player_circle(img, player, map);
@@ -84,7 +85,7 @@ static void render_player(t_img img, t_player player, char **map)
 
     p_pos.x /= resize_scale;
     p_pos.y /= resize_scale;
-    
+
 	draw_fill_square(img, p_pos, PLAYER_MINIMAP_SIZE, PLAYER_COLOR);
 	i = 0;
 	//while (i < NUMBER_RAYS)
@@ -118,11 +119,72 @@ static void render_player_circle(t_img img, t_player player, char **map)
 	i = 0;
 	while (i <= 360)
 	{
-		point_pos = get_new_dist_pos(p_pos, i, PLAYER_MINIMAP_SIZE);
+		point_pos = get_new_dist_pos(p_pos, i, 100);
 		//draw_pixel(img, point_pos.x, point_pos.y, PLAYER_COLOR);
-        draw_line(img, p_pos, point_pos, PLAYER_COLOR);
+        draw_line_1(img, p_pos, point_pos, map);
         
-		i += 0.1;
+		i += 0.01;
 	}
-	draw_line(img, p_pos, get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
+	//draw_line(img, p_pos, get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
+}
+
+static void draw_pixel_1(t_img img, int x, int y, int color)
+{
+	int *pixel;
+
+	x += 500;
+	y += 500;
+	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
+		return ;
+	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
+	*pixel = color;
+}
+
+static t_pos get_map_pos_1(t_pos pos)
+{
+    pos.x = pos.x / MINIMAP_SQUARE_SIZE;
+    pos.y = pos.y / MINIMAP_SQUARE_SIZE;
+    return (pos);
+}
+
+
+static unsigned int get_pixel_map_color(int x, int y, char **map)
+{
+	t_pos pos;
+	
+	pos.x = x;
+	pos.y = y;
+	pos = get_map_pos_1(pos);
+	if (pos.x < 0 || pos.y < 0)
+		return (BGD_MINIMAP_COLOR);
+	if (map[pos.y][pos.x] == '1')
+		return (WALL_COLOR);
+	else
+		return (BGD_MINIMAP_COLOR);
+}
+
+static void draw_line_1(t_img img, t_pos init, t_pos end, char **map)
+{
+	int			steps;
+	t_value		delta;
+	t_value_dec	inc;
+	t_pos_dec	pos;
+
+	delta.x = end.x - init.x;
+	delta.y = end.y - init.y;
+	if (math_abs(delta.x) >= math_abs(delta.y))
+		steps = math_abs(delta.x);
+	else 
+		steps = math_abs(delta.y);
+	inc.x = (double)delta.x / steps;
+	inc.y = (double)delta.y / steps;
+	pos.x = init.x;
+	pos.y = init.y;
+	while (steps-- > 0)
+	{
+		draw_pixel_1(img, pos.x, pos.y, get_pixel_map_color(pos.x, pos.y, map));
+		pos.x += inc.x;
+		pos.y += inc.y;
+	}
+	draw_pixel_1(img, end.x, end.y, get_pixel_map_color(end.x, end.y, map));
 }
