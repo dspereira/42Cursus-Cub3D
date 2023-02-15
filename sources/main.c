@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:26:02 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:25:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int render_win(void *data)
 	frames_count++;
 	if (check_time_ms(1000))
 	{
+		//printf("\033[2J\033[1;1H");
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}
