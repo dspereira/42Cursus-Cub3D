@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:44:34 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:31:47 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,3 +160,17 @@ void draw_fill_square(t_img img, t_pos init, int size, int color)
 		i++;
 	}
 }
+
+/*
+void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color)
+{
+	int height;
+
+	height = end.y - init.y;
+	while (init.x <= end.x)
+	{
+		draw_vertical_line(img, init, height, color);
+		init.x++;
+	}
+}
+*/

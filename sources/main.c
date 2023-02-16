@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 16:25:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:11:02 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int render_win(void *data)
 	//render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
-	minimap_render(win.frame, *player, map.content);
+	//minimap_render(win.frame, *player, map.content);
+	minimap_render(win.frame, map.content, *player);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 	frames_count++;
 	if (check_time_ms(1000))

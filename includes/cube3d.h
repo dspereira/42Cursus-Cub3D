@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:33:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:31:57 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 // valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
-
-#define	MINIMAP_SQUARE_SIZE	15
 
 #define WIN_HEIGHT		1040
 #define WIN_WIDTH		1040
@@ -87,6 +85,12 @@
 #define SO_SIDE			2	//azul
 #define EA_SIDE			1	//verde
 #define WE_SIDE			-1	//vermelho
+
+
+// minimapa
+#define	MINIMAP_SQUARE_SIZE	10
+#define MINIMAP_HEIGHT		200
+#define MINIMAP_WIDTH		200
 
 typedef struct s_img
 {
@@ -252,6 +256,7 @@ void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+//void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
@@ -271,7 +276,7 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-void	minimap_render(t_img img, t_player player, char **map);
+void minimap_render(t_img img, char **map, t_player player);
 
 
 #endif
