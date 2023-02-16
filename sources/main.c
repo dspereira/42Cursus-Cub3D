@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 16:25:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:05:12 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
+	
 	player = player_init((t_pos){100, 100}, 0);
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
@@ -72,7 +73,7 @@ int render_win(void *data)
 	//render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
-	minimap_render(win.frame, *player, map.content);
+	//minimap_render(win.frame, *player, map.content);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 	frames_count++;
 	if (check_time_ms(1000))
@@ -132,6 +133,13 @@ void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx)
 		&(texture->we.width), &(texture->we.height));
 	texture->we.addr = mlx_get_data_addr(texture->we.mlx_img, \
 		&(texture->we.bpp), &(texture->we.line_len), &(texture->we.endian));
+
+	texture->door_side.mlx_img = mlx_xpm_file_to_image(mlx, SIDE_DOOR_TEX, \
+		&(texture->door_side.width), &(texture->door_side.height));
+	texture->door_side.addr = mlx_get_data_addr(texture->door_side.mlx_img, \
+		&(texture->door_side.bpp), &(texture->door_side.line_len), \
+		&(texture->door_side.endian));
+
 	texture->ceil_rgb = rgb[RGB_C];
 	texture->floor_rgb = rgb[RGB_F];
 }

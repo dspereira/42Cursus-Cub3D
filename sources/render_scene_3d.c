@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 16:16:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:35:53 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 	data->win_start_pos.x = win_x_pos;
 	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
 	data->map_wall_pos = ray.map_wall_pos;
-	if (ray.side == EA_SIDE)
+	if (ray.door_side != 0 && ray.side == ray.door_side)
+		data->tex = tex.door_side;
+	else if (ray.side == EA_SIDE)
 		data->tex = tex.ea;
 	else if (ray.side == WE_SIDE)
 		data->tex = tex.we;

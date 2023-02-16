@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:44:34 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:10:53 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,7 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 	return(*color);
 }
 
-/* void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height)
-{
-	int		end_y;
-	int		color;
-
-	end_y = f_pos.y + f_height;
-	while (f_pos.y < end_y)
-	{
-		color = get_tex_color(tex, tex_pos);
-		draw_pixel(frame, f_pos.x, f_pos.y, color);
-		f_pos.y++;
-		tex_pos.y++;
-	}
-} */
-
-void draw_line_tex(t_img frame, t_wall_data wall)
+void	draw_line_tex(t_img frame, t_wall_data wall)
 {
 	int		i;
 	double	xperce;
@@ -54,11 +39,11 @@ void draw_line_tex(t_img frame, t_wall_data wall)
 
 	i = 0;
 	scale = ((double)1) / wall.height;
-	xperce = ((wall.map_wall_pos - floor(wall.map_wall_pos)) * (double)wall.tex.width);
+	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
 	while (i < wall.height)
 	{
-		spot.x = floor(xperce);
-		spot.y = floor((i * scale) * wall.tex.height);
+		spot.x = xperce;
+		spot.y = (i * scale) * wall.tex.height;
 		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
 			get_tex_color(wall.tex, spot));
 		i++;

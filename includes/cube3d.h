@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:33:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:01:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 #define YELLOW_COLOR	0x00ff9933
 
 //#define BGD_MINIMAP_COLOR	0x00c0c1c2
-#define BGD_MINIMAP_COLOR	0x00000000
+#define BGD_MINIMAP_COLOR	0x66000000
 
 #define PLAYER_RADIUS	8
 
@@ -87,6 +87,14 @@
 #define SO_SIDE			2	//azul
 #define EA_SIDE			1	//verde
 #define WE_SIDE			-1	//vermelho
+
+#define NO_DOOR			'A'
+#define SO_DOOR			'B'
+#define EA_DOOR			'C'
+#define WE_DOOR			'D'
+
+#define SIDE_DOOR_TEX	"./textures/door_wall.xpm"
+#define DOOR_CLOSE_TEX	"./textures/door.xpm"
 
 typedef struct s_img
 {
@@ -118,6 +126,8 @@ typedef struct s_tex
 	t_img	so;
 	t_img	ea;
 	t_img	we;
+	t_img	door_side;
+	//t_img	door;
 	int		ceil_rgb;
 	int		floor_rgb;
 }				t_tex;
@@ -173,6 +183,9 @@ typedef struct s_ray
 	double	sx;
 	double	sy;
 	double	map_wall_pos;
+	int		is_door;
+	int		door_side;
+	double	door_dist;
 }	t_ray;
 
 typedef struct s_player 

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-make re && ./cube3D $@ && make fclean
+make re && ./cub3D $@ && make fclean

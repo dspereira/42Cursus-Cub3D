@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:52:23 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:13:24 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:36:20 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void ray_init(t_ray *ray, float dir, float p_dir)
 {
 	ray_update_dir(ray, dir);
 	ray->cos2 = get_cos_btw_ray_player(ray->dir, p_dir);
+	ray->door_side = 0;
+	ray->side = 0;
 }
 
 void ray_update_dir(t_ray *ray, float dir)
