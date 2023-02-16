@@ -15,6 +15,7 @@
 static int	check_empty_map(const char **map);
 static int	check_nbr_player_start_pos(const char **map);
 static int	check_one_line_map(char *line);
+static int	check_doors(const char **map);
 
 int	check_map_elements(char **map)
 {
@@ -34,6 +35,11 @@ int	check_map_elements(char **map)
 	}
 	if (!check_nbr_player_start_pos((const char **)map))
 		return (FALSE);
+	if (!check_doors((const char **)map))
+	{
+		print_error_msg("Incorrect doors position");
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -49,7 +55,7 @@ static int	check_one_line_map(char *line)
 		else if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
 			i++;
-		else if (line[i] == ' ')
+		else if (line[i] == ' ' || line[i] == 'D')
 			i++;
 		else
 		{
@@ -111,5 +117,32 @@ static int	check_empty_map(const char **map)
 	}
 	if (nbr_map_elem < 1)
 		return (FALSE);
+	return (TRUE);
+}
+
+static int	check_doors(const char **map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'D')
+			{
+				if (map[y + 1][x] == 'D' || map[y - 1][x] == 'D' \
+					|| map[y][x + 1] == 'D' || map[y][x - 1] == 'D')
+					return (FALSE);
+				else if (!((map[y][x + 1] == '1' && map[y][x - 1] == '1')
+					|| (map[y + 1][x] == '1' && map[y - 1][x] == '1')))
+					return (FALSE);
+			}
+			x++;
+		}
+		y++;
+	}
 	return (TRUE);
 }

@@ -21,7 +21,7 @@ static int	check_rgb_colour(int colour);
 
 int	check_textures(char **textures, int *rgb_colors)
 {
-	print_textures(textures, rgb_colors);
+	//print_textures(textures, rgb_colors);
 	if (!check_rgb_colour(rgb_colors[RGB_C])
 		|| !check_rgb_colour(rgb_colors[RGB_F])
 		|| !check_tex_files(textures[TEX_NO])

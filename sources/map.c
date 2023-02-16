@@ -40,5 +40,7 @@ int	get_all_map_info(t_map **map, char *filename)
 		|| !get_player_info((*map)->content, &(*map)->orientation, \
 		&(*map)->pos) || !get_map_dimensions(map))
 		return (FALSE);
+	if (get_doors_info((*map)->content, &(*map)->doors) == -1)
+		return (FALSE);
 	return (TRUE);
 }

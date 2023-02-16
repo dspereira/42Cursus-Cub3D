@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 16:02:24 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:25:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int main(int argc, char **argv)
 	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
-	
 	return (0);
 }
 
@@ -68,17 +67,17 @@ int render_win(void *data)
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 		player_rotation(win, player, mouse_get_pos(win));
 	mouse_control(win, &((t_data*)data)->mouse_state);
-	
+
 	//render_scene_2d(win.frame, *player, map.content);
-	render_scene_3d(win.frame, *player);
+	//render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
+
+	minimap_render(win.frame, *player, map.content);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-
-
-
 	frames_count++;
 	if (check_time_ms(1000))
 	{
+		//printf("\033[2J\033[1;1H");
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}
@@ -89,6 +88,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 {
 	if (ac == 2)
 	{
+		printf("---------------\n");
 		if (check_file(av[1]))
 		{
 			if (!init_map_struct(map))
@@ -106,6 +106,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 			printf("Map KO\n");
 			return (0);
 		}
+		printf("---------------\n\n");
 		//free_memory(map);
 		return (1);
 	}

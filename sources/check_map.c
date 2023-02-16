@@ -21,7 +21,7 @@ int	check_map(char **map)
 		return (FALSE);
 	if (!check_map_elements(map))
 		return (FALSE);
-	print_map(map);
+	//print_map(map);
 	if (!check_map_walls(map))
 		return (FALSE);
 	return (TRUE);
