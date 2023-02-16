@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:01:21 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:13:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@
 #define WE_DOOR			'D'
 
 #define SIDE_DOOR_TEX	"./textures/door_wall.xpm"
-#define DOOR_CLOSE_TEX	"./textures/door.xpm"
+#define DOOR_TEX	"./textures/close_door.xpm"
 
 typedef struct s_img
 {
@@ -127,7 +127,7 @@ typedef struct s_tex
 	t_img	ea;
 	t_img	we;
 	t_img	door_side;
-	//t_img	door;
+	t_img	door;
 	int		ceil_rgb;
 	int		floor_rgb;
 }				t_tex;

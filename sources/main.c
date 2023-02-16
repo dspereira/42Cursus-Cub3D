@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 15:05:12 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:11:25 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,20 @@ static int get_game_configs(int ac, char **av, t_map *map)
 	return (0);
 }
 
+static void	init_doors_tex(t_tex *texture, void *mlx)
+{
+	texture->door_side.mlx_img = mlx_xpm_file_to_image(mlx, SIDE_DOOR_TEX, \
+		&(texture->door_side.width), &(texture->door_side.height));
+	texture->door_side.addr = mlx_get_data_addr(texture->door_side.mlx_img, \
+		&(texture->door_side.bpp), &(texture->door_side.line_len), \
+		&(texture->door_side.endian));
+	texture->door.mlx_img = mlx_xpm_file_to_image(mlx, DOOR_TEX, \
+		&(texture->door.width), &(texture->door.height));
+	texture->door.addr = mlx_get_data_addr(texture->door.mlx_img, \
+		&(texture->door.bpp), &(texture->door.line_len), \
+		&(texture->door.endian));
+}
+
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx)
 {
 	texture->no.mlx_img = mlx_xpm_file_to_image(mlx, tex_files[TEX_NO], \
@@ -133,13 +147,7 @@ void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx)
 		&(texture->we.width), &(texture->we.height));
 	texture->we.addr = mlx_get_data_addr(texture->we.mlx_img, \
 		&(texture->we.bpp), &(texture->we.line_len), &(texture->we.endian));
-
-	texture->door_side.mlx_img = mlx_xpm_file_to_image(mlx, SIDE_DOOR_TEX, \
-		&(texture->door_side.width), &(texture->door_side.height));
-	texture->door_side.addr = mlx_get_data_addr(texture->door_side.mlx_img, \
-		&(texture->door_side.bpp), &(texture->door_side.line_len), \
-		&(texture->door_side.endian));
-
+	init_doors_tex(texture, mlx);
 	texture->ceil_rgb = rgb[RGB_C];
 	texture->floor_rgb = rgb[RGB_F];
 }
