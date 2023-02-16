@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 15:35:53 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:13:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ static void render_walls_tex(t_img img, t_ray *rays, t_tex tex)
 	pos.x = 0;
 	while (pos.x < n_rays)
 	{
-		get_wall_data(rays[pos.x], pos.x, tex, &wall_data);	
+		get_wall_data(rays[pos.x], pos.x, tex, &wall_data);
+		if (rays[pos.x].is_door)
+			draw_door_tex(img, wall_data);
 		draw_line_tex(img, wall_data);
 		pos.x++;
 	}
@@ -88,6 +90,13 @@ void get_wall_data(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 	data->map_wall_pos = ray.map_wall_pos;
 	if (ray.door_side != 0 && ray.side == ray.door_side)
 		data->tex = tex.door_side;
+	else if (ray.is_door)
+	{
+		data->height = (int)((WIN_HEIGHT) / ray.door_dist);
+		data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
+		data->map_wall_pos = ray.map_door_pos;
+		data->tex = tex.door;
+	}
 	else if (ray.side == EA_SIDE)
 		data->tex = tex.ea;
 	else if (ray.side == WE_SIDE)

@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:05:16 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:09:48 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,54 @@ void	raycast_all(t_player *player, char **map)
 		raycast(&(player->rays[i]), player->pos, map, player->dir);
 }
 
+static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos p_pos)
+{
+	t_pos	win_pos;
+	t_pos	final_pos;
+	int		square_size;
+
+	t_pos_dec	wall_pos;
+
+    square_size = WIN_HEIGHT / MAP_HEIGHT;
+	win_pos = get_win_pos(m_pos);
+	if (ray->side == EA_SIDE)
+		final_pos.x = win_pos.x;
+	else if (ray->side == SO_SIDE)
+		final_pos.y = win_pos.y;
+	else if (ray->side == NO_SIDE)
+		final_pos.y = win_pos.y + square_size;
+	else if (ray->side == WE_SIDE)
+		final_pos.x = win_pos.x + square_size;
+	if (ray->side == EA_SIDE)
+		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
+	else if (ray->side == SO_SIDE)
+		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
+	else if (ray->side == NO_SIDE)
+		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
+	else if (ray->side == WE_SIDE)
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
+
+	wall_pos = get_new_dist_pos_dec(p_pos, ray->dir, ray->length_win);
+
+	if (ray->side == EA_SIDE)
+		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).y;
+	else if (ray->side == SO_SIDE)
+		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == NO_SIDE)
+		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == WE_SIDE)
+		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).y;
+
+}
+
 static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 {
 	t_value		step;
 	t_value_dec	ray_length;
 	t_pos		map_pos;
+	int			test_side;
 
+	ray->is_door = 0;
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
@@ -49,6 +91,19 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
 			ray->side = SO_SIDE;
+		}
+		if (map[map_pos.y][map_pos.x] == 'G')
+		{
+			ray->is_door = 1;
+			if (ray->side == EA_SIDE)
+				test_side = ray->side * step.x;
+			else
+				test_side = ray->side * step.y;
+			if (test_side == EA_SIDE || test_side == WE_SIDE)
+				ray->door_dist = (ray_length.x - ray->sx) * ray->cos2;
+			if (test_side == SO_SIDE || test_side == NO_SIDE)
+				ray->door_dist = (ray_length.y - ray->sy) * ray->cos2;
+			set_distace_win1(ray, map_pos, p_pos);
 		}
 	}
 	if (ray->side == EA_SIDE)
@@ -173,7 +228,12 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
 	else if (ray->side == WE_SIDE)
 		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
+
+	
 }
+
+
+
 
 static int	get_door_side(char map_character)
 {

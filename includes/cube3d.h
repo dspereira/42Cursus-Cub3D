@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:13:21 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:08:24 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@
 #define SO_DOOR			'B'
 #define EA_DOOR			'C'
 #define WE_DOOR			'D'
+
+#define DOOR_SIDE		'3'
 
 #define SIDE_DOOR_TEX	"./textures/door_wall.xpm"
 #define DOOR_TEX	"./textures/close_door.xpm"
@@ -183,6 +185,7 @@ typedef struct s_ray
 	double	sx;
 	double	sy;
 	double	map_wall_pos;
+	double	map_door_pos;
 	int		is_door;
 	int		door_side;
 	double	door_dist;
@@ -260,7 +263,11 @@ void	raycast_all(t_player *player, char **map);
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
+
 void draw_line_tex(t_img frame, t_wall_data wall);
+
+void draw_door_tex(t_img frame, t_wall_data wall);
+
 void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
