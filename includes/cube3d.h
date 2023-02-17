@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 15:24:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:42:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,13 +196,13 @@ typedef struct s_wall_data
 	int			height;
 }	t_wall_data;
 
-typedef struct s_minimap
+typedef struct s_mini_map
 {
 	t_value	size;
 	t_value	half_size;
 	t_pos	win_pos;
-}	t_minimap; 
-
+	float	map_scale;
+}	t_mini_map; 
 
 typedef struct s_data
 {
@@ -210,6 +210,7 @@ typedef struct s_data
 	t_map		map;
 	t_player	*player;
 	t_tex		tex;
+	t_mini_map	minimap;
 	int			mouse_state;
 }	t_data; 
 
@@ -286,7 +287,9 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-void minimap_render(t_img img, char **map, t_player player);
+t_mini_map minimap_init(void);
+void minimap_render(t_img img, char **map, t_player player, t_mini_map minimap);
+//void minimap_render(t_img img, char **map, t_player player);
 
 
 #endif
