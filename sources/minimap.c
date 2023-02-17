@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/16 17:38:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:14:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,13 @@ unsigned int minimap_get_pixel_color(int x, int y, char **map);
 void minimap_draw_line(t_img img, t_pos init_pos, int height);
 unsigned int minimap_draw_pixel(t_img img, t_pos pos, int color);
 t_pos minimap_get_init_pos(t_pos p_pos);
+t_pos minimap_get_shifted_pos(t_pos pos, t_pos init_pos);
 
 
 void minimap_render(t_img img, char **map, t_player player)
 {
 	minimap_draw_map(img, map, player.pos);
 }
-
-/*
-void minimap_draw_map(t_img img, char **map, t_pos p_pos)
-{
-	t_pos			init_pos;
-	t_pos			end_pos;
-	int				height;
-
-	minimap_set_frame_pos(p_pos, &init_pos, &end_pos);
-
-	height = end_pos.y - init_pos.y;
-	while (init_pos.x <= end_pos.x)
-	{
-		minimap_draw_line(img, init_pos, height);
-		init_pos.x++;
-	}
-}
-*/
 
 void minimap_draw_map(t_img img, char **map, t_pos p_pos)
 {
@@ -68,15 +51,12 @@ void minimap_draw_map(t_img img, char **map, t_pos p_pos)
 		while (pos.x < init_pos.x + MINIMAP_WIDTH)
 		{
 			color = minimap_get_pixel_color(pos.x, pos.y, map);
-			minimap_draw_pixel(img, pos, color);
+			minimap_draw_pixel(img, minimap_get_shifted_pos(pos, init_pos), color);
 			pos.x++;
 		}
 		pos.y++;
 	}
-
-
 }
-
 
 void minimap_set_frame_pos(t_pos p_pos, t_pos *init_pos, t_pos *end_pos)
 {
@@ -130,7 +110,15 @@ t_pos minimap_get_map_pos(t_pos pos)
 	return(pos);
 }
 
+t_pos minimap_get_shifted_pos(t_pos pos, t_pos init_pos)
+{
+	int	offset;
 
+	offset = 200;
+	pos.x += offset - init_pos.x;
+	pos.y += offset - init_pos.y;
+	return (pos);
+}
 
 
 
