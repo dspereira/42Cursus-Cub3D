@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 16:09:25 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:32:19 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 #define DOOR_TEX		"./textures/door_sprites/door_open_3.xpm"
 //#define DOOR_TEX		"./textures/blank.xpm"
 
-#define NONE_COLOR_VALUE	4278190080
+#define NONE_COLOR_VALUE	0x00FFFFFF
 
 typedef struct s_img
 {
