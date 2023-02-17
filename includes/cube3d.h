@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:31:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:24:29 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,14 @@ typedef struct s_wall_data
 	int			height;
 }	t_wall_data;
 
+typedef struct s_minimap
+{
+	t_value	size;
+	t_value	half_size;
+	t_pos	win_pos;
+}	t_minimap; 
+
+
 typedef struct s_data
 {
 	t_win		*win;
@@ -204,6 +212,8 @@ typedef struct s_data
 	t_tex		tex;
 	int			mouse_state;
 }	t_data; 
+
+
 
 
 // math_utils.c
