@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 16:42:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:41:27 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 //#define BGD_MINIMAP_COLOR	0x00c0c1c2
 #define BGD_MINIMAP_COLOR	0x00000000
 
-#define PLAYER_RADIUS	8
+#define PLAYER_RADIUS	4
 
 #define MOUSE_HIDE			1
 #define MOUSE_SHOW			2
