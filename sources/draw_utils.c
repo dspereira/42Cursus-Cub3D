@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 10:56:38 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:09:33 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,41 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 
 void	draw_line_tex(t_img frame, t_wall_data wall)
 {
-	int		i;
-	double	xperce;
-	t_pos	spot;
-	float	scale;
+	int					i;
+	double				xperce;
+	t_pos				spot;
+	unsigned int		color;
 
 	i = 0;
-	scale = ((double)1) / wall.height;
 	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
 	while (i < wall.height)
 	{
 		spot.x = xperce;
-		spot.y = (i * scale) * wall.tex.height;
+		spot.y = ((double)i / wall.height) * wall.tex.height;
+		color = get_tex_color(wall.tex, spot);
 		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
-			get_tex_color(wall.tex, spot));
+			color);
 		i++;
 	}
 }
 
 void	draw_door_tex(t_img frame, t_wall_data wall)
 {
-	int		i;
-	double	xperce;
-	t_pos	spot;
-	float	scale;
+	int					i;
+	double				xperce;
+	t_pos				spot;
+	unsigned int		color;
 
 	i = 0;
-	scale = ((double)1) / wall.height;
 	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
 	while (i < wall.height)
 	{
 		spot.x = xperce;
-		spot.y = (i * scale) * wall.tex.height;
-		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
-			get_tex_color(wall.tex, spot));
+		spot.y = ((double)i / wall.height) * wall.tex.height;
+		color = get_tex_color(wall.tex, spot);
+		if (color != NONE_COLOR_VALUE)
+			draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
+				color);
 		i++;
 	}
 }

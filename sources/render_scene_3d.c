@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 11:58:47 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:46:50 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void render_walls_tex(t_img img, t_ray *rays, t_tex tex)
 		if (rays[pos_x].is_door)
 		{
 			get_wall_data1(rays[pos_x], pos_x, tex, &wall_data);
-			draw_line_tex(img, wall_data);
+			draw_door_tex(img, wall_data);
 		}
 		pos_x++;
 	}
