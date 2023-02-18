@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:31:47 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:41:55 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void draw_pixel(t_img img, int x, int y, int color)
 {
 	int *pixel;
 
-	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
+	if (x >= WIN_WIDTH || y >= WIN_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
 	*pixel = color;

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/18 12:44:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:48:31 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap);
 t_pos	minimap_get_map_pos(t_pos pos);
 unsigned int minimap_get_pixel_color(int x, int y, char **map);
-unsigned int minimap_draw_pixel(t_img img, t_pos pos, int color);
 t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap);
 t_pos minimap_get_drawing_pos(t_pos pos, t_pos offset_correct, t_mini_map minimap);
 t_pos minimap_get_player_pos(t_pos pos, t_mini_map minimap);
@@ -64,7 +63,8 @@ void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 		{
 			color = minimap_get_pixel_color(pos.x, pos.y, map);
 			draw_pos = minimap_get_drawing_pos(pos, init_pos, minimap);
-			minimap_draw_pixel(img, draw_pos, color);
+			if (color != MINIMAP_COLOR_NONE)
+				draw_pixel(img, draw_pos.x, draw_pos.y, color);
 			pos.x++;
 		}
 		pos.y++;
@@ -88,17 +88,13 @@ unsigned int minimap_get_pixel_color(int x, int y, char **map)
 	pos.y = y;
 	pos = minimap_get_map_pos(pos);
 	if (pos.x < 0 || pos.y < 0 || pos.x >= MAP_WIDTH || pos.y >= MAP_HEIGHT)
-		return (BGD_MINIMAP_COLOR);
-	if (map[pos.y][pos.x] == '1')
-		return (WALL_COLOR);
+		return (MINIMAP_COLOR_NONE);
+	else if (map[pos.y][pos.x] == ' ')
+		return (MINIMAP_COLOR_NONE);
+	else if (map[pos.y][pos.x] == '1')
+		return (MINIMAP_COLOR_WALL);
 	else
-		return (BGD_MINIMAP_COLOR);
-}
-
-unsigned int minimap_draw_pixel(t_img img, t_pos pos, int color)
-{
-	if ((pos.x >= 0 && pos.x < WIN_WIDTH) && (pos.y >= 0 && pos.y < WIN_HEIGHT))
-		draw_pixel(img, pos.x, pos.y, color);
+		return (MINIMAP_COLOR_GROUND);
 }
 
 t_pos minimap_get_map_pos(t_pos pos)
@@ -141,9 +137,9 @@ void minimap_draw_player_circle(t_img img, t_pos p_pos, float dir)
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS);
 		draw_line(img, p_pos, point, MINIMAP_PLAYER_COLOR);
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 1);
-		minimap_draw_pixel(img, point, MINIMAP_ARROW_COLOR);
+		draw_pixel(img, point.x, point.y, MINIMAP_ARROW_COLOR);
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 2);
-		minimap_draw_pixel(img, point, MINIMAP_ARROW_COLOR);
+		draw_pixel(img, point.x, point.y, MINIMAP_ARROW_COLOR);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/18 12:46:06 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:46:23 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
-#define WIN_HEIGHT		1040
-#define WIN_WIDTH		1040
+#define WIN_HEIGHT		1200
+#define WIN_WIDTH		1200
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -88,13 +88,20 @@
 
 
 // minimapa
-#define	MINIMAP_SQUARE_SIZE	15
-#define MINIMAP_PLAYER_RAD	4
-#define MINIMAP_PLAYER_COLOR 0x004B537A
-#define MINIMAP_ARROW_COLOR  0x0099ABFB
-#define MINIMAP_ARROW_SIZE	8
-#define MINIMAP_HEIGHT		200
-#define MINIMAP_WIDTH		200
+#define	MINIMAP_SQUARE_SIZE		15
+#define MINIMAP_PLAYER_RAD		4
+//#define MINIMAP_PLAYER_COLOR 	0x004B537A
+//#define MINIMAP_ARROW_COLOR  	0x0099ABFB
+#define MINIMAP_PLAYER_COLOR 	0x007a907c
+#define MINIMAP_ARROW_COLOR  	0x00c9b180
+#define MINIMAP_COLOR_NONE		0xFFFFFFFF
+//#define MINIMAP_COLOR_GROUND	0x004d4d4d
+//#define MINIMAP_COLOR_WALL		0x00000000
+#define MINIMAP_COLOR_GROUND	0x00668284
+#define MINIMAP_COLOR_WALL		0x002a2829
+#define MINIMAP_ARROW_SIZE		8
+#define MINIMAP_HEIGHT			200
+#define MINIMAP_WIDTH			200
 
 typedef struct s_img
 {
