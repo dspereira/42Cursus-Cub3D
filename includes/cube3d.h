@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 21:41:27 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:23:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 
 
 // minimapa
-#define	MINIMAP_SQUARE_SIZE	10
+#define	MINIMAP_SQUARE_SIZE	15
 #define MINIMAP_HEIGHT		200
 #define MINIMAP_WIDTH		200
 
@@ -201,6 +201,7 @@ typedef struct s_mini_map
 	t_value	size;
 	t_value	half_size;
 	t_pos	win_pos;
+	t_pos	player_pos;
 	float	map_scale;
 }	t_mini_map; 
 
