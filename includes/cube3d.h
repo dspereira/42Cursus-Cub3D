@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/18 10:23:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 12:46:06 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@
 
 // minimapa
 #define	MINIMAP_SQUARE_SIZE	15
+#define MINIMAP_PLAYER_RAD	4
+#define MINIMAP_PLAYER_COLOR 0x004B537A
+#define MINIMAP_ARROW_COLOR  0x0099ABFB
+#define MINIMAP_ARROW_SIZE	8
 #define MINIMAP_HEIGHT		200
 #define MINIMAP_WIDTH		200
 

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/18 10:27:18 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 12:44:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ unsigned int minimap_draw_pixel(t_img img, t_pos pos, int color);
 t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap);
 t_pos minimap_get_drawing_pos(t_pos pos, t_pos offset_correct, t_mini_map minimap);
 t_pos minimap_get_player_pos(t_pos pos, t_mini_map minimap);
-void minimap_draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
-void minimap_draw_player1(t_img img, float dir, t_mini_map minimap);
+void minimap_draw_player_circle(t_img img, t_pos p_pos, float dir);
+void minimap_draw_player_arrow(t_img img, t_pos p_pos, float dir);
+void minimap_draw_player(t_img img, float dir, t_mini_map minimap);
 
 t_mini_map minimap_init(void)
 {
@@ -43,8 +44,7 @@ t_mini_map minimap_init(void)
 void minimap_render(t_img img, char **map, t_player player, t_mini_map minimap)
 {
 	minimap_draw_map(img, map, player.pos, minimap);
-	//minimap_draw_player(img, player.pos, player.dir, minimap);
-	minimap_draw_player1(img, player.dir, minimap);
+	minimap_draw_player(img, player.dir, minimap);
 }
 
 void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
@@ -124,77 +124,50 @@ t_pos minimap_get_player_pos(t_pos pos, t_mini_map minimap)
 	return (pos);
 }
 
-
-
-// create function to draw circle
-//ex: void draw_fill_circle(t_pos pos, int radius);
-//ex: void draw_stroke_circle(t_pos pos, int randius);
-void minimap_draw_player1(t_img img, float dir, t_mini_map minimap)
+void minimap_draw_player(t_img img, float dir, t_mini_map minimap)
 {
-	t_pos p_pos;
+	minimap_draw_player_circle(img, minimap.player_pos, dir);
+	minimap_draw_player_arrow(img, minimap.player_pos, dir);
+}
+
+void minimap_draw_player_circle(t_img img, t_pos p_pos, float dir)
+{
 	t_pos point;
 	int	i;
 
-
-	float new_angle;
-	
-	p_pos = minimap.player_pos;
-	i = 0;
-	while (i <= 360)
+	i = -1;
+	while (++i < 360)
 	{
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS);
-		draw_line(img, p_pos, point, 0x004B537A);
+		draw_line(img, p_pos, point, MINIMAP_PLAYER_COLOR);
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 1);
-		minimap_draw_pixel(img, point, 0x0099ABFB);
+		minimap_draw_pixel(img, point, MINIMAP_ARROW_COLOR);
 		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 2);
-		minimap_draw_pixel(img, point, 0x0099ABFB);
-		i += 1;
+		minimap_draw_pixel(img, point, MINIMAP_ARROW_COLOR);
 	}
+}
 
+void minimap_draw_player_arrow(t_img img, t_pos p_pos, float dir)
+{
+	t_pos	new_pos;
+	t_pos	point;
+	float	new_dir;
+	float 	i;
 
-	t_pos center;
-
-	center = get_new_dist_pos(p_pos, dir, PLAYER_RADIUS + 10);
-	minimap_draw_pixel(img, center, 0x00FFFFFF);
-
-	new_angle = normalizeAngles(dir + 180);
-	i = new_angle;
-	//printf("angulo novo: %i\n", i);
-	while (i < new_angle + 32)
+	new_pos = get_new_dist_pos(p_pos, dir, PLAYER_RADIUS + MINIMAP_ARROW_SIZE);
+	new_dir = normalizeAngles(dir + 180);
+	i = new_dir;
+	while (i <= new_dir + 28)
 	{
-		point = get_new_dist_pos(center, i, 8);
-		draw_line(img, center, point, 0x0099ABFB);			
-		i++;
+		point = get_new_dist_pos(new_pos, i, MINIMAP_ARROW_SIZE - 1);
+		draw_line(img, new_pos, point, MINIMAP_ARROW_COLOR);
+		i ++;
 	}
-	i = new_angle;
-	while (i > new_angle - 32)
+	i = new_dir;
+	while (i >= new_dir - 28)
 	{
-		point = get_new_dist_pos(center, i, 8);
-		draw_line(img, center, point, 0x0099ABFB);
+		point = get_new_dist_pos(new_pos, i, MINIMAP_ARROW_SIZE - 1);
+		draw_line(img, new_pos, point, MINIMAP_ARROW_COLOR);
 		i--;
 	}
 }
-
-
-
-
-/*
-void minimap_draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap)
-{
-	t_pos	point;
-	t_pos	init_pos;
-	t_pos	draw_pos;
-	int		i;
-
-	p_pos = minimap_get_player_pos(p_pos, minimap);
-	init_pos = minimap_get_init_pos(p_pos, minimap);
-	i = 0;
-	while (i <= 360)
-	{
-		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS);
-		draw_pos = minimap_get_drawing_pos(point, init_pos, minimap);
-		minimap_draw_pixel(img, draw_pos, PLAYER_COLOR);
-		i += 1;
-	}
-}
-*/
