@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/18 15:46:23 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:31:51 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
-#define WIN_HEIGHT		1200
-#define WIN_WIDTH		1200
+#define WIN_HEIGHT		1040
+#define WIN_WIDTH		1040
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH

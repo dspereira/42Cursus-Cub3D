@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/18 15:48:31 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:30:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_pos minimap_get_player_pos(t_pos pos, t_mini_map minimap);
 void minimap_draw_player_circle(t_img img, t_pos p_pos, float dir);
 void minimap_draw_player_arrow(t_img img, t_pos p_pos, float dir);
 void minimap_draw_player(t_img img, float dir, t_mini_map minimap);
+void minimap_draw_player1(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
 
 t_mini_map minimap_init(void)
 {
@@ -43,7 +44,7 @@ t_mini_map minimap_init(void)
 void minimap_render(t_img img, char **map, t_player player, t_mini_map minimap)
 {
 	minimap_draw_map(img, map, player.pos, minimap);
-	minimap_draw_player(img, player.dir, minimap);
+	minimap_draw_player1(img, player.pos, player.dir, minimap);
 }
 
 void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
@@ -53,9 +54,18 @@ void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 	t_pos	pos;
 	int		color;
 
+	//printf("################################\n");
+
 	p_pos = minimap_get_player_pos(p_pos, minimap);
 	init_pos = minimap_get_init_pos(p_pos, minimap);
 	pos.y = init_pos.y;
+	pos.x = init_pos.x;
+
+	t_pos test = minimap_get_drawing_pos(pos, init_pos, minimap);
+	//printf("pos x: %i  y: %i\n", pos.x, pos.y);
+	//printf("minimapa x: %i  y: %i\n", test.x, test.y);
+
+
 	while (pos.y < init_pos.y + minimap.size.y)
 	{
 		pos.x = init_pos.x;
@@ -63,7 +73,7 @@ void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 		{
 			color = minimap_get_pixel_color(pos.x, pos.y, map);
 			draw_pos = minimap_get_drawing_pos(pos, init_pos, minimap);
-			if (color != MINIMAP_COLOR_NONE)
+			//if (color != MINIMAP_COLOR_NONE)
 				draw_pixel(img, draw_pos.x, draw_pos.y, color);
 			pos.x++;
 		}
@@ -73,12 +83,147 @@ void minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 
 t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
 {
-	t_pos 		pos;
+	t_pos	pos;
+	int		y_top;
+	int		y_bot;
+	int		x_left;
+	int		x_right;
+
+	pos.x = p_pos.x - minimap.half_size.x;
+	pos.y = p_pos.y - minimap.half_size.y;
+
+	
+
+	y_top = pos.y;
+	y_bot = pos.y + minimap.size.y;
+	x_left = pos.x;
+	x_right = pos.x + minimap.size.x;
+
+	if (y_top < 0)
+		pos.y = 0; // + MINIMAP_SQUARE_SIZE;
+	if (y_bot >= MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+		pos.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT - minimap.size.y; // - MINIMAP_SQUARE_SIZE;
+	
+	if (x_left < 0)
+		pos.x = 0; // + MINIMAP_SQUARE_SIZE;
+	if (x_right >= MINIMAP_SQUARE_SIZE * MAP_WIDTH)
+		pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH - minimap.size.x; // - MINIMAP_SQUARE_SIZE;
+
+	//printf("get_init_pos x: %i  y: %i\n", pos.x, pos.y);
+	return (pos);
+}
+
+/*
+t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
+{
+	t_pos	top_r_pos;
+	t_pos	top_l_pos;
+	t_pos	bot_r_pos;
+	t_pos	bot_l_pos;
+	t_pos	res_pos;
+
+	top_l_pos.x = p_pos.x - minimap.half_size.x;
+	top_l_pos.y = p_pos.y - minimap.half_size.y;
+
+	top_r_pos.x = top_l_pos.x + minimap.size.x;
+	top_r_pos.y = top_l_pos.y;
+
+	bot_l_pos.x = top_l_pos.x;
+	bot_l_pos.y = top_l_pos.y + minimap.size.y;
+
+	bot_r_pos.x = bot_l_pos.x + minimap.size.x;
+	bot_r_pos.x = bot_l_pos.y;
+
+	res_pos = top_l_pos;
+	//canto superior esquerdo
+	if (top_l_pos.y < 0 && top_l_pos.x < 0)
+	{
+		res_pos.x = 0;
+		res_pos.y = 0;
+	}
+	// centro left -> tentar redizir if talvez colocar no final
+	else if ((top_l_pos.y >= 0 && top_l_pos.y <= MINIMAP_SQUARE_SIZE * MAP_HEIGHT && top_l_pos.x < 0) 
+			&& bot_l_pos.y >= 0 && bot_l_pos.y <= MINIMAP_SQUARE_SIZE * MAP_HEIGHT && bot_l_pos.x < 0)
+	{
+		res_pos.x = 0;
+	}
+	//canto inferior esquerdo
+	else if (bot_l_pos.x <= 0 && bot_l_pos.y > MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+	{
+		res_pos.x = 0;
+		res_pos.y = (MINIMAP_SQUARE_SIZE * MAP_HEIGHT) - minimap.size.y;	
+	}
+
+
+	//canto superior direito
+	if (top_r_pos.y < 0 && top_r_pos.x > MINIMAP_SQUARE_SIZE * MAP_WIDTH)
+	{
+		res_pos.x = (MINIMAP_SQUARE_SIZE * MAP_WIDTH) - minimap.size.x;
+		res_pos.y = 0;
+	}
+	// centro direito -> tentar redizir if talvez colocar no final
+	else if ((top_r_pos.y >= 0 && top_r_pos.y <= MINIMAP_SQUARE_SIZE * MAP_HEIGHT && top_r_pos.x > MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+			&& bot_r_pos.y >= 0 && bot_r_pos.y <= MINIMAP_SQUARE_SIZE * MAP_HEIGHT && bot_r_pos.x > MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+	{
+		printf("segundo if\n");
+		res_pos.x = (MINIMAP_SQUARE_SIZE * MAP_WIDTH) - minimap.size.x;
+	}
+	//canto inferior direito
+	else if (bot_r_pos.x <= 0 && bot_r_pos.y > MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+	{
+		res_pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH;
+		res_pos.y = (MINIMAP_SQUARE_SIZE * MAP_HEIGHT) - minimap.size.y;	
+	}
+
+	return (res_pos);
+}
+
+*/
+
+/*
+t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
+{
+	t_pos	pos;
+
+	pos.x = p_pos.x - minimap.half_size.x;
+	pos.y = p_pos.y - minimap.half_size.y;
+	
+	//canto superior esquerdo
+	if (pos.y < 0 && pos.x < 0)
+	{
+		pos.x = 0;
+		pos.y = 0;
+	}
+	//lateral esquerda
+	else if (pos.y >= 0 && pos.y <= MINIMAP_SQUARE_SIZE * MAP_HEIGHT && pos.x < 0)
+	{
+		pos.x = 0;
+	}
+	//canto inferior esquerdo
+	else if (pos.x <= 0 && pos.y > MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+	{
+		printf("entra aqui \n");
+		pos.x = 0;
+		pos.y = (MINIMAP_SQUARE_SIZE * MAP_HEIGHT) - minimap.size.y;	
+	}
+	printf("player        x: %i y: %i\n", p_pos.x, p_pos.y);
+	printf("map           x: %i y: %i\n", pos.x, pos.y);
+	printf("map_size %i \n", MINIMAP_SQUARE_SIZE * MAP_HEIGHT);
+
+	
+	return (pos);
+}
+*/
+/*
+t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
+{
+	t_pos	pos;
 
 	pos.x = p_pos.x - minimap.half_size.x;
 	pos.y = p_pos.y - minimap.half_size.y;
 	return (pos);
 }
+*/
 
 unsigned int minimap_get_pixel_color(int x, int y, char **map)
 {
@@ -120,12 +265,26 @@ t_pos minimap_get_player_pos(t_pos pos, t_mini_map minimap)
 	return (pos);
 }
 
+
+void minimap_draw_player1(t_img img, t_pos p_pos, float dir, t_mini_map minimap)
+{
+	t_pos	init_pos;
+
+	p_pos = minimap_get_player_pos(p_pos, minimap);
+	init_pos = minimap_get_init_pos(p_pos, minimap);
+	p_pos = minimap_get_drawing_pos(p_pos, init_pos, minimap);
+	minimap_draw_player_circle(img, p_pos, dir);
+	minimap_draw_player_arrow(img, p_pos, dir);
+}
+
+
+/*
 void minimap_draw_player(t_img img, float dir, t_mini_map minimap)
 {
 	minimap_draw_player_circle(img, minimap.player_pos, dir);
 	minimap_draw_player_arrow(img, minimap.player_pos, dir);
 }
-
+*/
 void minimap_draw_player_circle(t_img img, t_pos p_pos, float dir)
 {
 	t_pos point;
