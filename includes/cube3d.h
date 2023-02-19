@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/18 18:31:51 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:45:32 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,16 @@
 #define MINIMAP_PLAYER_RAD		4
 //#define MINIMAP_PLAYER_COLOR 	0x004B537A
 //#define MINIMAP_ARROW_COLOR  	0x0099ABFB
-#define MINIMAP_PLAYER_COLOR 	0x007a907c
-#define MINIMAP_ARROW_COLOR  	0x00c9b180
+//#define MINIMAP_PLAYER_COLOR 	0x007a907c
+#define MINIMAP_PLAYER_COLOR 	0x002a6e78
+//#define MINIMAP_ARROW_COLOR  	0x00c9b180
+#define MINIMAP_ARROW_COLOR  	0x00880606
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
 //#define MINIMAP_COLOR_GROUND	0x004d4d4d
 //#define MINIMAP_COLOR_WALL		0x00000000
 #define MINIMAP_COLOR_GROUND	0x00668284
 #define MINIMAP_COLOR_WALL		0x002a2829
-#define MINIMAP_ARROW_SIZE		8
+#define MINIMAP_ARROW_SIZE		10
 #define MINIMAP_HEIGHT			200
 #define MINIMAP_WIDTH			200
 
