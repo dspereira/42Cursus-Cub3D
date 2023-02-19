@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/19 11:30:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:14:04 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,78 @@ t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
 	x_right = pos.x + minimap.size.x;
 
 	if (y_top < 0)
-		pos.y = 0; // + MINIMAP_SQUARE_SIZE;
+		pos.y = 0;
 	if (y_bot >= MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
-		pos.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT - minimap.size.y; // - MINIMAP_SQUARE_SIZE;
+		pos.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT - minimap.size.y;
 	
 	if (x_left < 0)
-		pos.x = 0; // + MINIMAP_SQUARE_SIZE;
+		pos.x = 0;
 	if (x_right >= MINIMAP_SQUARE_SIZE * MAP_WIDTH)
-		pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH - minimap.size.x; // - MINIMAP_SQUARE_SIZE;
+		pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH - minimap.size.x;
+
+	if (pos.x < MINIMAP_SQUARE_SIZE)
+		pos.x += MINIMAP_SQUARE_SIZE - pos.x;
+	if (pos.y < MINIMAP_SQUARE_SIZE)
+		pos.y += MINIMAP_SQUARE_SIZE - pos.y;
+	if (x_right > (MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE)
+	{
+		printf("valor da subtracao: %i\n", x_right -((MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE));
+		//printf("pos.x: %i", pos.x);
+		//printf("final: %i", pos.x);
+
+		if (x_right - ((MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE) <= MINIMAP_SQUARE_SIZE)
+			pos.x -=  x_right - ((MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE);
+		else 
+			pos.x +=  x_right - ((MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE);
+
+	}
 
 	//printf("get_init_pos x: %i  y: %i\n", pos.x, pos.y);
 	return (pos);
 }
+
+
+
+/*
+t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
+{
+	t_pos	pos;
+	int		y_top;
+	int		y_bot;
+	int		x_left;
+	int		x_right;
+
+	pos.x = p_pos.x - minimap.half_size.x;
+	pos.y = p_pos.y - minimap.half_size.y;
+
+	
+
+	y_top = pos.y;
+	y_bot = pos.y + minimap.size.y;
+	x_left = pos.x;
+	x_right = pos.x + minimap.size.x;
+
+	if (y_top < 0)
+		pos.y = 0 + MINIMAP_SQUARE_SIZE;
+	if (y_bot >= MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
+		pos.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT - minimap.size.y - MINIMAP_SQUARE_SIZE;
+	
+	if (x_left < 0)
+		pos.x = 0 + MINIMAP_SQUARE_SIZE;
+	if (x_right >= MINIMAP_SQUARE_SIZE * MAP_WIDTH)
+		pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH - minimap.size.x - MINIMAP_SQUARE_SIZE;
+
+	if (pos.x < MINIMAP_SQUARE_SIZE)
+		pos.x += MINIMAP_SQUARE_SIZE - pos.x;
+	if (pos.y < MINIMAP_SQUARE_SIZE)
+		pos.y += MINIMAP_SQUARE_SIZE - pos.y;
+	if (x_right > (MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE)
+		pos.x -= pos.x - ((MINIMAP_SQUARE_SIZE * MAP_WIDTH) - MINIMAP_SQUARE_SIZE);
+
+	//printf("get_init_pos x: %i  y: %i\n", pos.x, pos.y);
+	return (pos);
+}
+*/
 
 /*
 t_pos minimap_get_init_pos(t_pos p_pos, t_mini_map minimap)
