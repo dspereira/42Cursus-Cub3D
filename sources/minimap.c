@@ -6,28 +6,19 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/19 19:16:32 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/19 20:29:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-//static void		minimap_draw_map(t_img img, char **map, t_pos p_pos, t_mini_map minimap);
-static t_pos	minimap_get_map_pos(t_pos pos);
-static int		minimap_get_pixel_color(t_pos pos, char **map);
-//static t_pos 	minimap_get_init_pos(t_pos p_pos, t_mini_map minimap);
-static t_pos 	minimap_get_drawing_pos(t_pos pos, t_pos offset_correct, t_mini_map minimap);
-//static t_pos	minimap_get_player_pos(t_pos pos, t_mini_map minimap);
-//static void		minimap_draw_player_circle(t_img img, t_pos p_pos, float dir);
-//static void		minimap_draw_player_arrow(t_img img, t_pos p_pos, float dir);
-//static void		minimap_draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
-
 
 static t_pos	get_player_pos_minimap(t_pos p_pos, t_mini_map minimap);
 static t_pos	get_player_pos_map_scaled(t_pos pos, t_mini_map minimap);
 static void 	draw_minimap(t_img img, char **map, t_pos p_pos, t_mini_map minimap);
 static t_pos	get_minimap_init_pos(t_pos p_pos, t_mini_map minimap);
 static t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_mini_map minimap);
+static t_pos 	get_scaled_map_pos(t_pos pos);
+static int 		get_pixel_color(t_pos pos, char **map);
 
 static void		draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
 static void		draw_player_circle(t_img img, t_pos p_pos, float dir);
@@ -54,9 +45,7 @@ t_mini_map minimap_init(void)
 void minimap_render(t_img img, char **map, t_player player, t_mini_map minimap)
 {
 	draw_minimap(img, map, player.pos, minimap);
-	//minimap_draw_player(img, player.pos, player.dir, minimap);
 	draw_player(img, player.pos, player.dir, minimap);
-
 }
 
 
@@ -67,7 +56,6 @@ static void draw_minimap(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 	t_pos	pos;
 	int		color;
 
-	//p_pos = minimap_get_player_pos(p_pos, minimap);
 	p_pos = get_player_pos_map_scaled(p_pos, minimap);
 
 	init_pos = get_minimap_init_pos(p_pos, minimap);
@@ -77,8 +65,7 @@ static void draw_minimap(t_img img, char **map, t_pos p_pos, t_mini_map minimap)
 		pos.x = init_pos.x;
 		while (pos.x < init_pos.x + minimap.size.x)
 		{
-			color = minimap_get_pixel_color(pos, map);
-			//draw_pos = minimap_get_drawing_pos(pos, init_pos, minimap);
+			color = get_pixel_color(pos, map);
 			draw_pos = get_minimap_pos(pos, p_pos, minimap);
 			if (color != MINIMAP_COLOR_NONE)
 			draw_pixel(img, draw_pos.x, draw_pos.y, color);
@@ -113,9 +100,9 @@ static t_pos get_minimap_init_pos(t_pos p_pos, t_mini_map minimap)
 	return (pos);
 }
 
-static int minimap_get_pixel_color(t_pos pos, char **map)
+static int get_pixel_color(t_pos pos, char **map)
 {
-	pos = minimap_get_map_pos(pos);
+	pos = get_scaled_map_pos(pos);
 	if (pos.x < 0 || pos.y < 0 || pos.x >= MAP_WIDTH || pos.y >= MAP_HEIGHT)
 		return (MINIMAP_COLOR_NONE);
 	else if (map[pos.y][pos.x] == ' ')
@@ -126,21 +113,13 @@ static int minimap_get_pixel_color(t_pos pos, char **map)
 		return (MINIMAP_COLOR_GROUND);
 }
 
-static t_pos minimap_get_map_pos(t_pos pos)
+static t_pos get_scaled_map_pos(t_pos pos)
 {
 	if (pos.x > 0)
     	pos.x = pos.x / MINIMAP_SQUARE_SIZE;
 	if (pos.y > 0)
 		pos.y = pos.y / MINIMAP_SQUARE_SIZE;
 	return(pos);
-}
-
-
-static t_pos minimap_get_drawing_pos(t_pos pos, t_pos offset_correct, t_mini_map minimap)
-{
-	pos.x += minimap.win_pos.x - offset_correct.x;
-	pos.y += minimap.win_pos.y - offset_correct.y;
-	return (pos);
 }
 
 static t_pos get_minimap_pos(t_pos pos, t_pos p_pos, t_mini_map minimap)
