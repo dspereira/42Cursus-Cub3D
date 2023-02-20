@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:44:57 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 10:35:31 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:17:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void	draw_player_circle(t_img img, t_pos p_pos, float dir)
 	i = 0;
 	while (i < 360)
 	{
-		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS);
+		point = get_new_dist_pos(p_pos, i, MINIMAP_PLAYER_RADIUS);
 		draw_line(img, p_pos, point, MINIMAP_PLAYER_COLOR);
-		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 1);
+		point = get_new_dist_pos(p_pos, i, MINIMAP_PLAYER_RADIUS + 1);
 		draw_pixel(img, point.x, point.y, MINIMAP_ARROW_COLOR);
-		point = get_new_dist_pos(p_pos, i, PLAYER_RADIUS + 2);
+		point = get_new_dist_pos(p_pos, i, MINIMAP_PLAYER_RADIUS + 2);
 		draw_pixel(img, point.x, point.y, MINIMAP_ARROW_COLOR);
 		i++;
 	}
@@ -57,7 +57,7 @@ static void	draw_player_arrow(t_img img, t_pos p_pos, float dir)
 	{
 		point = get_new_dist_pos(new_pos, i, MINIMAP_ARROW_SIZE);
 		draw_line(img, new_pos, point, MINIMAP_ARROW_COLOR);
-		i ++;
+		i++;
 	}
 	i = new_dir;
 	while (i >= new_dir - 28)

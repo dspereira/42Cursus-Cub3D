@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:55:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 10:35:56 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:27:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap)
 	x_right = pos.x + minimap.size.x;
 	if (y_top < 0)
 		pos.y = 0;
-	if (y_bot >= MINIMAP_SQUARE_SIZE * MAP_HEIGHT)
-		pos.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT - minimap.size.y;
+	if (y_bot >= minimap.scaled_map_size.y)
+		pos.y = minimap.scaled_map_size.y - minimap.size.y;
 	if (x_left < 0)
 		pos.x = 0;
-	if (x_right >= MINIMAP_SQUARE_SIZE * MAP_WIDTH)
-		pos.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH - minimap.size.x;
+	if (x_right >= minimap.scaled_map_size.x)
+		pos.x = minimap.scaled_map_size.x - minimap.size.x;
 	return (pos);
 }
 

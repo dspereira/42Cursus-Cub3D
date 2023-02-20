@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 10:39:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:19:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,10 @@
 
 // minimapa
 #define	MINIMAP_SQUARE_SIZE		15
-#define MINIMAP_PLAYER_RAD		4
-//#define MINIMAP_PLAYER_COLOR 	0x004B537A
-//#define MINIMAP_ARROW_COLOR  	0x0099ABFB
-//#define MINIMAP_PLAYER_COLOR 	0x007a907c
+#define MINIMAP_PLAYER_RADIUS	4
 #define MINIMAP_PLAYER_COLOR 	0x002a6e78
-//#define MINIMAP_ARROW_COLOR  	0x00c9b180
 #define MINIMAP_ARROW_COLOR  	0x00880606
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
-//#define MINIMAP_COLOR_GROUND	0x004d4d4d
-//#define MINIMAP_COLOR_WALL		0x00000000
 #define MINIMAP_COLOR_GROUND	0x00668284
 #define MINIMAP_COLOR_WALL		0x002a2829
 #define MINIMAP_ARROW_SIZE		10
@@ -213,8 +207,8 @@ typedef struct s_minimap
 {
 	t_value	size;
 	t_value	half_size;
+	t_value	scaled_map_size;
 	t_pos	win_pos;
-	t_pos	player_pos;
 	float	map_scale;
 }	t_minimap;
 
@@ -301,13 +295,12 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-t_minimap minimap_init(void);
-void minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
-//void minimap_render(t_img img, char **map, t_player player);
+t_minimap	minimap_init(void);
+void		minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
 
 // minimap_draw_player.c
-//void minimap_draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
 void	minimap_draw_player(t_img img, t_player player, t_minimap minimap);
+
 // minimap_utils.c
 t_pos	get_player_pos_map_scaled(t_pos pos, t_minimap minimap);
 t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
