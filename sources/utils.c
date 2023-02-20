@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 16:05:44 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:26:53 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_pos get_map_pos(t_pos pos)
 {
     int square_size;
 
+    // tem de ser alterado o square size tem de ser fixo
     square_size = WIN_HEIGHT / MAP_HEIGHT;
     pos.x = pos.x / square_size;
     pos.y = pos.y / square_size;
@@ -78,6 +79,7 @@ t_pos get_win_pos(t_pos pos)
     t_pos   win_pos;
     int     square_size;
 
+    // tem de ser alterado o square size tem de ser fixo
     square_size = WIN_HEIGHT / MAP_HEIGHT;
     win_pos.x = pos.x * square_size;
     win_pos.y = pos.y * square_size;

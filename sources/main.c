@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 16:31:40 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:48:46 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,21 @@ int main(int argc, char **argv)
 	t_data		data;
 	t_tex		tex;
 
+	if (argc < 2)
+	{
+		printf("Invalid number of arguments\n");
+		return (-1);
+	}
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
-	player = player_init((t_pos){100, 100}, 0);
+
+
+	printf("MAP pos: x: %i, y: %i\n", map.pos.x, map.pos.y);
+	printf("map dir: %i\n", map.orientation);
+
+	//player = player_init((t_pos){100, 100}, 0);
+	player = player_init(map.pos, map.orientation);
+
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);

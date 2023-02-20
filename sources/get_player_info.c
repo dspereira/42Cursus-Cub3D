@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_player_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:13:57 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/23 09:13:58 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:43:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-static int	is_player(char c);
-static int	get_player_orientation(char c);
+static int		is_player(char c);
+static int		get_player_orientation(char c);
+static t_pos	get_player_pos(int x, int y);
 
 int	get_player_info(char **map, int *orientation, t_pos *pos)
 {
@@ -29,8 +30,7 @@ int	get_player_info(char **map, int *orientation, t_pos *pos)
 			if (is_player(map[y][x]))
 			{
 				*orientation = get_player_orientation(map[y][x]);
-				(*pos).x = x;
-				(*pos).y = y;
+				*pos = get_player_pos(x, y);
 				return (TRUE);
 			}
 			x++;
@@ -57,4 +57,14 @@ static int	get_player_orientation(char c)
 		return (ORIENTATION_E);
 	else
 		return (ORIENTATION_W);
+}
+
+static t_pos	get_player_pos(int x, int y)
+{
+	t_pos	pos;
+
+	pos = get_win_pos((t_pos){x, y});
+	pos.x += MAP_SQUARE_SIZE / 2;
+	pos.y += MAP_SQUARE_SIZE / 2;
+	return (pos);
 }

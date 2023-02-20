@@ -6,13 +6,14 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:58:37 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 11:44:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:03:13 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static int check_collision_player_wall(t_pos p_pos, t_pos w_pos);
+static int check_collidable_elems(char elem);
 
 int check_collisions(t_pos p_pos, char **map)
 {
@@ -33,7 +34,7 @@ int check_collisions(t_pos p_pos, char **map)
 		{
 			wall_pos.y = start_map_pos.y + j;
 			wall_pos.x = start_map_pos.x + i;
-			if (map[wall_pos.y][wall_pos.x] != '0')
+			if (check_collidable_elems(map[wall_pos.y][wall_pos.x]))
 			{
 				if (check_collision_player_wall(p_pos, get_win_pos(wall_pos)))
 					return (1);
@@ -58,4 +59,13 @@ static int check_collision_player_wall(t_pos p_pos, t_pos w_pos)
 	if (collision_dist < PLAYER_RADIUS)
 		return (1);
 	return (0);
+}
+
+static int check_collidable_elems(char elem)
+{
+	// adicionar porta fechada
+	if (elem == '1')
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 12:19:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:25:01 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 // valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
+
+
+#define MAP_SQUARE_SIZE	40
 
 #define WIN_HEIGHT		1040
 #define WIN_WIDTH		1040
@@ -87,17 +90,17 @@
 #define WE_SIDE			-1	//vermelho
 
 
-// minimapa
+
 #define	MINIMAP_SQUARE_SIZE		15
 #define MINIMAP_PLAYER_RADIUS	4
-#define MINIMAP_PLAYER_COLOR 	0x002a6e78
+#define MINIMAP_ARROW_SIZE		10
+#define MINIMAP_PLAYER_COLOR 	0x002A6E78
 #define MINIMAP_ARROW_COLOR  	0x00880606
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
 #define MINIMAP_COLOR_GROUND	0x00668284
-#define MINIMAP_COLOR_WALL		0x002a2829
-#define MINIMAP_ARROW_SIZE		10
-#define MINIMAP_HEIGHT			200
-#define MINIMAP_WIDTH			200
+#define MINIMAP_COLOR_WALL		0x002A2829
+
+
 
 typedef struct s_img
 {

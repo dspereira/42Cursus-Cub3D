@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/13 15:56:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:53:03 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-	while (map[map_pos.y][map_pos.x] == '0')
+	while (map[map_pos.y][map_pos.x] != '1')
 	{
 		if (ray_length.x < ray_length.y)
 		{
