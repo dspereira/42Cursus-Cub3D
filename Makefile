@@ -50,9 +50,9 @@ SRC_NAME =	main.c							\
 			key_controls.c					\
 			collisions.c					\
 			mouse.c							\
-			minimap.c						\
-			minimap_draw_player.c			\
-			minimap_utils.c					\
+			minimap/minimap.c				\
+			minimap/minimap_draw_player.c			\
+			minimap/minimap_utils.c					\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
@@ -67,6 +67,7 @@ $(NAME) : $(OBJS)
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects
+	mkdir -p objects/minimap
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:
