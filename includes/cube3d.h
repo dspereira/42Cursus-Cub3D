@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/19 17:45:32 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:39:53 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,14 +209,14 @@ typedef struct s_wall_data
 	int			height;
 }	t_wall_data;
 
-typedef struct s_mini_map
+typedef struct s_minimap
 {
 	t_value	size;
 	t_value	half_size;
 	t_pos	win_pos;
 	t_pos	player_pos;
 	float	map_scale;
-}	t_mini_map; 
+}	t_minimap;
 
 typedef struct s_data
 {
@@ -224,7 +224,7 @@ typedef struct s_data
 	t_map		map;
 	t_player	*player;
 	t_tex		tex;
-	t_mini_map	minimap;
+	t_minimap	minimap;
 	int			mouse_state;
 }	t_data; 
 
@@ -301,9 +301,18 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-t_mini_map minimap_init(void);
-void minimap_render(t_img img, char **map, t_player player, t_mini_map minimap);
+t_minimap minimap_init(void);
+void minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
 //void minimap_render(t_img img, char **map, t_player player);
 
+// minimap_draw_player.c
+//void minimap_draw_player(t_img img, t_pos p_pos, float dir, t_mini_map minimap);
+void	minimap_draw_player(t_img img, t_player player, t_minimap minimap);
+// minimap_utils.c
+t_pos	get_player_pos_map_scaled(t_pos pos, t_minimap minimap);
+t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
+int		get_pixel_color(t_pos pos, char **map);
+t_pos	get_scaled_map_pos(t_pos pos);
+t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_minimap minimap);
 
 #endif

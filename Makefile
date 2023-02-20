@@ -50,7 +50,9 @@ SRC_NAME =	main.c							\
 			key_controls.c					\
 			collisions.c					\
 			mouse.c							\
-			minimap.c
+			minimap.c						\
+			minimap_draw_player.c			\
+			minimap_utils.c					\
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
