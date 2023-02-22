@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 16:48:46 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:53:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ int main(int argc, char **argv)
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
 
+	printf("height: %i, width: %i\n", map.height, map.width);
 
-	printf("MAP pos: x: %i, y: %i\n", map.pos.x, map.pos.y);
-	printf("map dir: %i\n", map.orientation);
-
-	//player = player_init((t_pos){100, 100}, 0);
 	player = player_init(map.pos, map.orientation);
 
 	win.mlx = mlx_init();
@@ -52,7 +49,7 @@ int main(int argc, char **argv)
 	data.win = &win;
 	data.player = player;
 	data.map = map;
-	data.minimap = minimap_init();
+	data.minimap = minimap_init(map.width, map.height);
 	mouse_init(win, &data.mouse_state);
 	data.tex = tex;
 	mlx_loop_hook(win.mlx, render_win, &data);

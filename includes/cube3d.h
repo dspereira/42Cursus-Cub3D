@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 10:39:40 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:53:15 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-t_minimap	minimap_init(void);
+t_minimap	minimap_init(int map_width, int map_height);
 void		minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
 
 // minimap_draw_player.c

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/22 10:40:20 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:59:58 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	draw_minimap(t_img img, char **map, t_pos p_pos, t_minimap minimap);
 
-t_minimap	minimap_init(void)
+t_minimap	minimap_init(int map_width, int map_height)
 {
 	t_minimap	minimap;
 	int			offset_corner;
@@ -24,11 +24,10 @@ t_minimap	minimap_init(void)
 	minimap.size.y = WIN_HEIGHT * 0.2;
 	minimap.half_size.x = minimap.size.x / 2;
 	minimap.half_size.y = minimap.size.y / 2;
-	minimap.scaled_map_size.x = MINIMAP_SQUARE_SIZE * MAP_WIDTH;
-	minimap.scaled_map_size.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT;
+	minimap.scaled_map_size.x = MINIMAP_SQUARE_SIZE * map_width;
+	minimap.scaled_map_size.y = MINIMAP_SQUARE_SIZE * map_height;
 	minimap.win_pos.x = WIN_WIDTH - minimap.size.x - offset_corner;
 	minimap.win_pos.y = WIN_HEIGHT - minimap.size.y - offset_corner;
-	//minimap.map_scale = (float) WIN_WIDTH / MAP_WIDTH / MINIMAP_SQUARE_SIZE;
 	minimap.map_scale = (float) MAP_SQUARE_SIZE / MINIMAP_SQUARE_SIZE;
 	return (minimap);
 }
