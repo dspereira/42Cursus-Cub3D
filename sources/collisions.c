@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:58:37 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 17:03:13 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:24:40 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ static int check_collision_player_wall(t_pos p_pos, t_pos w_pos)
 	double	collision_dist;
 	
 	test_pos = p_pos;
-	test_pos.x = clamp(w_pos.x, w_pos.x + WIN_WIDTH / MAP_WIDTH, test_pos.x);
-	test_pos.y = clamp(w_pos.y, w_pos.y + WIN_HEIGHT / MAP_HEIGHT, test_pos.y);
+	//test_pos.x = clamp(w_pos.x, w_pos.x + WIN_WIDTH / MAP_WIDTH, test_pos.x);
+	//test_pos.y = clamp(w_pos.y, w_pos.y + WIN_HEIGHT / MAP_HEIGHT, test_pos.y);
+	test_pos.x = clamp(w_pos.x, w_pos.x + MAP_SQUARE_SIZE, test_pos.x);
+	test_pos.y = clamp(w_pos.y, w_pos.y + MAP_SQUARE_SIZE, test_pos.y);
 	dist.x = p_pos.x - test_pos.x;
 	dist.y = p_pos.y - test_pos.y;
 	collision_dist = sqrt((dist.x * dist.x) + (dist.y * dist.y));

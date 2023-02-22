@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 13:42:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:21:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void render_map(t_img img, char **map)
 	t_pos	win_pos;
 	int		square_size;
 
-	square_size = WIN_HEIGHT / MAP_HEIGHT;
+	//square_size = WIN_HEIGHT / MAP_HEIGHT;
+	square_size = MAP_SQUARE_SIZE;
 	map_pos.y = 0;
 	while (map_pos.y < MAP_HEIGHT) 
 	{

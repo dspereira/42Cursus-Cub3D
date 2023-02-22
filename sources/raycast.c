@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/20 16:53:03 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:21:24 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 
 	t_pos_dec	wall_pos;
 
-    square_size = WIN_HEIGHT / MAP_HEIGHT;
+    //square_size = WIN_HEIGHT / MAP_HEIGHT;
+	square_size = MAP_SQUARE_SIZE;
 	win_pos = get_win_pos(m_pos);
 	if (ray->side == EA_SIDE)
 		final_pos.x = win_pos.x;

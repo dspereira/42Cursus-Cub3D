@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/20 12:21:26 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:40:20 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_minimap	minimap_init(void)
 	minimap.scaled_map_size.y = MINIMAP_SQUARE_SIZE * MAP_HEIGHT;
 	minimap.win_pos.x = WIN_WIDTH - minimap.size.x - offset_corner;
 	minimap.win_pos.y = WIN_HEIGHT - minimap.size.y - offset_corner;
-	minimap.map_scale = (float) WIN_WIDTH / MAP_WIDTH / MINIMAP_SQUARE_SIZE;
+	//minimap.map_scale = (float) WIN_WIDTH / MAP_WIDTH / MINIMAP_SQUARE_SIZE;
+	minimap.map_scale = (float) MAP_SQUARE_SIZE / MINIMAP_SQUARE_SIZE;
 	return (minimap);
 }
 
