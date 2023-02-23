@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 16:20:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:53:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,13 @@ void player_move(t_player *player, char **map, int dir)
 	//new_pos.x = get_new_dist_pos1(player->pos, angle, MOVE_STEP).x;
 	//new_pos.y = get_new_dist_pos1(player->pos, angle, MOVE_STEP).y;
 
-	printf("angle: %.5f\n", angle);
+	//printf("angle: %.5f\n", angle);
 	//printf("pos x: %i y: %i\n", player->pos.x, player->pos.y);
-	printf("new pos x: %.5f y: %.5f\n", new_pos_dec.x, new_pos_dec.y);
+	//printf("new pos x: %.5f y: %.5f\n", new_pos_dec.x, new_pos_dec.y);
 
 	if (!check_collisions((t_pos){new_pos_dec.x, new_pos_dec.y}, map))
 	{
 		player->pos_dec = new_pos_dec;
-		//player->pos.x = new_pos.x;
-		//player->pos.y = new_pos.y;
 		player->pos.x = new_pos_dec.x;
 		player->pos.y = new_pos_dec.y;
 	}

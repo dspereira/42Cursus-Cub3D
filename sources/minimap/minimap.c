@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/23 14:34:16 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:48:31 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_minimap	minimap_init(int map_width, int map_height)
 	minimap.size.y = WIN_HEIGHT * 0.2;
 	minimap.half_size.x = minimap.size.x / 2;
 	minimap.half_size.y = minimap.size.y / 2;
+	minimap.map_size.x = map_width;
+	minimap.map_size.y = map_height;
 	minimap.scaled_map_size.x = MINIMAP_SQUARE_SIZE * map_width;
 	minimap.scaled_map_size.y = MINIMAP_SQUARE_SIZE * map_height;
 	minimap.win_pos.x = WIN_WIDTH - minimap.size.x - offset_corner;
@@ -53,7 +55,7 @@ static void	draw_minimap(t_img img, char **map, t_pos p_pos, t_minimap minimap)
 		pos.x = init_pos.x;
 		while (pos.x < init_pos.x + minimap.size.x)
 		{
-			color = get_pixel_color(pos, map);
+			color = get_pixel_color(pos, map, minimap.map_size);
 			draw_pos = get_minimap_pos(pos, p_pos, minimap);
 			if (color != MINIMAP_COLOR_NONE)
 				draw_pixel(img, draw_pos.x, draw_pos.y, color);

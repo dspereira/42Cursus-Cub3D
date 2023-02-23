@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 16:12:06 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:52:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //#define WIN_WIDTH		1920
 
 #define WIN_HEIGHT		800
-#define WIN_WIDTH		1040
+#define WIN_WIDTH		1500
 
 #define CAMERA_ANGLE	50
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -104,7 +104,6 @@
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
 #define MINIMAP_COLOR_GROUND	0x00668284
 #define MINIMAP_COLOR_WALL		0x002A2829
-
 
 
 typedef struct s_img
@@ -217,6 +216,7 @@ typedef struct s_minimap
 	t_value	size;
 	t_value	half_size;
 	t_value	scaled_map_size;
+	t_value map_size;
 	t_pos	win_pos;
 	float	map_scale;
 }	t_minimap;
@@ -313,7 +313,8 @@ void	minimap_draw_player(t_img img, t_player player, t_minimap minimap);
 // minimap_utils.c
 t_pos	get_player_pos_map_scaled(t_pos pos, t_minimap minimap);
 t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
-int		get_pixel_color(t_pos pos, char **map);
+//int		get_pixel_color(t_pos pos, char **map);
+int		get_pixel_color(t_pos pos, char **map, t_value map_size);
 t_pos	get_scaled_map_pos(t_pos pos);
 t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_minimap minimap);
 

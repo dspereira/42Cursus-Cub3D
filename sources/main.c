@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 16:51:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:06:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int render_win(void *data)
 		player_rotation(win, player, mouse_get_pos(win));
 	mouse_control(win, &((t_data*)data)->mouse_state);
 
-	render_scene_2d(win.frame, *player, map.content);
+	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
-	//render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
+	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);

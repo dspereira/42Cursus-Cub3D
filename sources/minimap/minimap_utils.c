@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:55:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 11:56:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:46:51 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap)
 	return (pos);
 }
 
-int	get_pixel_color(t_pos pos, char **map)
+int	get_pixel_color(t_pos pos, char **map, t_value map_size)
 {
 	pos = get_scaled_map_pos(pos);
-	if (pos.x < 0 || pos.y < 0 || pos.x >= MAP_WIDTH || pos.y >= MAP_HEIGHT)
+	if (pos.x < 0 || pos.y < 0 || pos.x >= map_size.x || pos.y >= map_size.y)
 		return (MINIMAP_COLOR_NONE);
 	else if (map[pos.y][pos.x] == ' ')
 		return (MINIMAP_COLOR_WALL);
