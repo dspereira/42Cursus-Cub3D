@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 10:59:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:24:42 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void render_scene_2d(t_img img, t_player player, char **map)
 {
 	render_background(img, 0x0021130d);
 	render_map(img, map);
-	render_player(img, player, map);
-	//render_player_circle(img, player, map);
+	//render_player(img, player, map);
+	render_player_circle(img, player, map);
 }
 
 static void render_map(t_img img, char **map)
@@ -62,8 +62,8 @@ static void render_player(t_img img, t_player player, char **map)
 	i = 0;
 	while (i < NUMBER_RAYS)
 	{
-		ray_end_pos = get_new_pos(player.pos, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
-		draw_line(img, player.pos, ray_end_pos, 0x00FF0000);
+		ray_end_pos = get_new_pos((t_pos){player.pos.x, player.pos.y}, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
+		draw_line(img, (t_pos){player.pos.x, player.pos.y}, ray_end_pos, 0x00FF0000);
 		i++;
 	}
 }
@@ -74,7 +74,7 @@ static void render_player_circle(t_img img, t_player player, char **map)
 	t_pos	point_pos;
 	float 	i;
 
-	p_pos = player.pos;
+	p_pos = (t_pos){player.pos.x, player.pos.y};
 	i = 0;
 	while (i <= 360)
 	{

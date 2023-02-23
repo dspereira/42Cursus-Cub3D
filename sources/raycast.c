@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 11:01:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:21:09 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	raycast_all(t_player *player, char **map)
 
 	i = -1;
 	while (++i < NUMBER_RAYS)
-		raycast(&(player->rays[i]), player->pos, map, player->dir);
+		raycast(&(player->rays[i]), (t_pos){round(player->pos.x), round(player->pos.y)} , map, player->dir);
 }
 
 static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
@@ -164,7 +164,8 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
 	
 	// perde precisão aqui
-	wall_pos = get_new_dist_pos_dec(p_pos, ray->dir, ray->length_win);
+
+	wall_pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray->dir, ray->length_win);
 
 	if (ray->side == EA_SIDE)
 		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;

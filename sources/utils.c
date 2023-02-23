@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:26:05 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 11:04:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:29:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,20 @@ t_pos get_new_dist_pos(t_pos init, float dir, int dist)
 	return (pos);
 }
 
-t_pos_dec get_new_dist_pos_dec(t_pos init, float dir, double dist)
+
+t_pos get_new_dist_pos1(t_pos init, float dir, int dist)
+{
+	t_pos	pos;
+
+    pos.x = round(dist * cos_degree(dir) + init.x);
+    pos.y = round(-dist * sin_degree(dir) + init.y);
+
+    //printf("X: %i  Y: %i\n", pos.x, pos.y);
+
+	return (pos);
+}
+
+t_pos_dec get_new_dist_pos_dec(t_pos_dec init, float dir, double dist)
 {
 	t_pos_dec   pos;
 

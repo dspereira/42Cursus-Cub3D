@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/22 11:59:58 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:34:16 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_minimap	minimap_init(int map_width, int map_height)
 
 void	minimap_render(t_img img, char **map, t_player pl, t_minimap minimap)
 {
-	draw_minimap(img, map, pl.pos, minimap);
+	draw_minimap(img, map, (t_pos){pl.pos.x, pl.pos.y}, minimap);
 	minimap_draw_player(img, pl, minimap);
 }
 

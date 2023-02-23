@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/11 15:33:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:16:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_player *player_init(t_pos pos, int dir)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
-	player->pos = pos;
+	player->pos = (t_pos_dec){pos.x, pos.y};
 	player->dir = (float) dir;
 	player->dir_y = WIN_WIDTH / 2;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
@@ -77,12 +77,25 @@ void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 
 void player_move(t_player *player, char **map, int dir)
 {
-	t_pos	new_pos;
+	t_pos_dec	new_pos;
 	float	angle;
 
+
+	//printf("DIRECAO %i\n", dir);
+
 	angle = normalizeAngles((float)dir + player->dir);
-	new_pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
-	if (!check_collisions(new_pos, map))	
+	new_pos = get_new_dist_pos_dec(player->pos, angle, MOVE_STEP);
+	
+	//new_pos = get_new_dist_pos1(player->pos, angle, MOVE_STEP);
+
+	//new_pos.x = get_new_dist_pos1(player->pos, angle, MOVE_STEP).x;
+	//new_pos.y = get_new_dist_pos1(player->pos, angle, MOVE_STEP).y;
+
+	printf("angle: %.5f\n", angle);
+	//printf("pos x: %i y: %i\n", player->pos.x, player->pos.y);
+	printf("new pos x: %.5f y: %.5f\n", new_pos.x, new_pos.y);
+
+	if (!check_collisions((t_pos){new_pos.x, new_pos.y}, map))
 		player->pos = new_pos;
 }
 

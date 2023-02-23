@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/22 11:53:15 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:29:57 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 
 #define MAP_SQUARE_SIZE	40
 
+
+//#define WIN_HEIGHT		1080
+//#define WIN_WIDTH		1040
+//#define WIN_WIDTH		1920
 
 #define WIN_HEIGHT		800
 #define WIN_WIDTH		1040
@@ -94,7 +98,8 @@
 #define	MINIMAP_SQUARE_SIZE		15
 #define MINIMAP_PLAYER_RADIUS	4
 #define MINIMAP_ARROW_SIZE		10
-#define MINIMAP_PLAYER_COLOR 	0x002A6E78
+//#define MINIMAP_PLAYER_COLOR 	0x002A6E78
+#define MINIMAP_PLAYER_COLOR 	0x00FFFFFF
 #define MINIMAP_ARROW_COLOR  	0x00880606
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
 #define MINIMAP_COLOR_GROUND	0x00668284
@@ -191,7 +196,7 @@ typedef struct s_ray
 
 typedef struct s_player 
 {
-	t_pos	pos;
+	t_pos_dec	pos;
 	float	dir;
 	int		dir_y;
 	float	angle_step;
@@ -236,16 +241,16 @@ double	sin_degree(double angle);
 int		clamp(int min, int max, int value);
 
 //utils.c
-t_pos_dec	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+t_pos_dec	get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
-int			hex_to_int(const char *str);
+//int			hex_to_int(const char *str);
 
-t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+//t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
 t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
 
 void		*ft_calloc(size_t count, size_t size);
@@ -310,5 +315,8 @@ t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
 int		get_pixel_color(t_pos pos, char **map);
 t_pos	get_scaled_map_pos(t_pos pos);
 t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_minimap minimap);
+
+
+t_pos get_new_dist_pos1(t_pos init, float dir, int dist);
 
 #endif

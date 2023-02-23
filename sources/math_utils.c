@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/08 09:41:52 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:08:07 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ float normalizeAngles(float angle)
 
 double cos_degree(double angle)
 {
-	return (cos(angle * 0.0174532925));
+	return (cos(angle * 0.01745329252));
 }
 
 double sin_degree(double angle)
 {
-	return (sin(angle * 0.0174532925));
+	return (sin(angle * 0.01745329252));
 }
 
 int clamp(int min, int max, int value)
