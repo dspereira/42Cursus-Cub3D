@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 11:49:14 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:05:18 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,14 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	int			test_side;
 
 	ray->is_door = 0;
+	ray->door_pos.x = -1;
+	ray->door_pos.y = -1;
 	map_pos = get_map_pos(p_pos);
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-	while (map[map_pos.y][map_pos.x] == '0' || map[map_pos.y][map_pos.x] == 'G')
+	while (map[map_pos.y][map_pos.x] == '0' \
+		|| (map[map_pos.y][map_pos.x] >= 'G' && map[map_pos.y][map_pos.x] <= 'N') \
+		|| (map[map_pos.y][map_pos.x] >= 'g' && map[map_pos.y][map_pos.x] <= 'n'))
 	{
 		if (ray_length.x < ray_length.y)
 		{
@@ -91,7 +95,8 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 			ray_length.y += ray->sy;
 			ray->side = SO_SIDE;
 		}
-		if (map[map_pos.y][map_pos.x] == 'G')
+		if ((map[map_pos.y][map_pos.x] >= 'G' && map[map_pos.y][map_pos.x] <= 'N') \
+			|| (map[map_pos.y][map_pos.x] >= 'g' && map[map_pos.y][map_pos.x] <= 'n'))
 		{
 			ray->is_door = 1;
 			if (ray->side == EA_SIDE)
@@ -103,6 +108,8 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 			if (test_side == SO_SIDE || test_side == NO_SIDE)
 				ray->door_dist = (ray_length.y - ray->sy) * ray->cos2;
 			ray->door_side = test_side;
+			ray->door_pos = map_pos;
+			ray->door_tex = map[map_pos.y][map_pos.x];
 			set_distace_win1(ray, map_pos, p_pos);
 		}
 	}

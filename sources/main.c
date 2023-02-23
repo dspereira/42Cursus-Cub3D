@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 16:11:25 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:00:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,18 +115,70 @@ static int get_game_configs(int ac, char **av, t_map *map)
 	return (0);
 }
 
-static void	init_doors_tex(t_tex *texture, void *mlx)
+static void	init_doors_sprites_1(t_tex *tex, void *mlx)
 {
-	texture->door_side.mlx_img = mlx_xpm_file_to_image(mlx, SIDE_DOOR_TEX, \
-		&(texture->door_side.width), &(texture->door_side.height));
-	texture->door_side.addr = mlx_get_data_addr(texture->door_side.mlx_img, \
-		&(texture->door_side.bpp), &(texture->door_side.line_len), \
-		&(texture->door_side.endian));
-	texture->door.mlx_img = mlx_xpm_file_to_image(mlx, DOOR_TEX, \
-		&(texture->door.width), &(texture->door.height));
-	texture->door.addr = mlx_get_data_addr(texture->door.mlx_img, \
-		&(texture->door.bpp), &(texture->door.line_len), \
-		&(texture->door.endian));
+	tex->doors[DOOR_CLOSE].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_CLOSE, \
+		&(tex->doors[DOOR_CLOSE].width), &(tex->doors[DOOR_CLOSE].height));
+	tex->doors[DOOR_CLOSE].addr = mlx_get_data_addr(tex->doors[DOOR_CLOSE].mlx_img, \
+		&(tex->doors[DOOR_CLOSE].bpp), &(tex->doors[DOOR_CLOSE].line_len), \
+		&(tex->doors[DOOR_CLOSE].endian));
+	tex->doors[DOOR_OPEN_1].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_1, \
+		&(tex->doors[DOOR_OPEN_1].width), &(tex->doors[DOOR_OPEN_1].height));
+	tex->doors[DOOR_OPEN_1].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_1].mlx_img, \
+		&(tex->doors[DOOR_OPEN_1].bpp), &(tex->doors[DOOR_OPEN_1].line_len), \
+		&(tex->doors[DOOR_OPEN_1].endian));
+	tex->doors[DOOR_OPEN_2].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_2, \
+		&(tex->doors[DOOR_OPEN_2].width), &(tex->doors[DOOR_OPEN_2].height));
+	tex->doors[DOOR_OPEN_2].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_2].mlx_img, \
+		&(tex->doors[DOOR_OPEN_2].bpp), &(tex->doors[DOOR_OPEN_2].line_len), \
+		&(tex->doors[DOOR_OPEN_2].endian));
+	tex->doors[DOOR_OPEN_3].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_3, \
+		&(tex->doors[DOOR_OPEN_3].width), &(tex->doors[DOOR_OPEN_3].height));
+	tex->doors[DOOR_OPEN_3].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_3].mlx_img, \
+		&(tex->doors[DOOR_OPEN_3].bpp), &(tex->doors[DOOR_OPEN_3].line_len), \
+		&(tex->doors[DOOR_OPEN_3].endian));
+}
+
+static void	init_doors_sprites_2(t_tex *tex, void *mlx)
+{
+	tex->doors[DOOR_OPEN_4].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_4, \
+		&(tex->doors[DOOR_OPEN_4].width), &(tex->doors[DOOR_OPEN_4].height));
+	tex->doors[DOOR_OPEN_4].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_4].mlx_img, \
+		&(tex->doors[DOOR_OPEN_4].bpp), &(tex->doors[DOOR_OPEN_4].line_len), \
+		&(tex->doors[DOOR_OPEN_4].endian));
+	tex->doors[DOOR_OPEN_5].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_5, \
+		&(tex->doors[DOOR_OPEN_5].width), &(tex->doors[DOOR_OPEN_5].height));
+	tex->doors[DOOR_OPEN_5].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_5].mlx_img, \
+		&(tex->doors[DOOR_OPEN_5].bpp), &(tex->doors[DOOR_OPEN_5].line_len), \
+		&(tex->doors[DOOR_OPEN_5].endian));
+	tex->doors[DOOR_OPEN_6].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_6, \
+		&(tex->doors[DOOR_OPEN_6].width), &(tex->doors[DOOR_OPEN_6].height));
+	tex->doors[DOOR_OPEN_6].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_6].mlx_img, \
+		&(tex->doors[DOOR_OPEN_6].bpp), &(tex->doors[DOOR_OPEN_6].line_len), \
+		&(tex->doors[DOOR_OPEN_6].endian));
+	tex->doors[DOOR_OPEN_7].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN_7, \
+		&(tex->doors[DOOR_OPEN_7].width), &(tex->doors[DOOR_OPEN_7].height));
+	tex->doors[DOOR_OPEN_7].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_7].mlx_img, \
+		&(tex->doors[DOOR_OPEN_7].bpp), &(tex->doors[DOOR_OPEN_7].line_len), \
+		&(tex->doors[DOOR_OPEN_7].endian));
+	printf("Here\n");
+	tex->doors[DOOR_OPEN].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN, \
+		&(tex->doors[DOOR_OPEN].width), &(tex->doors[DOOR_OPEN].height));
+	tex->doors[DOOR_OPEN].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN].mlx_img, \
+		&(tex->doors[DOOR_OPEN].bpp), &(tex->doors[DOOR_OPEN].line_len), \
+		&(tex->doors[DOOR_OPEN].endian));
+	printf("Here\n");
+}
+
+static void	init_doors_tex(t_tex *tex, void *mlx)
+{
+	tex->door_side.mlx_img = mlx_xpm_file_to_image(mlx, SIDE_DOOR_TEX, \
+		&(tex->door_side.width), &(tex->door_side.height));
+	tex->door_side.addr = mlx_get_data_addr(tex->door_side.mlx_img, \
+		&(tex->door_side.bpp), &(tex->door_side.line_len), \
+		&(tex->door_side.endian));
+	init_doors_sprites_1(tex, mlx);
+	init_doors_sprites_2(tex, mlx);
 }
 
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx)

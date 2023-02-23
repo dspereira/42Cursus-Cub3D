@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 15:46:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:33:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,24 @@ void get_wall_data1(t_ray ray, int win_x_pos, t_tex tex, t_wall_data *data)
 	data->height = ((int)((WIN_HEIGHT) / ray.door_dist));
 	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
 	data->map_wall_pos = ray.map_door_pos;
-	data->tex = tex.door;
+	if (ray.door_tex == 'G')
+		data->tex = tex.doors[DOOR_CLOSE];
+	else if (ray.door_tex == 'H' || ray.door_tex == 'h')
+		data->tex = tex.doors[DOOR_OPEN_1];
+	else if (ray.door_tex == 'I' || ray.door_tex == 'i')
+		data->tex = tex.doors[DOOR_OPEN_2];
+	else if (ray.door_tex == 'J' || ray.door_tex == 'j')
+		data->tex = tex.doors[DOOR_OPEN_3];
+	else if (ray.door_tex == 'K' || ray.door_tex == 'k')
+		data->tex = tex.doors[DOOR_OPEN_4];
+	else if (ray.door_tex == 'L' || ray.door_tex == 'l')
+		data->tex = tex.doors[DOOR_OPEN_5];
+	else if (ray.door_tex == 'M' || ray.door_tex == 'm')
+		data->tex = tex.doors[DOOR_OPEN_6];
+	else if (ray.door_tex == 'N' || ray.door_tex == 'n')
+		data->tex = tex.doors[DOOR_OPEN_7];
+	else if (ray.door_tex == 'g')
+		data->tex = tex.doors[DOOR_OPEN];
 }
 
 static void render_ceil_and_floor_rgb(t_img img, int ceil_rgb, int floor_rgb)

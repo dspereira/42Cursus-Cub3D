@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 16:32:19 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:07:50 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #define KEY_A				97
 #define KEY_D				100
 #define KEY_Q				113
+#define KEY_E				101
 #define KEY_ESC				65307
 #define KEY_CTRL			65507
 
@@ -95,10 +96,44 @@
 
 #define DOOR_SIDE		'3'
 
-//#define SIDE_DOOR_TEX	"./textures/door_wall.xpm"
+#define DOOR_CLOSE		0
+#define DOOR_OPEN_1		1
+#define DOOR_OPEN_2		2
+#define DOOR_OPEN_3		3
+#define DOOR_OPEN_4		4
+#define DOOR_OPEN_5		5
+#define DOOR_OPEN_6		6
+#define DOOR_OPEN_7		7
+#define DOOR_OPEN		8
+
 #define SIDE_DOOR_TEX	"./textures/door_walls_1.xpm"
-#define DOOR_TEX		"./textures/door_sprites/door_open_3.xpm"
-//#define DOOR_TEX		"./textures/blank.xpm"
+#define D_TEX_CLOSE		"./textures/door_sprites/close_door.xpm"
+#define D_TEX_OPEN		"./textures/door_sprites/open_door.xpm"
+#define D_TEX_OPEN_1	"./textures/door_sprites/door_open_1.xpm"
+#define D_TEX_OPEN_2	"./textures/door_sprites/door_open_2.xpm"
+#define D_TEX_OPEN_3	"./textures/door_sprites/door_open_3.xpm"
+#define D_TEX_OPEN_4	"./textures/door_sprites/door_open_4.xpm"
+#define D_TEX_OPEN_5	"./textures/door_sprites/door_open_5.xpm"
+#define D_TEX_OPEN_6	"./textures/door_sprites/door_open_6.xpm"
+#define D_TEX_OPEN_7	"./textures/door_sprites/door_open_7.xpm"
+
+#define D_FRAME_OPEN_0		'G'
+#define D_FRAME_OPEN_1		'H'
+#define D_FRAME_OPEN_2		'I'
+#define D_FRAME_OPEN_3		'J'
+#define D_FRAME_OPEN_4		'K'
+#define D_FRAME_OPEN_5		'L'
+#define D_FRAME_OPEN_6		'M'
+#define D_FRAME_OPEN_7		'N'
+
+#define D_FRAME_CLOSE_0		'g'
+#define D_FRAME_CLOSE_1		'h'
+#define D_FRAME_CLOSE_2		'i'
+#define D_FRAME_CLOSE_3		'j'
+#define D_FRAME_CLOSE_4		'k'
+#define D_FRAME_CLOSE_5		'l'
+#define D_FRAME_CLOSE_6		'm'
+#define D_FRAME_CLOSE_7		'n'
 
 #define NONE_COLOR_VALUE	0x00FFFFFF
 
@@ -133,7 +168,7 @@ typedef struct s_tex
 	t_img	ea;
 	t_img	we;
 	t_img	door_side;
-	t_img	door;
+	t_img	doors[9];
 	int		ceil_rgb;
 	int		floor_rgb;
 }				t_tex;
@@ -194,6 +229,8 @@ typedef struct s_ray
 	int		door_side_wall;
 	int		door_side;
 	double	door_dist;
+	t_pos	door_pos;
+	char	door_tex;
 }	t_ray;
 
 typedef struct s_player 
@@ -298,5 +335,7 @@ int		mouse_hook(int button, int x, int y, t_data *data);
 // minimap.c
 void	minimap_render(t_img img, t_player player, char **map);
 
+// doors.c
+void	doors_interaction(t_map map, t_player *player);
 
 #endif

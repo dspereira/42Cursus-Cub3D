@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_player_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:13:57 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/23 09:13:58 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:16:41 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	get_player_info(char **map, int *orientation, t_pos *pos)
 				*orientation = get_player_orientation(map[y][x]);
 				(*pos).x = x;
 				(*pos).y = y;
+				map[y][x] = '0';
 				return (TRUE);
 			}
 			x++;
