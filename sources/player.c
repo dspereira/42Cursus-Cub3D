@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 15:16:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:20:42 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_player *player_init(t_pos pos, int dir)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
-	player->pos = (t_pos_dec){pos.x, pos.y};
+	player->pos = pos;	
+	player->pos_dec = (t_pos_dec){pos.x, pos.y};
 	player->dir = (float) dir;
 	player->dir_y = WIN_WIDTH / 2;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
@@ -77,15 +78,19 @@ void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
 
 void player_move(t_player *player, char **map, int dir)
 {
-	t_pos_dec	new_pos;
+	t_pos_dec	new_pos_dec;
 	float	angle;
 
 
 	//printf("DIRECAO %i\n", dir);
 
 	angle = normalizeAngles((float)dir + player->dir);
-	new_pos = get_new_dist_pos_dec(player->pos, angle, MOVE_STEP);
+	//new_pos_dec = get_new_dist_pos_dec(player->pos_dec, angle, MOVE_STEP);
+	new_pos_dec = get_new_dist_pos_dec(player->pos_dec, angle, MOVE_STEP);
+	//new_pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
 	
+	
+
 	//new_pos = get_new_dist_pos1(player->pos, angle, MOVE_STEP);
 
 	//new_pos.x = get_new_dist_pos1(player->pos, angle, MOVE_STEP).x;
@@ -93,10 +98,16 @@ void player_move(t_player *player, char **map, int dir)
 
 	printf("angle: %.5f\n", angle);
 	//printf("pos x: %i y: %i\n", player->pos.x, player->pos.y);
-	printf("new pos x: %.5f y: %.5f\n", new_pos.x, new_pos.y);
+	printf("new pos x: %.5f y: %.5f\n", new_pos_dec.x, new_pos_dec.y);
 
-	if (!check_collisions((t_pos){new_pos.x, new_pos.y}, map))
-		player->pos = new_pos;
+	if (!check_collisions((t_pos){new_pos_dec.x, new_pos_dec.y}, map))
+	{
+		player->pos_dec = new_pos_dec;
+		//player->pos.x = new_pos.x;
+		//player->pos.y = new_pos.y;
+		player->pos.x = new_pos_dec.x;
+		player->pos.y = new_pos_dec.y;
+	}
 }
 
 static void add_rays_to_player(t_player *player, int n_rays)

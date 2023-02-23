@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 14:29:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:12:06 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 #define RIGHT			270
 
 #define ROT_STEP		2
-#define MOVE_STEP		2
+#define MOVE_STEP		5
 
 // render 2D
 #define PLAYER_SIZE		10
@@ -196,7 +196,8 @@ typedef struct s_ray
 
 typedef struct s_player 
 {
-	t_pos_dec	pos;
+	t_pos		pos;
+	t_pos_dec	pos_dec;
 	float	dir;
 	int		dir_y;
 	float	angle_step;

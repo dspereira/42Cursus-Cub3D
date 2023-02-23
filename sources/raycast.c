@@ -6,16 +6,19 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 15:21:09 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:49:27 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void			raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir);
+static void			raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir);
 static t_value		ray_cast_get_step(t_ray ray);
-static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos);
+//static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos);
+static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
 static void			set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos);
+
+static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
 
 void	raycast_all(t_player *player, char **map)
 {
@@ -23,16 +26,16 @@ void	raycast_all(t_player *player, char **map)
 
 	i = -1;
 	while (++i < NUMBER_RAYS)
-		raycast(&(player->rays[i]), (t_pos){round(player->pos.x), round(player->pos.y)} , map, player->dir);
+		raycast(&(player->rays[i]), player->pos_dec, map, player->dir);
 }
 
-static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
+static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 {
 	t_value		step;
 	t_value_dec	ray_length;
 	t_pos		map_pos;
 
-	map_pos = get_map_pos(p_pos);
+	map_pos = get_map_pos((t_pos){p_pos.x, p_pos.y});
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
 	while (map[map_pos.y][map_pos.x] != '1')
@@ -59,8 +62,7 @@ static void	raycast(t_ray *ray, t_pos p_pos, char **map, float p_dir)
 	if (ray->side == SO_SIDE || ray->side == NO_SIDE)
 		ray->dist_wall = (ray_length.y - ray->sy) * ray->cos2;
 
-	set_distace_win(ray, map_pos, p_pos);
-
+	set_distace_win1(ray, map_pos, p_pos);
 	//printf("valor: %.5f\n",ray->map_wall_pos);
 }
 
@@ -77,12 +79,12 @@ static t_value	ray_cast_get_step(t_ray ray)
 	return (step);
 }
 
-static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos)
+static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
 {
 	t_value_dec	leng;
 	t_pos_dec	map_pos_dec;
 
-	map_pos_dec = get_map_pos_decimal(p_pos);
+	map_pos_dec = get_map_pos_decimal_1(p_pos);
 	if (ray.cos < 0)
 		leng.x = (map_pos_dec.x - m_pos.x) * ray.sx;
 	else 
@@ -136,6 +138,7 @@ static void set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 }
 */
 
+
 static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
 	t_pos	win_pos;
@@ -166,6 +169,47 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 	// perde precisão aqui
 
 	wall_pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray->dir, ray->length_win);
+
+	if (ray->side == EA_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
+	else if (ray->side == SO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == NO_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
+	else if (ray->side == WE_SIDE)
+		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
+}
+
+static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos)
+{
+	t_pos	win_pos;
+	t_pos	final_pos;
+	int		square_size;
+
+	t_pos_dec	wall_pos;
+
+	square_size = MAP_SQUARE_SIZE;
+	win_pos = get_win_pos(m_pos);
+	if (ray->side == EA_SIDE)
+		final_pos.x = win_pos.x;
+	else if (ray->side == SO_SIDE)
+		final_pos.y = win_pos.y;
+	else if (ray->side == NO_SIDE)
+		final_pos.y = win_pos.y + square_size;
+	else if (ray->side == WE_SIDE)
+		final_pos.x = win_pos.x + square_size;
+	if (ray->side == EA_SIDE)
+		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
+	else if (ray->side == SO_SIDE)
+		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
+	else if (ray->side == NO_SIDE)
+		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
+	else if (ray->side == WE_SIDE)
+		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
+	
+	// perde precisão aqui
+
+	wall_pos = get_new_dist_pos_dec(p_pos, ray->dir, ray->length_win);
 
 	if (ray->side == EA_SIDE)
 		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
