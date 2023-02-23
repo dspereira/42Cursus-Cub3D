@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 17:53:30 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:54:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void player_move(t_player *player, char **map, int dir)
 	//printf("angle: %.5f\n", angle);
 	//printf("pos x: %i y: %i\n", player->pos.x, player->pos.y);
 	//printf("new pos x: %.5f y: %.5f\n", new_pos_dec.x, new_pos_dec.y);
+
+	
 
 	if (!check_collisions((t_pos){new_pos_dec.x, new_pos_dec.y}, map))
 	{

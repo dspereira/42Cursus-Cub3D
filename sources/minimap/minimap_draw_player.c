@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:44:57 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 14:35:24 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:00:03 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	minimap_draw_player(t_img img, t_player player, t_minimap minimap)
 {
 	t_pos	p_pos;
 
-	p_pos = get_player_pos_minimap((t_pos){player.pos.x, player.pos.y}, minimap);
+	p_pos = get_player_pos_minimap(player.pos, minimap);
 	draw_player_circle(img, p_pos, player.dir);
 	draw_player_arrow(img, p_pos, player.dir);
 }
