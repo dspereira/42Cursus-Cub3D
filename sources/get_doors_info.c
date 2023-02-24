@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_doors_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:05:04 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/16 11:05:05 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:24:38 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,4 @@ static void	set_door_info(t_door *door, int x, int y)
 {
 	(*door).pos.x = x;
 	(*door).pos.y = y;
-	(*door).status = 0;
 }

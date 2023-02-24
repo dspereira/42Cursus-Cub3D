@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 11:15:32 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:28:02 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ typedef struct s_tex
 typedef struct s_door
 {
 	t_pos	pos;
-	float	status;
 }			t_door;
 
 typedef struct s_map
