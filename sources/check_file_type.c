@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_type.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/07 08:55:02 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:02:40 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static int		find_last_char_index(char *file, char to_find);
 static int		ft_strcmp(char *s1, char *s2);

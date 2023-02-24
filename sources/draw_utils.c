@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/17 16:09:33 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:50:04 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ unsigned int get_tex_color(t_img tex, t_pos pos)
 	return(*color);
 }
 
-void	draw_line_tex(t_img frame, t_wall_data wall)
+void	draw_line_tex(t_img frame, t_tex_data wall)
 {
 	int					i;
 	double				xperce;
@@ -50,7 +50,7 @@ void	draw_line_tex(t_img frame, t_wall_data wall)
 	}
 }
 
-void	draw_door_tex(t_img frame, t_wall_data wall)
+void	draw_door_tex(t_img frame, t_tex_data wall)
 {
 	int					i;
 	double				xperce;

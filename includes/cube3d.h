@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 12:28:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:49:18 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,13 +244,13 @@ typedef struct s_player
 	t_ray	*rays;
 }	t_player;
 
-typedef struct s_wall_data
+typedef struct s_tex_data
 {
 	t_img		tex;
 	t_pos		win_start_pos;
 	double		map_wall_pos;
 	int			height;
-}	t_wall_data;
+}	t_tex_data;
 
 typedef struct s_data
 {
@@ -308,9 +308,9 @@ void	raycast_all(t_player *player, char **map);
 void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
 
-void draw_line_tex(t_img frame, t_wall_data wall);
+void draw_line_tex(t_img frame, t_tex_data wall);
 
-void draw_door_tex(t_img frame, t_wall_data wall);
+void draw_door_tex(t_img frame, t_tex_data wall);
 
 void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
