@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:05:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 10:18:29 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:45:55 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static unsigned long	get_actual_time_ms(void);
 static unsigned long	get_offset_time(void);
 
-unsigned long check_time_ms(unsigned long time)
+unsigned long	check_time_ms(unsigned long time)
 {
 	static unsigned long	buff = 0;
 	unsigned long			actual;
@@ -31,7 +31,7 @@ unsigned long check_time_ms(unsigned long time)
 	return (0);
 }
 
-unsigned long doors_time_check_ms(unsigned long time)
+unsigned long	doors_time_check_ms(unsigned long time)
 {
 	static unsigned long	buff = 0;
 	unsigned long			actual;
@@ -47,7 +47,7 @@ unsigned long doors_time_check_ms(unsigned long time)
 	return (0);
 }
 
-static unsigned long get_actual_time_ms(void)
+static unsigned long	get_actual_time_ms(void)
 {
 	struct timeval	t;
 	unsigned long	time_ms;
@@ -59,7 +59,7 @@ static unsigned long get_actual_time_ms(void)
 	return (time_ms);
 }
 
-static unsigned long get_offset_time(void)
+static unsigned long	get_offset_time(void)
 {
 	static unsigned long	offset = 0;
 	unsigned long			buffer;

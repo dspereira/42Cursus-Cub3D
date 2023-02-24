@@ -6,11 +6,11 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 12:18:44 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:45:04 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 int	init_map_struct(t_map *init)
 {

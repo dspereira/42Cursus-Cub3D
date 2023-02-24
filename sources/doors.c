@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:54:55 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 12:22:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:23:19 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	door_check_interaction(t_ray ray, char **map)
 
 static char	door_status_update(char old_status)
 {
-	char new_status;
+	char	new_status;
 
 	if (old_status > D_FRAME_CLOSE_1 && old_status <= D_FRAME_CLOSE_7)
 		new_status = old_status - 1;
