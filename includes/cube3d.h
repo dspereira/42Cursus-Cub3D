@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 12:49:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:49:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ typedef struct s_data
 
 // math_utils.c
 int		math_abs(int n);
-float	normalizeAngles(float angle);
+float	normalize_angles(float angle);
 double	cos_degree(double angle);
 double	sin_degree(double angle);
 int		clamp(int min, int max, int value);

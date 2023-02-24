@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:52:23 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/16 14:36:20 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:49:56 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void ray_init(t_ray *ray, float dir, float p_dir)
 
 void ray_update_dir(t_ray *ray, float dir)
 {
-	ray->dir = normalizeAngles(dir);
+	ray->dir = normalize_angles(dir);
 	ray->cos = cos_degree(ray->dir);
 	ray->sin = sin_degree(ray->dir) * -1;
 	ray->sx = 1 / ray->cos;

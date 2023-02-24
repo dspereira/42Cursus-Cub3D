@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/11 15:33:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:49:47 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void player_update_vision(t_player *player, float rot_angle)
 	int 	i;
 
 	rays = player->rays;
-	player->dir = normalizeAngles(player->dir + rot_angle);
+	player->dir = normalize_angles(player->dir + rot_angle);
 	i = -1;
 	while (++i < NUMBER_RAYS)
 		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
@@ -80,7 +80,7 @@ void player_move(t_player *player, char **map, int dir)
 	t_pos	new_pos;
 	float	angle;
 
-	angle = normalizeAngles((float)dir + player->dir);
+	angle = normalize_angles((float)dir + player->dir);
 	new_pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
 	if (!check_collisions(new_pos, map))	
 		player->pos = new_pos;
