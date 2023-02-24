@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:27:35 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 15:54:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:20:58 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	get_map_size(char **map)
 
 int	get_map_dimensions(t_map **map)
 {
-	int	x;
-	int	y;
-	char **cont;
+	int		x;
+	int		y;
+	char	**cont;
 
 	cont = (*map)->content;
 	while (cont[0][x])

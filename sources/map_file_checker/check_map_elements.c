@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 15:05:48 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:20:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	check_one_line_map(char *line)
 		else if (line[i] == ' ' || line[i] == 'A' || line[i] == 'B' \
 				|| line[i] == 'C' || line[i] == 'D' || line[i] == 'G')
 			i++;
-			
 		else
 		{
 			print_error_msg("Invalid elements in the Map");
