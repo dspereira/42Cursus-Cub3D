@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 11:42:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:28:18 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,5 +341,8 @@ void	minimap_render(t_img img, t_player player, char **map);
 // doors.c
 void	doors_interaction(t_map map, t_player *player);
 void	doors_control(t_map map);
+
+// setup_textures.c
+void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 
 #endif
