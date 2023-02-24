@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_textures_rgb.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:01:43 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/16 12:22:04 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:05:48 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static int	get_number(char *src, int *index);
 static int	check_rgb_elemts(char *src);

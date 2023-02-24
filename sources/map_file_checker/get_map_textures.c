@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:23:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/23 09:54:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:07:24 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
-void				get_rgb(char *src, int *tex_count, int *act_colour);
-static int			is_line_empty(char *line);
-static void			get_path(char *src, int *tex_c, char **actpath);
+void		get_rgb(char *src, int *tex_count, int *act_colour);
+static int	is_line_empty(char *line);
+static void	get_path(char *src, int *tex_c, char **actpath);
 
 int	get_map_textures(t_map **map, int fd)
 {

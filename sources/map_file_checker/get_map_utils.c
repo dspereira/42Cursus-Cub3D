@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:27:35 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:31:37 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:54:50 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 int	find_big_line_len(char **src)
 {
@@ -70,8 +70,5 @@ int	get_map_dimensions(t_map **map)
 		return (FALSE);
 	(*map)->height = y;
 	(*map)->width = x;
-	//printf("----------------------\n");
-	//printf("Map Height - %d\nMap Width  - %d\n", (*map)->height, (*map)->width);
-	//printf("----------------------\n");
 	return (TRUE);
 }

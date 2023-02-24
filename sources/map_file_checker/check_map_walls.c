@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_walls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:39:13 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 12:29:00 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:06:54 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static int	check_top_bot_lines(char **map);
 static int	check_left_right_borders(char **map);

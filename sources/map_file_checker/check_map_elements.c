@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/16 16:23:07 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:05:48 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static int	check_empty_map(const char **map);
 static int	check_nbr_player_start_pos(const char **map);
