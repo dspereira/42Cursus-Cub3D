@@ -6,17 +6,16 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:05:04 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 11:24:38 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:11:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 static int	get_nbr_doors(char **map);
-static void	set_door_info(t_door *door, int x, int y);
-static int	init_doors(t_door **doors, char **map);
+static int	init_doors(t_pos **doors, char **map);
 
-int	get_doors_info(char **map, t_door **doors)
+int	get_doors_info(char **map, t_pos **doors)
 {
 	int	x;
 	int	y;
@@ -31,9 +30,10 @@ int	get_doors_info(char **map, t_door **doors)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == 'D')
+			if (map[y][x] == 'G')
 			{
-				set_door_info(&(*doors)[i], x, y);
+				(*doors)[i].x = x;
+				(*doors)[i].y = y;
 				i++;
 			}
 			x++;
@@ -43,16 +43,18 @@ int	get_doors_info(char **map, t_door **doors)
 	return (TRUE);
 }
 
-static int	init_doors(t_door **doors, char **map)
+static int	init_doors(t_pos **doors, char **map)
 {
 	int	nbr_doors;
 
 	nbr_doors = get_nbr_doors(map);
 	if (nbr_doors >= 1)
 	{
-		*doors = ft_calloc(nbr_doors + 1, sizeof(t_door));
+		*doors = ft_calloc(nbr_doors + 1, sizeof(t_pos));
 		if (!*doors)
 			return (-1);
+		(*doors)[nbr_doors].x = -1;
+		(*doors)[nbr_doors].y = -1;
 	}
 	else
 	{
@@ -76,17 +78,11 @@ static int	get_nbr_doors(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'D')
+			if (map[i][j] == 'G')
 				counter++;
 			j++;
 		}
 		i++;
 	}
 	return (counter);
-}
-
-static void	set_door_info(t_door *door, int x, int y)
-{
-	(*door).pos.x = x;
-	(*door).pos.y = y;
 }

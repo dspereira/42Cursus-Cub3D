@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:54:55 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 11:16:56 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:22:55 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,21 @@ void	doors_interaction(t_map map, t_player *player)
 void	doors_control(t_map map)
 {
 	int		i;
-	int		j;
+	int		x;
+	int		y;
 	char	**content;
 
 	content = map.content;
 	i = 0;
-	while (content[i])
+	while (map.doors[i].x != -1)
 	{
-		j = 0;
-		while (content[i][j])
+		x = map.doors[i].x;
+		y = map.doors[i].y;
+		if ((content[y][x] > 'g' && content[y][x] <= 'n')
+			|| (content[y][x] > 'G' && content[y][x] <= 'N'))
 		{
-			if ((content[i][j] > 'g' && content[i][j] <= 'n')
-				|| (content[i][j] > 'G' && content[i][j] <= 'N'))
-			{
-				if (doors_time_check_ms(DOOR_TIME_SPRITES))
-					content[i][j] = door_status_update(content[i][j]);
-			}
-			j++;
+			if (doors_time_check_ms(DOOR_TIME_SPRITES))
+				content[y][x] = door_status_update(content[y][x]);
 		}
 		i++;
 	}

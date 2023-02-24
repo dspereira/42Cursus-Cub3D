@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 11:28:02 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:42:55 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ typedef struct s_map
 	t_pos		pos;
 	int			height;
 	int			width;
-	t_door		*doors;
+	t_pos		*doors;
 }				t_map;
 
 typedef struct s_pos_dec

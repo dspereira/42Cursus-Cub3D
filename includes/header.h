@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/16 11:59:37 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:01:30 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		*get_next_line(int fd);
 int			get_map_content(char ***content, int fd);
 int			get_player_info(char **map, int *orientation, t_pos *pos);
 int         get_map_dimensions(t_map **map);
-int         get_doors_info(char **map, t_door **doors);
+int         get_doors_info(char **map, t_pos **doors);
 
 int			check_map(char **map);
 int			check_map_elements(char **map);
