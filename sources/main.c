@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 17:00:31 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:01:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int render_win(void *data)
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 		player_rotation(win, player, mouse_get_pos(win));
 	mouse_control(win, &((t_data*)data)->mouse_state);
-
+	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
@@ -161,13 +161,11 @@ static void	init_doors_sprites_2(t_tex *tex, void *mlx)
 	tex->doors[DOOR_OPEN_7].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN_7].mlx_img, \
 		&(tex->doors[DOOR_OPEN_7].bpp), &(tex->doors[DOOR_OPEN_7].line_len), \
 		&(tex->doors[DOOR_OPEN_7].endian));
-	printf("Here\n");
 	tex->doors[DOOR_OPEN].mlx_img = mlx_xpm_file_to_image(mlx, D_TEX_OPEN, \
 		&(tex->doors[DOOR_OPEN].width), &(tex->doors[DOOR_OPEN].height));
 	tex->doors[DOOR_OPEN].addr = mlx_get_data_addr(tex->doors[DOOR_OPEN].mlx_img, \
 		&(tex->doors[DOOR_OPEN].bpp), &(tex->doors[DOOR_OPEN].line_len), \
 		&(tex->doors[DOOR_OPEN].endian));
-	printf("Here\n");
 }
 
 static void	init_doors_tex(t_tex *tex, void *mlx)

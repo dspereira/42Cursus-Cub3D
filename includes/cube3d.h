@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 17:07:50 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:15:32 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@
 #define D_FRAME_CLOSE_7		'n'
 
 #define NONE_COLOR_VALUE	0x00FFFFFF
+
+#define DOOR_TIME_SPRITES	75
+#define DIST_OPEN_DOOR		1.5
 
 typedef struct s_img
 {
@@ -317,6 +320,7 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
+unsigned long	doors_time_check_ms(unsigned long time);
 
 // key_controls.c
 int	key(int keycode, t_data *data);
@@ -337,5 +341,6 @@ void	minimap_render(t_img img, t_player player, char **map);
 
 // doors.c
 void	doors_interaction(t_map map, t_player *player);
+void	doors_control(t_map map);
 
 #endif
