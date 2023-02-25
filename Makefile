@@ -43,7 +43,6 @@ SRC_NAME =	main.c							\
 			utils.c							\
 			render_scene_2d.c				\
 			render_scene_3d.c				\
-			player.c						\
 			ray.c							\
 			raycast.c						\
 			time.c							\
@@ -51,8 +50,10 @@ SRC_NAME =	main.c							\
 			collisions.c					\
 			mouse.c							\
 			minimap/minimap.c				\
-			minimap/minimap_draw_player.c			\
-			minimap/minimap_utils.c					\
+			minimap/minimap_draw_player.c	\
+			minimap/minimap_utils.c			\
+			player/player.c					\
+			player/player_rot_mouse.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
@@ -68,6 +69,7 @@ $(NAME) : $(OBJS)
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects
 	mkdir -p objects/minimap
+	mkdir -p objects/player
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:

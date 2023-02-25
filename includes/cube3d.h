@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/25 17:23:48 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:35:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,14 +273,25 @@ void render_scene_2d(t_img img, t_player player, char **map);
 void render_scene_3d(t_img img, t_player player);
 void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
+/*
 // player.c
 t_player	*player_init(t_pos pos, int dir);
 //void		player_update_vision(t_player *player, float rot_angle);
 void 		player_move(t_player *player, char **map, int dir);
 //void 		player_rotation(t_win win, t_player *player, t_pos mouse_pos);
 //void player_rotation(t_player *player, t_pos mouse_pos);
-void player_rotation_mouse(t_player *player, t_pos mouse_pos);
+void player_rot_mouse(t_player *player, t_pos mouse_pos);
 void player_rotation_key(t_player *player, float rot_angle);
+*/
+
+// player.c
+t_player	*player_init(t_pos pos, int dir);
+void		player_move(t_player *player, char **map, int dir);
+void		player_rotation_key(t_player *player, float rot_angle);
+void 		player_update_rays(t_ray *rays, float rot_angle);
+
+// player_rot_mouse.c
+void player_rot_mouse(t_player *player, t_pos mouse_pos);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);

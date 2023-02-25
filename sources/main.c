@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/25 17:18:46 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:26:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int render_win(void *data)
 	
 	//exit(0);
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
-		player_rotation_mouse(player, mouse_get_pos(win));
+		player_rot_mouse(player, mouse_get_pos(win));
 		//player_rotation(win, player, mouse_get_pos(win));
 
 	// mouse state control	
