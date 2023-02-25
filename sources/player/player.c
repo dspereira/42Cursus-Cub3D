@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/25 18:35:02 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:49:44 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void		add_rays_to_player(t_player *player, int n_rays);
 
-t_player *player_init(t_pos pos, int dir)
+t_player	*player_init(t_pos pos, int dir)
 {
-	t_player    *player;
+	t_player	*player;
 
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
-	player->pos = pos;	
+	player->pos = pos;
 	player->pos_dec = (t_pos_dec){pos.x, pos.y};
 	player->dir = (float) dir;
 	player->dir_y = WIN_HEIGHT / 2;
 	player->midle_dir_y = WIN_HEIGHT / 2;
 	player->max_dir_y = WIN_HEIGHT - (player->midle_dir_y / 2);
-	player->min_dir_y = player->midle_dir_y / 2;	
+	player->min_dir_y = player->midle_dir_y / 2;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
 	player->win_half_size = WIN_WIDTH / 2;
 	player->rays = malloc(NUMBER_RAYS * sizeof(t_ray));
@@ -37,8 +37,7 @@ t_player *player_init(t_pos pos, int dir)
 	return (player);
 }
 
-
-void player_move(t_player *player, char **map, int dir)
+void	player_move(t_player *player, char **map, int dir)
 {
 	t_pos_dec	new_pos_dec;
 	t_pos		new_pos;
@@ -54,15 +53,15 @@ void player_move(t_player *player, char **map, int dir)
 	}
 }
 
-void player_rotation_key(t_player *player, float rot_angle)
+void	player_rotation_key(t_player *player, float rot_angle)
 {
 	player->dir = normalizeAngles(player->dir + rot_angle);
 	player_update_rays(player->rays, rot_angle);
 }
 
-void player_update_rays(t_ray *rays, float rot_angle)
+void	player_update_rays(t_ray *rays, float rot_angle)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < NUMBER_RAYS)
@@ -72,10 +71,10 @@ void player_update_rays(t_ray *rays, float rot_angle)
 	}
 }
 
-static void add_rays_to_player(t_player *player, int n_rays)
+static void	add_rays_to_player(t_player *player, int n_rays)
 {
-	int     i;
-	float   angle;
+	int		i;
+	float	angle;
 
 	angle = player->dir + (CAMERA_ANGLE / 2);
 	i = 0;
@@ -86,4 +85,3 @@ static void add_rays_to_player(t_player *player, int n_rays)
 		i++;
 	}
 }
-
