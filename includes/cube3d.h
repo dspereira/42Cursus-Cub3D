@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 17:52:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:23:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 //#define WIN_WIDTH		1040
 //#define WIN_WIDTH		1920
 
-#define WIN_HEIGHT		800
-#define WIN_WIDTH		1500
+#define WIN_HEIGHT		1080
+#define WIN_WIDTH		1920
 
-#define CAMERA_ANGLE	50
+#define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
 
 #define KEY_W				119
@@ -104,6 +104,11 @@
 #define MINIMAP_COLOR_NONE		0xFFFFFFFF
 #define MINIMAP_COLOR_GROUND	0x00668284
 #define MINIMAP_COLOR_WALL		0x002A2829
+
+
+// MIN SENSE = 0  
+// MAX SENSE = 1
+#define MOUSE_SENSE				0.5
 
 
 typedef struct s_img
@@ -197,10 +202,15 @@ typedef struct s_player
 {
 	t_pos		pos;
 	t_pos_dec	pos_dec;
-	float	dir;
-	int		dir_y;
-	float	angle_step;
-	t_ray	*rays;
+	float		dir; // angle_dir
+	float		angle_step;
+	t_ray		*rays;
+	int			dir_y;
+	int			midle_dir_y;
+	int			max_dir_y;
+	int			min_dir_y;
+	int			win_half_size;
+
 }	t_player;
 
 typedef struct s_wall_data
@@ -265,9 +275,12 @@ void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
-void		player_update_vision(t_player *player, float rot_angle);
+//void		player_update_vision(t_player *player, float rot_angle);
 void 		player_move(t_player *player, char **map, int dir);
-void 		player_rotation(t_win win, t_player *player, t_pos mouse_pos);
+//void 		player_rotation(t_win win, t_player *player, t_pos mouse_pos);
+//void player_rotation(t_player *player, t_pos mouse_pos);
+void player_rotation_mouse(t_player *player, t_pos mouse_pos);
+void player_rotation_key(t_player *player, float rot_angle);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);

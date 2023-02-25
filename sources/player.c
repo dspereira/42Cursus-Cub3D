@@ -6,13 +6,19 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 18:54:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:09:21 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void add_rays_to_player(t_player *player, int n_rays);
+static void		player_update_vision_x(t_player *player, t_pos mouse_pos);
+static void		player_update_vision_y(t_player *player, t_pos mouse_pos);
+static float	player_get_rot_angle_x(t_player player, t_pos mouse_pos);
+static int		player_get_rot_pixels_y(t_player player, t_pos mouse_pos);
+static void		add_rays_to_player(t_player *player, int n_rays);
+
+static void update_rays(t_ray *rays, float rot_angle);
 
 t_player *player_init(t_pos pos, int dir)
 {
@@ -24,8 +30,12 @@ t_player *player_init(t_pos pos, int dir)
 	player->pos = pos;	
 	player->pos_dec = (t_pos_dec){pos.x, pos.y};
 	player->dir = (float) dir;
-	player->dir_y = WIN_WIDTH / 2;
+	player->dir_y = WIN_HEIGHT / 2;
+	player->midle_dir_y = WIN_HEIGHT / 2;
+	player->max_dir_y = WIN_HEIGHT - (player->midle_dir_y / 2);
+	player->min_dir_y = player->midle_dir_y / 2;	
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
+	player->win_half_size = WIN_WIDTH / 2;
 	player->rays = malloc(NUMBER_RAYS * sizeof(t_ray));
 	if (!(player->rays))
 		return (0);
@@ -33,80 +43,92 @@ t_player *player_init(t_pos pos, int dir)
 	return (player);
 }
 
-void player_update_vision(t_player *player, float rot_angle)
+static void player_update_vision_x(t_player *player, t_pos mouse_pos)
 {
-	t_ray	*rays;
+	/*t_ray	*rays;
+	float	rot_angle;
 	int 	i;
 
 	rays = player->rays;
+	rot_angle = player_get_rot_angle_x(*player, mouse_pos);
 	player->dir = normalizeAngles(player->dir + rot_angle);
 	i = -1;
 	while (++i < NUMBER_RAYS)
-		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
+		ray_update_dir(&rays[i], rays[i].dir + rot_angle);*/
+	float	rot_angle;
+	rot_angle = player_get_rot_angle_x(*player, mouse_pos);	
+	player->dir = normalizeAngles(player->dir + rot_angle);
+
+	update_rays(player->rays, rot_angle);
 }
 
-void player_rotation_y(t_win win, t_player *player, t_pos mouse_pos)
+static void player_update_vision_y(t_player *player, t_pos mouse_pos)
 {
 	int rot_pixels;
-	int half_height_win;
-
-	half_height_win = WIN_HEIGHT / 2;
-
-	rot_pixels = half_height_win - mouse_pos.y;
-	if (rot_pixels < 0 && player->dir_y < half_height_win / 2)
-		return ;
-	else if (rot_pixels > 0 && player->dir_y > WIN_HEIGHT - (half_height_win / 2))
-		return ;
+	
+	rot_pixels = player_get_rot_pixels_y(*player, mouse_pos);
 	player->dir_y += rot_pixels;
-	if (player->dir_y > WIN_HEIGHT - (half_height_win / 2))
-		player->dir_y = WIN_HEIGHT - (half_height_win / 2);
-	else if (player->dir_y < half_height_win / 2)
-		player->dir_y = half_height_win / 2;
+	if (player->dir_y > player->max_dir_y)
+		player->dir_y = player->max_dir_y;
+	else if (player->dir_y < player->min_dir_y)
+		player->dir_y = player->min_dir_y;
 }
 
-void player_rotation(t_win win, t_player *player, t_pos mouse_pos)
+static float player_get_rot_angle_x(t_player player, t_pos mouse_pos)
 {
 	int		rot_pixels;
 	float	rot_angle;
 
-	rot_pixels = (WIN_WIDTH / 2) - mouse_pos.x;
-	rot_angle = rot_pixels * ((float)CAMERA_ANGLE / NUMBER_RAYS);
-	player_update_vision(player, rot_angle);
-	player_rotation_y(win, player, mouse_pos);
+	rot_pixels = (player.win_half_size - mouse_pos.x) * (1 + MOUSE_SENSE);
+	rot_angle = rot_pixels * player.angle_step;
+	return (rot_angle);
 }
 
+static int player_get_rot_pixels_y(t_player player, t_pos mouse_pos)
+{
+	int rot_pixels;
+
+	rot_pixels = player.midle_dir_y - mouse_pos.y;
+	if (rot_pixels < 0 && player.dir_y <= player.min_dir_y)
+		return 0;
+	else if (rot_pixels > 0 && player.dir_y >= player.max_dir_y)
+		return 0;
+	return (rot_pixels);
+}
+
+void player_rotation_mouse(t_player *player, t_pos mouse_pos)
+{
+	player_update_vision_x(player, mouse_pos);
+	player_update_vision_y(player, mouse_pos);
+}
+
+void player_rotation_key(t_player *player, float rot_angle)
+{
+	//t_ray	*rays;
+	//int 	i;
+
+	//rays = player->rays;
+	player->dir = normalizeAngles(player->dir + rot_angle);
+	//i = -1;
+	//while (++i < NUMBER_RAYS)
+	//	ray_update_dir(&rays[i], rays[i].dir + rot_angle);
+
+	update_rays(player->rays, rot_angle);
+}
 
 void player_move(t_player *player, char **map, int dir)
 {
 	t_pos_dec	new_pos_dec;
-	float	angle;
-
-
-	//printf("DIRECAO %i\n", dir);
+	t_pos		new_pos;
+	float		angle;
 
 	angle = normalizeAngles((float)dir + player->dir);
-	//new_pos_dec = get_new_dist_pos_dec(player->pos_dec, angle, MOVE_STEP);
 	new_pos_dec = get_new_dist_pos_dec(player->pos_dec, angle, MOVE_STEP);
-	//new_pos = get_new_dist_pos(player->pos, angle, MOVE_STEP);
-	
-	
-
-	//new_pos = get_new_dist_pos1(player->pos, angle, MOVE_STEP);
-
-	//new_pos.x = get_new_dist_pos1(player->pos, angle, MOVE_STEP).x;
-	//new_pos.y = get_new_dist_pos1(player->pos, angle, MOVE_STEP).y;
-
-	//printf("angle: %.5f\n", angle);
-	//printf("pos x: %i y: %i\n", player->pos.x, player->pos.y);
-	//printf("new pos x: %.5f y: %.5f\n", new_pos_dec.x, new_pos_dec.y);
-
-	
-
-	if (!check_collisions((t_pos){new_pos_dec.x, new_pos_dec.y}, map))
+	new_pos = (t_pos){round(new_pos_dec.x), round(new_pos_dec.y)};
+	if (!check_collisions(new_pos, map))
 	{
 		player->pos_dec = new_pos_dec;
-		player->pos.x = new_pos_dec.x;
-		player->pos.y = new_pos_dec.y;
+		player->pos = new_pos;
 	}
 }
 
@@ -121,6 +143,18 @@ static void add_rays_to_player(t_player *player, int n_rays)
 	{
 		angle -= player->angle_step;
 		ray_init(&(player->rays[i]), angle, player->dir);
+		i++;
+	}
+}
+
+static void update_rays(t_ray *rays, float rot_angle)
+{
+	int i;
+
+	i = 0;
+	while (i < NUMBER_RAYS)
+	{
+		ray_update_dir(&rays[i], rays[i].dir + rot_angle);
 		i++;
 	}
 }

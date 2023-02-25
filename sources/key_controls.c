@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:29:37 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 12:51:49 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:24:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	key(int keycode, t_data *data)
 	else if (keycode == KEY_D)
 		player_move(data->player, data->map.content, RIGHT);
 	else if (keycode == KEY_ARROW_R)
-		player_update_vision(data->player, -ROT_STEP);
+		player_rotation_key(data->player, -ROT_STEP);
 	else if (keycode == KEY_ARROW_L)
-		player_update_vision(data->player, ROT_STEP);
+		player_rotation_key(data->player, ROT_STEP);
 	else if (keycode == KEY_CTRL)
 		data->mouse_state = MOUSE_CHANGE_SHOW;
 	else if (keycode == KEY_ESC)
