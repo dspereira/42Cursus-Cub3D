@@ -3,65 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 14:47:37 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:07:47 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void	render_ceil_floor(t_img img, int c_rgb, int f_rgb, int mid_y);
-static void	render_walls_tex(t_img img, t_ray *rays, t_tex tex);
-void		get_tex_data(t_ray ray, int x_pos, t_tex tex, t_tex_data *data);
-void		get_d_tex_data(t_ray ray, int x_pos, t_tex tex, t_tex_data *data);
+static void	render_walls_tex(t_img img, t_ray *rays, t_tex tex, int y_dir);
+void		get_tex_data(t_ray ray, t_value val, t_tex tex, t_tex_data *data);
+void		get_d_tex_data(t_ray ray, t_value val, t_tex tex, t_tex_data *data);
 
 void	render_scene_3d_tex(t_img img, t_player player, t_tex tex)
 {
 	render_ceil_floor(img, tex.ceil_rgb, tex.floor_rgb, player.dir_y);
-	render_walls_tex(img, player.rays, tex);
+	render_walls_tex(img, player.rays, tex, player.dir_y);
 }
 
 static void	render_ceil_floor(t_img img, int c_rgb, int f_rgb, int mid_y)
 {
-	t_pos	init_ceil;
-	t_pos	init_floor;
 	t_value	size;
 
 	size.y = mid_y;
 	size.x = WIN_WIDTH;
 	draw_fill_rectangle(img, (t_pos){0, 0}, size, c_rgb);
 	size.y = WIN_HEIGHT - mid_y;
-	draw_fill_rectangle(img, (t_pos){0, size.y}, size, f_rgb);
+	draw_fill_rectangle(img, (t_pos){0, mid_y}, size, f_rgb);
 }
 
-static void	render_walls_tex(t_img img, t_ray *rays, t_tex tex)
+static void	render_walls_tex(t_img img, t_ray *rays, t_tex tex, int y_dir)
 {
 	int			n_rays;
-	int			pos_x;
 	t_tex_data	tex_data;
+	t_value		draw_vals;
 
 	n_rays = NUMBER_RAYS;
-	pos_x = 0;
-	while (pos_x < n_rays)
+	draw_vals.x = 0;
+	draw_vals.y = y_dir;
+	while (draw_vals.x < n_rays)
 	{
-		get_tex_data(rays[pos_x], pos_x, tex, &tex_data);
+		get_tex_data(rays[draw_vals.x], draw_vals, tex, &tex_data);
 		draw_line_tex(img, tex_data);
-		if (rays[pos_x].is_door)
+		if (rays[draw_vals.x].is_door)
 		{
-			get_d_tex_data(rays[pos_x], pos_x, tex, &tex_data);
+			get_d_tex_data(rays[draw_vals.x], draw_vals, tex, &tex_data);
 			draw_door_tex(img, tex_data);
 		}
-		pos_x++;
+		draw_vals.x++;
 	}
 }
 
-void	get_tex_data(t_ray ray, int x_pos, t_tex tex, t_tex_data *data)
+void	get_tex_data(t_ray ray, t_value draw_vals, t_tex tex, t_tex_data *data)
 {
-	data->win_start_pos.x = x_pos;
+	data->win_start_pos.x = draw_vals.x;
 	data->height = (int)((WIN_HEIGHT) / ray.dist_wall);
-	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
+	data->win_start_pos.y = draw_vals.y - (data->height / 2);
 	data->map_wall_pos = ray.map_wall_pos;
 	if (ray.door_side_wall != 0 && ray.side == ray.door_side_wall)
 		data->tex = tex.door_side;
@@ -75,11 +74,11 @@ void	get_tex_data(t_ray ray, int x_pos, t_tex tex, t_tex_data *data)
 		data->tex = tex.no;
 }
 
-void	get_d_tex_data(t_ray ray, int x_pos, t_tex tex, t_tex_data *data)
+void	get_d_tex_data(t_ray ray, t_value draw_vals, t_tex tex, t_tex_data *data)
 {
-	data->win_start_pos.x = x_pos;
+	data->win_start_pos.x = draw_vals.x;
 	data->height = ((int)((WIN_HEIGHT) / ray.door_dist));
-	data->win_start_pos.y = (WIN_HEIGHT / 2) - (data->height / 2);
+	data->win_start_pos.y = draw_vals.y - (data->height / 2);
 	data->map_wall_pos = ray.map_door_pos;
 	if (ray.door_tex == 'G')
 		data->tex = tex.doors[DOOR_CLOSE];
