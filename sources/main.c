@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 12:28:52 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:09:42 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ int main(int argc, char **argv)
 	t_data		data;
 	t_tex		tex;
 
+	if (argc < 2)
+	{
+		printf("Invalid number of arguments\n");
+		return (-1);
+	}
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
-	
-	player = player_init((t_pos){100, 100}, 0);
+
+	printf("height: %i, width: %i\n", map.height, map.width);
+
+	player = player_init(map.pos, map.orientation);
+
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -40,6 +48,7 @@ int main(int argc, char **argv)
 	data.win = &win;
 	data.player = player;
 	data.map = map;
+	data.minimap = minimap_init(map.width, map.height);
 	mouse_init(win, &data.mouse_state);
 	data.tex = tex;
 	mlx_loop_hook(win.mlx, render_win, &data);
@@ -65,7 +74,10 @@ int render_win(void *data)
 	
 	//exit(0);
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
-		player_rotation(win, player, mouse_get_pos(win));
+		player_rot_mouse(player, mouse_get_pos(win));
+		//player_rotation(win, player, mouse_get_pos(win));
+
+	// mouse state control	
 	mouse_control(win, &((t_data*)data)->mouse_state);
 	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
@@ -73,6 +85,7 @@ int render_win(void *data)
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
 	//minimap_render(win.frame, *player, map.content);
+	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
 	frames_count++;
 	if (check_time_ms(1000))

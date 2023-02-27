@@ -33,6 +33,11 @@ SRC_NAME =	main.c										\
 			map_file_checker/get_map_utils.c			\
 			map_file_checker/map_resizer.c				\
 			map_file_checker/get_player_info.c			\
+			minimap/minimap.c							\
+			minimap/minimap_draw_player.c				\
+			minimap/minimap_utils.c						\
+			player/player.c								\
+			player/player_rot_mouse.c					\
 			map.c										\
 			free_memory.c								\
 			error_msgs.c								\
@@ -41,14 +46,12 @@ SRC_NAME =	main.c										\
 			utils.c										\
 			render_scene_2d.c							\
 			render_scene_3d.c							\
-			player.c									\
 			ray.c										\
 			raycast.c									\
 			time.c										\
 			key_controls.c								\
 			collisions.c								\
 			mouse.c										\
-			minimap.c									\
 			doors.c										\
 			setup_textures.c
 
@@ -66,6 +69,8 @@ $(NAME) : $(OBJS)
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects
 	mkdir -p objects/map_file_checker
+	mkdir -p objects/minimap
+	mkdir -p objects/player
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:

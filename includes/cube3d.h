@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 16:49:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:27:43 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
-#define	MINIMAP_SQUARE_SIZE	15
+#define MAP_SQUARE_SIZE	40
 
-#define WIN_HEIGHT		1040
-#define WIN_WIDTH		1040
 
-#define CAMERA_ANGLE	50
+//#define WIN_HEIGHT		1080
+//#define WIN_WIDTH		1040
+//#define WIN_WIDTH		1920
+
+#define WIN_HEIGHT		720
+#define WIN_WIDTH		1080
+
+#define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
 
 #define KEY_W				119
@@ -55,7 +60,7 @@
 #define RIGHT			270
 
 #define ROT_STEP		2
-#define MOVE_STEP		2
+#define MOVE_STEP		5
 
 // render 2D
 #define PLAYER_SIZE		10
@@ -77,7 +82,7 @@
 //#define BGD_MINIMAP_COLOR	0x00c0c1c2
 #define BGD_MINIMAP_COLOR	0x66000000
 
-#define PLAYER_RADIUS	8
+#define PLAYER_RADIUS	4
 
 #define MOUSE_HIDE			1
 #define MOUSE_SHOW			2
@@ -139,6 +144,23 @@
 
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
+
+
+#define	MINIMAP_SQUARE_SIZE		15
+#define MINIMAP_PLAYER_RADIUS	4
+#define MINIMAP_ARROW_SIZE		10
+//#define MINIMAP_PLAYER_COLOR 	0x002A6E78
+#define MINIMAP_PLAYER_COLOR 	0x00FFFFFF
+#define MINIMAP_ARROW_COLOR  	0x00880606
+#define MINIMAP_COLOR_NONE		0xFFFFFFFF
+#define MINIMAP_COLOR_GROUND	0x00668284
+#define MINIMAP_COLOR_WALL		0x002A2829
+
+
+// MIN SENSE = 0  
+// MAX SENSE = 1
+#define MOUSE_SENSE				0.5
+
 
 typedef struct s_img
 {
@@ -237,11 +259,17 @@ typedef struct s_ray
 
 typedef struct s_player 
 {
-	t_pos	pos;
-	float	dir;
-	int		dir_y;
-	float	angle_step;
-	t_ray	*rays;
+	t_pos		pos;
+	t_pos_dec	pos_dec;
+	float		dir; // angle_dir
+	float		angle_step;
+	t_ray		*rays;
+	int			dir_y;
+	int			midle_dir_y;
+	int			max_dir_y;
+	int			min_dir_y;
+	int			win_half_size;
+
 }	t_player;
 
 typedef struct s_tex_data
@@ -252,14 +280,27 @@ typedef struct s_tex_data
 	int			height;
 }	t_tex_data;
 
+typedef struct s_minimap
+{
+	t_value	size;
+	t_value	half_size;
+	t_value	scaled_map_size;
+	t_value map_size;
+	t_pos	win_pos;
+	float	map_scale;
+}	t_minimap;
+
 typedef struct s_data
 {
 	t_win		*win;
 	t_map		map;
 	t_player	*player;
 	t_tex		tex;
+	t_minimap	minimap;
 	int			mouse_state;
 }	t_data; 
+
+
 
 
 // math_utils.c
@@ -270,16 +311,16 @@ double	sin_degree(double angle);
 int		clamp(int min, int max, int value);
 
 //utils.c
-t_pos_dec	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+t_pos_dec	get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
-int			hex_to_int(const char *str);
+//int			hex_to_int(const char *str);
 
-t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
+//t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
 t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
 
 void		*ft_calloc(size_t count, size_t size);
@@ -293,9 +334,12 @@ void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
 t_player	*player_init(t_pos pos, int dir);
-void		player_update_vision(t_player *player, float rot_angle);
-void 		player_move(t_player *player, char **map, int dir);
-void 		player_rotation(t_win win, t_player *player, t_pos mouse_pos);
+void		player_move(t_player *player, char **map, int dir);
+void		player_rotation_key(t_player *player, float rot_angle);
+void 		player_update_rays(t_ray *rays, float rot_angle);
+
+// player_rot_mouse.c
+void player_rot_mouse(t_player *player, t_pos mouse_pos);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
@@ -316,6 +360,7 @@ void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+//void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
@@ -336,7 +381,20 @@ void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
 
 // minimap.c
-void	minimap_render(t_img img, t_player player, char **map);
+t_minimap	minimap_init(int map_width, int map_height);
+void		minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
+
+// minimap_draw_player.c
+void	minimap_draw_player(t_img img, t_player player, t_minimap minimap);
+
+// minimap_utils.c
+t_pos	get_player_pos_map_scaled(t_pos pos, t_minimap minimap);
+t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
+//int		get_pixel_color(t_pos pos, char **map);
+int		get_pixel_color(t_pos pos, char **map, t_value map_size);
+t_pos	get_scaled_map_pos(t_pos pos);
+t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_minimap minimap);
+
 
 // doors.c
 void	doors_interaction(t_map map, t_player *player);
@@ -344,5 +402,6 @@ void	doors_control(t_map map);
 
 // setup_textures.c
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
+t_pos get_new_dist_pos1(t_pos init, float dir, int dist);
 
 #endif

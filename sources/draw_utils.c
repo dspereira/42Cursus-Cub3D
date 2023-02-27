@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 16:35:17 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:08:49 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_pixel(t_img img, int x, int y, int color)
 {
 	int	*pixel;
 
-	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
+	if (x >= WIN_WIDTH || y >= WIN_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (int *)(img.addr + (img.line_len * y) + (x * img.bpp / 8));
 	*pixel = color;
@@ -168,3 +168,17 @@ void	draw_fill_square(t_img img, t_pos init, int size, int color)
 		i++;
 	}
 }
+
+/*
+void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color)
+{
+	int height;
+
+	height = end.y - init.y;
+	while (init.x <= end.x)
+	{
+		draw_vertical_line(img, init, height, color);
+		init.x++;
+	}
+}
+*/
