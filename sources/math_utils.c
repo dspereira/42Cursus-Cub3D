@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 16:50:44 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:10:22 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ float	normalize_angles(float angle)
 
 double	cos_degree(double angle)
 {
-	return (cos(angle * 0.0174532925));
+	return (cos(angle * 0.01745329252));
 }
 
 double	sin_degree(double angle)
 {
-	return (sin(angle * 0.0174532925));
+	return (sin(angle * 0.01745329252));
 }
 
 int	clamp(int min, int max, int value)

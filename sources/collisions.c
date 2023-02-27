@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:58:37 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 11:33:51 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:17:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static int check_collision_player_wall(t_pos p_pos, t_pos w_pos)
 	double	collision_dist;
 	
 	test_pos = p_pos;
-	test_pos.x = clamp(w_pos.x, w_pos.x + WIN_WIDTH / MAP_WIDTH, test_pos.x);
-	test_pos.y = clamp(w_pos.y, w_pos.y + WIN_HEIGHT / MAP_HEIGHT, test_pos.y);
+	test_pos.x = clamp(w_pos.x, w_pos.x + MAP_SQUARE_SIZE, test_pos.x);
+	test_pos.y = clamp(w_pos.y, w_pos.y + MAP_SQUARE_SIZE, test_pos.y);
 	dist.x = p_pos.x - test_pos.x;
 	dist.y = p_pos.y - test_pos.y;
 	collision_dist = sqrt((dist.x * dist.x) + (dist.y * dist.y));
@@ -66,6 +66,8 @@ static int check_collidable_elems(char elem)
     if (elem == '1')
         return (1);
 	else if ((elem >= 'G' && elem <= 'N') || (elem > 'g' && elem <= 'n'))
+		return (1);
+	else if (elem >= 'A' && elem <= 'D')
 		return (1);
     else
         return (0);
