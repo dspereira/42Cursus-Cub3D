@@ -42,7 +42,7 @@ SRC_NAME =	main.c							\
 			math_utils.c					\
 			utils.c							\
 			render_scene_2d.c				\
-			render_scene_3d.c				\
+			render_scene_3d_no_tex.c		\
 			ray.c							\
 			raycast.c						\
 			time.c							\
