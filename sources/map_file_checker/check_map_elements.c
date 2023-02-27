@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:21:35 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:20:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static int	check_empty_map(const char **map);
 static int	check_nbr_player_start_pos(const char **map);
@@ -55,7 +55,8 @@ static int	check_one_line_map(char *line)
 		else if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
 			i++;
-		else if (line[i] == ' ' || line[i] == 'D')
+		else if (line[i] == ' ' || line[i] == 'A' || line[i] == 'B' \
+				|| line[i] == 'C' || line[i] == 'D' || line[i] == 'G')
 			i++;
 		else
 		{
@@ -131,13 +132,13 @@ static int	check_doors(const char **map)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == 'D')
+			if (map[y][x] == 'G')
 			{
-				if (map[y + 1][x] == 'D' || map[y - 1][x] == 'D' \
-					|| map[y][x + 1] == 'D' || map[y][x - 1] == 'D')
+				if (map[y + 1][x] == 'G' || map[y - 1][x] == 'G' \
+					|| map[y][x + 1] == 'G' || map[y][x - 1] == 'G')
 					return (FALSE);
-				else if (!((map[y][x + 1] == '1' && map[y][x - 1] == '1')
-					|| (map[y + 1][x] == '1' && map[y - 1][x] == '1')))
+				else if (!((map[y][x + 1] == 'C' && map[y][x - 1] == 'D')
+					|| (map[y + 1][x] == 'B' && map[y - 1][x] == 'A')))
 					return (FALSE);
 			}
 			x++;

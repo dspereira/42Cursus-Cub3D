@@ -6,15 +6,15 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:07:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:44:34 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:35:17 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void draw_pixel(t_img img, int x, int y, int color)
+void	draw_pixel(t_img img, int x, int y, int color)
 {
-	int *pixel;
+	int	*pixel;
 
 	if (x > WIN_WIDTH || y > WIN_HEIGHT || x < 0 || y < 0)
 		return ;
@@ -22,64 +22,72 @@ void draw_pixel(t_img img, int x, int y, int color)
 	*pixel = color;
 }
 
-unsigned int get_tex_color(t_img tex, t_pos pos)
+unsigned int	get_tex_color(t_img tex, t_pos pos)
 {
-	unsigned int *color;
+	unsigned int	*color;
 
-	color = (unsigned int *)(tex.addr + (tex.line_len * pos.y) + (pos.x * tex.bpp / 8));
-	return(*color);
+	color = (unsigned int *)(tex.addr + (tex.line_len * pos.y) \
+		+ (pos.x * tex.bpp / 8));
+	return (*color);
 }
 
-/* void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height)
+void	draw_line_tex(t_img frame, t_tex_data wall)
 {
-	int		end_y;
-	int		color;
-
-	end_y = f_pos.y + f_height;
-	while (f_pos.y < end_y)
-	{
-		color = get_tex_color(tex, tex_pos);
-		draw_pixel(frame, f_pos.x, f_pos.y, color);
-		f_pos.y++;
-		tex_pos.y++;
-	}
-} */
-
-void draw_line_tex(t_img frame, t_wall_data wall)
-{
-	int		i;
-	double	xperce;
-	t_pos	spot;
-	float	scale;
+	int					i;
+	double				xperce;
+	t_pos				spot;
+	unsigned int		color;
 
 	i = 0;
-	scale = ((double)1) / wall.height;
-	xperce = ((wall.map_wall_pos - floor(wall.map_wall_pos)) * (double)wall.tex.width);
+	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
 	while (i < wall.height)
 	{
-		spot.x = floor(xperce);
-		spot.y = floor((i * scale) * wall.tex.height);
+		spot.x = xperce;
+		spot.y = ((double)i / wall.height) * wall.tex.height;
+		color = get_tex_color(wall.tex, spot);
 		draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
-			get_tex_color(wall.tex, spot));
+			color);
 		i++;
 	}
 }
 
-void draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
+void	draw_door_tex(t_img frame, t_tex_data wall)
 {
-	int i;
+	int					i;
+	double				xperce;
+	t_pos				spot;
+	unsigned int		color;
+
+	i = 0;
+	xperce = (wall.map_wall_pos - (int)wall.map_wall_pos) * wall.tex.width;
+	while (i < wall.height)
+	{
+		spot.x = xperce;
+		spot.y = ((double)i / wall.height) * wall.tex.height;
+		color = get_tex_color(wall.tex, spot);
+		if (color != NONE_COLOR_VALUE)
+			draw_pixel(frame, wall.win_start_pos.x, wall.win_start_pos.y + i, \
+				color);
+		i++;
+	}
+}
+
+void	draw_vertical_line(t_img img, t_pos init_pos, int height, int color)
+{
+	int	i;
 
 	i = -1;
 	while (++i < height)
 	{
-		if ((init_pos.x >= 0 && init_pos.x <= WIN_WIDTH) && (init_pos.y >= 0 && init_pos.y <= WIN_HEIGHT))
+		if ((init_pos.x >= 0 && init_pos.x <= WIN_WIDTH)
+			&& (init_pos.y >= 0 && init_pos.y <= WIN_HEIGHT))
 			draw_pixel(img, init_pos.x, init_pos.y, color);
 		init_pos.y++;
 	}
 }
 
 //Will be changed by a new one that print textures instead of colors
-void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
+void	draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
 {
 	t_pos	end;
 	int		i;
@@ -94,7 +102,7 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color)
 }
 
 // render 2D
-void draw_line(t_img img, t_pos init, t_pos end, int color)
+void	draw_line(t_img img, t_pos init, t_pos end, int color)
 {
 	int			steps;
 	t_value		delta;
@@ -105,7 +113,7 @@ void draw_line(t_img img, t_pos init, t_pos end, int color)
 	delta.y = end.y - init.y;
 	if (math_abs(delta.x) >= math_abs(delta.y))
 		steps = math_abs(delta.x);
-	else 
+	else
 		steps = math_abs(delta.y);
 	inc.x = (double)delta.x / steps;
 	inc.y = (double)delta.y / steps;
@@ -121,14 +129,14 @@ void draw_line(t_img img, t_pos init, t_pos end, int color)
 }
 
 // render 2D
-void draw_stroke_square(t_img img, t_pos init, int size, int color)
+void	draw_stroke_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	new_init;
 	t_pos	end;
 
 	size -= 1;
 	end.y = init.y;
-	end.x = init.x + size; 
+	end.x = init.x + size;
 	draw_line(img, init, end, color);
 	new_init = end;
 	end.x = new_init.x;
@@ -139,12 +147,12 @@ void draw_stroke_square(t_img img, t_pos init, int size, int color)
 	draw_line(img, init, end, color);
 	new_init = end;
 	end.x = new_init.x + size;
-	end.y = new_init.y;	
+	end.y = new_init.y;
 	draw_line(img, new_init, end, color);
 }
 
 // render 2D
-void draw_fill_square(t_img img, t_pos init, int size, int color)
+void	draw_fill_square(t_img img, t_pos init, int size, int color)
 {
 	t_pos	end;
 	int		i;

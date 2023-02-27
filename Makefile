@@ -1,4 +1,4 @@
-NAME = cube3D
+NAME = cub3D
 
 CC = cc
 #CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
@@ -17,40 +17,40 @@ SRC_PATH = ./sources
 
 OBJ_PATH = ./objects
 
-SRC_NAME =	main.c							\
-			ft_calloc.c						\
-			ft_strncmp.c					\
-			ft_strlen.c						\
-			get_map_textures.c				\
-			get_map_textures_rgb.c			\
-			check_textures.c				\
-			check_file.c					\
-			check_file_type.c				\
-			map.c							\
-			map_resizer.c					\
-			check_map.c						\
-			check_map_walls.c				\
-			check_map_elements.c			\
-			get_map_content.c				\
-			get_player_info.c				\
-			get_doors_info.c				\
-			get_map_utils.c					\
-			get_next_line.c					\
-			free_memory.c					\
-			error_msgs.c					\
-			draw_utils.c					\
-			math_utils.c					\
-			utils.c							\
-			render_scene_2d.c				\
-			render_scene_3d.c				\
-			player.c						\
-			ray.c							\
-			raycast.c						\
-			time.c							\
-			key_controls.c					\
-			collisions.c					\
-			mouse.c							\
-			minimap.c
+SRC_NAME =	main.c										\
+			map_file_checker/check_file_type.c			\
+			map_file_checker/check_map_walls.c			\
+			map_file_checker/check_textures.c			\
+			map_file_checker/check_file.c				\
+			map_file_checker/check_map.c				\
+			map_file_checker/check_map_elements.c		\
+			map_file_checker/checker_utils.c			\
+			map_file_checker/get_doors_info.c			\
+			map_file_checker/get_map_textures.c			\
+			map_file_checker/get_map_textures_rgb.c		\
+			map_file_checker/get_map_content.c			\
+			map_file_checker/get_next_line.c			\
+			map_file_checker/get_map_utils.c			\
+			map_file_checker/map_resizer.c				\
+			map_file_checker/get_player_info.c			\
+			map.c										\
+			free_memory.c								\
+			error_msgs.c								\
+			draw_utils.c								\
+			math_utils.c								\
+			utils.c										\
+			render_scene_2d.c							\
+			render_scene_3d.c							\
+			player.c									\
+			ray.c										\
+			raycast.c									\
+			time.c										\
+			key_controls.c								\
+			collisions.c								\
+			mouse.c										\
+			minimap.c									\
+			doors.c										\
+			setup_textures.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 
@@ -65,6 +65,7 @@ $(NAME) : $(OBJS)
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects
+	mkdir -p objects/map_file_checker
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:

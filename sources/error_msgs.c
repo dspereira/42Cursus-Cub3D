@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msgs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:08:15 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/09 11:33:11 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:44:35 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	print_error_msg(char *msg)
 {
-	write(2, "Error\n", 6);
+	int	i;
+
+	i += write(2, "Error\n", 6);
 	putstr_error(msg);
-	write(2, "\n", 1);
+	i += write(2, "\n", 1);
 }
 
 void	putstr_error(char *str)
@@ -25,5 +27,5 @@ void	putstr_error(char *str)
 
 	i = 0;
 	while (str[i])
-		write(2, &str[i++], 1);
+		i += write(2, &str[i], 1);
 }

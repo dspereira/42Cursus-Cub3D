@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_resizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:14:18 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/23 10:24:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:13:38 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 int			find_big_line_len(char **src);
 int			get_map_size(char **map);

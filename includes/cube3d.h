@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/15 11:33:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:49:27 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #define KEY_A				97
 #define KEY_D				100
 #define KEY_Q				113
+#define KEY_E				101
 #define KEY_ESC				65307
 #define KEY_CTRL			65507
 
@@ -74,7 +75,7 @@
 #define YELLOW_COLOR	0x00ff9933
 
 //#define BGD_MINIMAP_COLOR	0x00c0c1c2
-#define BGD_MINIMAP_COLOR	0x00000000
+#define BGD_MINIMAP_COLOR	0x66000000
 
 #define PLAYER_RADIUS	8
 
@@ -87,6 +88,57 @@
 #define SO_SIDE			2	//azul
 #define EA_SIDE			1	//verde
 #define WE_SIDE			-1	//vermelho
+
+#define NO_DOOR			'A'
+#define SO_DOOR			'B'
+#define EA_DOOR			'C'
+#define WE_DOOR			'D'
+
+#define DOOR_SIDE		'3'
+
+#define DOOR_CLOSE		0
+#define DOOR_OPEN_1		1
+#define DOOR_OPEN_2		2
+#define DOOR_OPEN_3		3
+#define DOOR_OPEN_4		4
+#define DOOR_OPEN_5		5
+#define DOOR_OPEN_6		6
+#define DOOR_OPEN_7		7
+#define DOOR_OPEN		8
+
+#define SIDE_DOOR_TEX	"./textures/door_walls_1.xpm"
+#define D_TEX_CLOSE		"./textures/door_sprites/close_door.xpm"
+#define D_TEX_OPEN		"./textures/door_sprites/open_door.xpm"
+#define D_TEX_OPEN_1	"./textures/door_sprites/door_open_1.xpm"
+#define D_TEX_OPEN_2	"./textures/door_sprites/door_open_2.xpm"
+#define D_TEX_OPEN_3	"./textures/door_sprites/door_open_3.xpm"
+#define D_TEX_OPEN_4	"./textures/door_sprites/door_open_4.xpm"
+#define D_TEX_OPEN_5	"./textures/door_sprites/door_open_5.xpm"
+#define D_TEX_OPEN_6	"./textures/door_sprites/door_open_6.xpm"
+#define D_TEX_OPEN_7	"./textures/door_sprites/door_open_7.xpm"
+
+#define D_FRAME_OPEN_0		'G'
+#define D_FRAME_OPEN_1		'H'
+#define D_FRAME_OPEN_2		'I'
+#define D_FRAME_OPEN_3		'J'
+#define D_FRAME_OPEN_4		'K'
+#define D_FRAME_OPEN_5		'L'
+#define D_FRAME_OPEN_6		'M'
+#define D_FRAME_OPEN_7		'N'
+
+#define D_FRAME_CLOSE_0		'g'
+#define D_FRAME_CLOSE_1		'h'
+#define D_FRAME_CLOSE_2		'i'
+#define D_FRAME_CLOSE_3		'j'
+#define D_FRAME_CLOSE_4		'k'
+#define D_FRAME_CLOSE_5		'l'
+#define D_FRAME_CLOSE_6		'm'
+#define D_FRAME_CLOSE_7		'n'
+
+#define NONE_COLOR_VALUE	0x00FFFFFF
+
+#define DOOR_TIME_SPRITES	75
+#define DIST_OPEN_DOOR		1.5
 
 typedef struct s_img
 {
@@ -118,6 +170,8 @@ typedef struct s_tex
 	t_img	so;
 	t_img	ea;
 	t_img	we;
+	t_img	door_side;
+	t_img	doors[9];
 	int		ceil_rgb;
 	int		floor_rgb;
 }				t_tex;
@@ -125,7 +179,6 @@ typedef struct s_tex
 typedef struct s_door
 {
 	t_pos	pos;
-	float	status;
 }			t_door;
 
 typedef struct s_map
@@ -137,7 +190,7 @@ typedef struct s_map
 	t_pos		pos;
 	int			height;
 	int			width;
-	t_door		*doors;
+	t_pos		*doors;
 }				t_map;
 
 typedef struct s_pos_dec
@@ -173,6 +226,13 @@ typedef struct s_ray
 	double	sx;
 	double	sy;
 	double	map_wall_pos;
+	double	map_door_pos;
+	int		is_door;
+	int		door_side_wall;
+	int		door_side;
+	double	door_dist;
+	t_pos	door_pos;
+	char	door_tex;
 }	t_ray;
 
 typedef struct s_player 
@@ -184,13 +244,13 @@ typedef struct s_player
 	t_ray	*rays;
 }	t_player;
 
-typedef struct s_wall_data
+typedef struct s_tex_data
 {
 	t_img		tex;
 	t_pos		win_start_pos;
 	double		map_wall_pos;
 	int			height;
-}	t_wall_data;
+}	t_tex_data;
 
 typedef struct s_data
 {
@@ -204,7 +264,7 @@ typedef struct s_data
 
 // math_utils.c
 int		math_abs(int n);
-float	normalizeAngles(float angle);
+float	normalize_angles(float angle);
 double	cos_degree(double angle);
 double	sin_degree(double angle);
 int		clamp(int min, int max, int value);
@@ -247,7 +307,11 @@ void	raycast_all(t_player *player, char **map);
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);
 void draw_line(t_img img, t_pos init, t_pos end, int color);
-void draw_line_tex(t_img frame, t_wall_data wall);
+
+void draw_line_tex(t_img frame, t_tex_data wall);
+
+void draw_door_tex(t_img frame, t_tex_data wall);
+
 void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
@@ -255,6 +319,7 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
+unsigned long	doors_time_check_ms(unsigned long time);
 
 // key_controls.c
 int	key(int keycode, t_data *data);
@@ -273,5 +338,11 @@ int		mouse_hook(int button, int x, int y, t_data *data);
 // minimap.c
 void	minimap_render(t_img img, t_player player, char **map);
 
+// doors.c
+void	doors_interaction(t_map map, t_player *player);
+void	doors_control(t_map map);
+
+// setup_textures.c
+void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:05:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/03 12:51:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:45:55 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static unsigned long	get_actual_time_ms(void);
 static unsigned long	get_offset_time(void);
 
-unsigned long check_time_ms(unsigned long time)
+unsigned long	check_time_ms(unsigned long time)
 {
 	static unsigned long	buff = 0;
 	unsigned long			actual;
@@ -31,7 +31,23 @@ unsigned long check_time_ms(unsigned long time)
 	return (0);
 }
 
-static unsigned long get_actual_time_ms(void)
+unsigned long	doors_time_check_ms(unsigned long time)
+{
+	static unsigned long	buff = 0;
+	unsigned long			actual;
+
+	if (!buff)
+		buff = get_actual_time_ms();
+	actual = get_actual_time_ms();
+	if ((actual - buff) >= time)
+	{
+		buff = 0;
+		return (actual);
+	}
+	return (0);
+}
+
+static unsigned long	get_actual_time_ms(void)
 {
 	struct timeval	t;
 	unsigned long	time_ms;
@@ -43,7 +59,7 @@ static unsigned long get_actual_time_ms(void)
 	return (time_ms);
 }
 
-static unsigned long get_offset_time(void)
+static unsigned long	get_offset_time(void)
 {
 	static unsigned long	offset = 0;
 	unsigned long			buffer;
