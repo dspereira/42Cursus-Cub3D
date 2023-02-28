@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:09:42 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:48:21 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ int main(int argc, char **argv)
 
 	player = player_init(map.pos, map.orientation);
 
+	data.mouse.actual = (t_pos){WIN_WIDTH / 2, WIN_HEIGHT / 2};
+	data.mouse.last = (t_pos){0, 0};
+
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
 	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -50,9 +53,10 @@ int main(int argc, char **argv)
 	data.map = map;
 	data.minimap = minimap_init(map.width, map.height);
 	mouse_init(win, &data.mouse_state);
+	
 	data.tex = tex;
 	mlx_loop_hook(win.mlx, render_win, &data);
-	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	//mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
@@ -65,20 +69,47 @@ int render_win(void *data)
 	t_player	*player;
 	t_map		map;
 	t_win		win;
+	t_mouse		mouse;
 
 	player = ((t_data*)data)->player;
 	map = ((t_data*)data)->map;
 	win = *((t_data*)data)->win;
-
-	raycast_all(player, map.content);
+	mouse = ((t_data*)data)->mouse;
+	//raycast_all(player, map.content);
 	
 	//exit(0);
+	
+	t_pos aux_pos;
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
-		player_rot_mouse(player, mouse_get_pos(win));
-		//player_rotation(win, player, mouse_get_pos(win));
+	{
+		update_mouse(&mouse, mouse_get_pos(win));
+		printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+		printf("mouse actual: %i\n", mouse.actual.x);
+		printf("mouse last  : %i\n", mouse.last.x);
+		player_rot_mouse1(player, mouse);
+
+		if (mouse.actual.x >= WIN_WIDTH || mouse.actual.x <= 0)
+		{
+			mouse.actual.x = WIN_WIDTH / 2;
+			//update_mouse(&mouse, mouse_get_pos(win));
+			
+			aux_pos = mouse_get_pos(win);
+			aux_pos.x = WIN_WIDTH / 2;
+			update_mouse(&mouse, aux_pos);
+			mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);	
+		}
+
+		((t_data*)data)->mouse = mouse;
+
+		
+		//player_rot_mouse(player, mouse_get_pos(win));
+	}
+		
+	mouse_control(win, &((t_data*)data)->mouse_state);
+
+	raycast_all(player, map.content);
 
 	// mouse state control	
-	mouse_control(win, &((t_data*)data)->mouse_state);
 	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
@@ -94,6 +125,7 @@ int render_win(void *data)
 		printf("fps: %d\n", frames_count);
 		frames_count = 0;
 	}
+	//mouse_control(win, &((t_data*)data)->mouse_state);
 	return (0);
 }
 

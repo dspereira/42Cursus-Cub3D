@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:27:43 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:26:10 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@
 
 // MIN SENSE = 0  
 // MAX SENSE = 1
-#define MOUSE_SENSE				0.5
+#define MOUSE_SENSE				1
 
 
 typedef struct s_img
@@ -290,6 +290,12 @@ typedef struct s_minimap
 	float	map_scale;
 }	t_minimap;
 
+typedef struct s_mouse
+{
+	t_pos actual;
+	t_pos last;
+}	t_mouse;
+
 typedef struct s_data
 {
 	t_win		*win;
@@ -298,9 +304,8 @@ typedef struct s_data
 	t_tex		tex;
 	t_minimap	minimap;
 	int			mouse_state;
+	t_mouse		mouse;
 }	t_data; 
-
-
 
 
 // math_utils.c
@@ -337,9 +342,6 @@ t_player	*player_init(t_pos pos, int dir);
 void		player_move(t_player *player, char **map, int dir);
 void		player_rotation_key(t_player *player, float rot_angle);
 void 		player_update_rays(t_ray *rays, float rot_angle);
-
-// player_rot_mouse.c
-void player_rot_mouse(t_player *player, t_pos mouse_pos);
 
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
@@ -379,6 +381,14 @@ void	mouse_init(t_win win, int *mouse_state);
 t_pos	mouse_get_pos(t_win win);
 void	mouse_control(t_win win, int *mouse_state);
 int		mouse_hook(int button, int x, int y, t_data *data);
+
+void update_mouse(t_mouse *mouse, t_pos mouse_pos);
+
+// player_rot_mouse.c
+void player_rot_mouse(t_player *player, t_pos mouse_pos);
+void	player_rot_mouse1(t_player *player, t_mouse mouse);
+
+
 
 // minimap.c
 t_minimap	minimap_init(int map_width, int map_height);
