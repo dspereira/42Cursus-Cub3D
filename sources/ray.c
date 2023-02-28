@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:52:23 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 16:49:56 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:56:11 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static double get_cos_btw_ray_player(float ray_dir, float p_dir);
+static double	get_cos_btw_ray_player(float ray_dir, float p_dir);
 
-void ray_init(t_ray *ray, float dir, float p_dir)
+void	ray_init(t_ray *ray, float dir, float p_dir)
 {
 	ray_update_dir(ray, dir);
 	ray->cos2 = get_cos_btw_ray_player(ray->dir, p_dir);
@@ -22,7 +22,7 @@ void ray_init(t_ray *ray, float dir, float p_dir)
 	ray->side = 0;
 }
 
-void ray_update_dir(t_ray *ray, float dir)
+void	ray_update_dir(t_ray *ray, float dir)
 {
 	ray->dir = normalize_angles(dir);
 	ray->cos = cos_degree(ray->dir);
@@ -36,7 +36,7 @@ void ray_update_dir(t_ray *ray, float dir)
 	}
 	if (ray->dir == 90 || ray->dir == 270)
 	{
-		ray->cos = 0.0; 
+		ray->cos = 0.0;
 		ray->sx = 1000000;
 	}
 	if (ray->sx < 0)
@@ -45,7 +45,7 @@ void ray_update_dir(t_ray *ray, float dir)
 		ray->sy *= -1;
 }
 
-static double get_cos_btw_ray_player(float ray_dir, float p_dir)
+static double	get_cos_btw_ray_player(float ray_dir, float p_dir)
 {
 	float	angle;
 

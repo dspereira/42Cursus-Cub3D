@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 15:12:03 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:52:06 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int main(int argc, char **argv)
 
 int render_win(void *data)
 {
-	//static int	frames_count = 0;
 	t_player	*player;
 	t_map		map;
 	t_win		win;
@@ -86,13 +85,6 @@ int render_win(void *data)
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-	// frames_count++;
-	// if (check_time_ms(1000))
-	// {
-	// 	//printf("\033[2J\033[1;1H");
-	// 	printf("fps: %d\n", frames_count);
-	// 	frames_count = 0;
-	// }
 	frame_count(win);
 	//mlx_destroy_image(win.mlx, win.frame.mlx_img);
 	return (0);
