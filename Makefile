@@ -53,7 +53,8 @@ SRC_NAME =	main.c										\
 			collisions.c								\
 			mouse.c										\
 			doors.c										\
-			setup_textures.c
+			setup_textures.c							\
+			frame_count.c
 
 OBJS = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:09:42 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:12:03 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int main(int argc, char **argv)
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
 
-	printf("height: %i, width: %i\n", map.height, map.width);
-
 	player = player_init(map.pos, map.orientation);
 
 	win.mlx = mlx_init();
@@ -61,7 +59,7 @@ int main(int argc, char **argv)
 
 int render_win(void *data)
 {
-	static int	frames_count = 0;
+	//static int	frames_count = 0;
 	t_player	*player;
 	t_map		map;
 	t_win		win;
@@ -82,18 +80,21 @@ int render_win(void *data)
 	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
+	mlx_clear_window(win.mlx, win.mlx_win);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-	frames_count++;
-	if (check_time_ms(1000))
-	{
-		//printf("\033[2J\033[1;1H");
-		printf("fps: %d\n", frames_count);
-		frames_count = 0;
-	}
+	// frames_count++;
+	// if (check_time_ms(1000))
+	// {
+	// 	//printf("\033[2J\033[1;1H");
+	// 	printf("fps: %d\n", frames_count);
+	// 	frames_count = 0;
+	// }
+	frame_count(win);
+	//mlx_destroy_image(win.mlx, win.frame.mlx_img);
 	return (0);
 }
 

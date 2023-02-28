@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 10:58:24 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:46:11 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,10 @@
 // MAX SENSE = 1
 #define MOUSE_SENSE				0.5
 
+#define TIME_PER_FRAME		1000
+#define FRAMES_TEXT_COLOR	0
+#define FRAMES_WIN_POS_X	20
+#define FRAMES_WIN_POS_Y	20
 
 typedef struct s_img
 {
@@ -405,5 +409,8 @@ void	doors_control(t_map map);
 // setup_textures.c
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 t_pos get_new_dist_pos1(t_pos init, float dir, int dist);
+
+// frame_count.c
+void	frame_count(t_win win);
 
 #endif
