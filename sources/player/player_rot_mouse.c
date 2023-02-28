@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:23:02 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 15:55:40 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:33:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static int		player_get_rot_pixels_y(t_player player, t_pos mouse_pos);
 static float player_get_rot_x(t_player player, t_mouse mouse);
 static void update_vision_x(t_player *player, t_mouse mouse);
 
+static void	update_vision_y(t_player *player, t_mouse mouse);
+static int	player_get_rot_y(t_player player, t_mouse mouse);
+
 void	player_rot_mouse(t_player *player, t_pos mouse_pos)
 {
 	player_update_vision_x(player, mouse_pos);
@@ -30,8 +33,32 @@ void	player_rot_mouse(t_player *player, t_pos mouse_pos)
 void	player_rot_mouse1(t_player *player, t_mouse mouse)
 {
 	update_vision_x(player, mouse);
-	//player_update_vision_x(player, mouse_pos);
-	//player_update_vision_y(player, mouse_pos);
+	update_vision_y(player, mouse);
+
+}
+
+static void	update_vision_y(t_player *player, t_mouse mouse)
+{
+	int	rot_pixels;
+
+	rot_pixels = player_get_rot_y(*player, mouse);
+	player->dir_y += rot_pixels;
+	if (player->dir_y > player->max_dir_y)
+		player->dir_y = player->max_dir_y;
+	else if (player->dir_y < player->min_dir_y)
+		player->dir_y = player->min_dir_y;
+}
+
+static int	player_get_rot_y(t_player player, t_mouse mouse)
+{
+	int	rot_pixels;
+
+	rot_pixels = mouse.last.y - mouse.actual.y;
+	if (rot_pixels < 0 && player.dir_y <= player.min_dir_y)
+		return (0);
+	else if (rot_pixels > 0 && player.dir_y >= player.max_dir_y)
+		return (0);
+	return (rot_pixels);
 }
 
 static void	player_update_vision_x(t_player *player, t_pos mouse_pos)

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 16:48:21 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:57:18 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,32 @@ int render_win(void *data)
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 	{
 		update_mouse(&mouse, mouse_get_pos(win));
-		printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-		printf("mouse actual: %i\n", mouse.actual.x);
-		printf("mouse last  : %i\n", mouse.last.x);
+		//printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+		//printf("mouse actual: %i\n", mouse.actual.x);
+		//printf("mouse last  : %i\n", mouse.last.x);
 		player_rot_mouse1(player, mouse);
 
 		if (mouse.actual.x >= WIN_WIDTH || mouse.actual.x <= 0)
 		{
 			mouse.actual.x = WIN_WIDTH / 2;
-			//update_mouse(&mouse, mouse_get_pos(win));
 			
 			aux_pos = mouse_get_pos(win);
 			aux_pos.x = WIN_WIDTH / 2;
 			update_mouse(&mouse, aux_pos);
-			mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);	
+			mlx_mouse_move(win.mlx, win.mlx_win, mouse.actual.x, mouse.actual.y);	
 		}
+
+		if (mouse.actual.y >= WIN_HEIGHT || mouse.actual.y <= 0)
+		{
+			mouse.actual.y = WIN_HEIGHT / 2;
+			
+			aux_pos = mouse_get_pos(win);
+			aux_pos.y = WIN_HEIGHT / 2;
+			update_mouse(&mouse, aux_pos);
+			mlx_mouse_move(win.mlx, win.mlx_win, mouse.actual.x, mouse.actual.y);	
+		}
+		
+		
 
 		((t_data*)data)->mouse = mouse;
 
