@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:27:43 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 10:58:24 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@
 #define MINIMAP_COLOR_GROUND	0x00668284
 #define MINIMAP_COLOR_WALL		0x002A2829
 
+#define MINIMAP_COLOR_DOOR_CLOSE	0x00D92525
+#define MINIMAP_COLOR_DOOR_OPEN		0x0002A676
 
 // MIN SENSE = 0  
 // MAX SENSE = 1

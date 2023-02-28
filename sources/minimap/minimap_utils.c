@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:55:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 17:46:51 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/28 11:06:42 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,14 @@ int	get_pixel_color(t_pos pos, char **map, t_value map_size)
 		return (MINIMAP_COLOR_NONE);
 	else if (map[pos.y][pos.x] == ' ')
 		return (MINIMAP_COLOR_WALL);
-	else if (map[pos.y][pos.x] == '1')
+	else if ((map[pos.y][pos.x] == '1')
+		|| (map[pos.y][pos.x] >= 'A' && map[pos.y][pos.x] <= 'D'))
 		return (MINIMAP_COLOR_WALL);
+	else if ((map[pos.y][pos.x] >= 'G' && map[pos.y][pos.x] <= 'N')
+		|| (map[pos.y][pos.x] > 'g' && map[pos.y][pos.x] <= 'n'))
+		return (MINIMAP_COLOR_DOOR_CLOSE);
+	else if (map[pos.y][pos.x] == 'g')
+		return (MINIMAP_COLOR_DOOR_OPEN);
 	else
 		return (MINIMAP_COLOR_GROUND);
 }
