@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 10:32:19 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:57:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,40 +79,14 @@ int render_win(void *data)
 	
 	//exit(0);
 	
-	t_pos aux_pos;
+	//t_pos aux_pos;
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 	{
-		update_mouse(&mouse, mouse_get_pos(win));
-
-		
+		mouse_update(&mouse, mouse_get_pos(win));
 		player_rot_mouse(player, mouse);
-
-		if (mouse.actual.x >= WIN_WIDTH || mouse.actual.x <= 0)
-		{
-			mouse.actual.x = WIN_WIDTH / 2;
-			
-			aux_pos = mouse_get_pos(win);
-			aux_pos.x = WIN_WIDTH / 2;
-			update_mouse(&mouse, aux_pos);
-			mlx_mouse_move(win.mlx, win.mlx_win, mouse.actual.x, mouse.actual.y);	
-		}
-
-		if (mouse.actual.y >= WIN_HEIGHT || mouse.actual.y <= 0)
-		{
-			mouse.actual.y = WIN_HEIGHT / 2;
-			
-			aux_pos = mouse_get_pos(win);
-			aux_pos.y = WIN_HEIGHT / 2;
-			update_mouse(&mouse, aux_pos);
-			mlx_mouse_move(win.mlx, win.mlx_win, mouse.actual.x, mouse.actual.y);	
-		}
-		
-		
-
+		mouse_recenter(win, &mouse);
 		((t_data*)data)->mouse = mouse;
-
-	}
-		
+	}		
 	mouse_control(win, &((t_data*)data)->mouse_state);
 
 	raycast_all(player, map.content);

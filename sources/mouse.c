@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:01:17 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 16:34:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:58:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,38 @@ t_pos mouse_get_pos(t_win win)
 	return (pos);
 }
 
-void update_mouse(t_mouse *mouse, t_pos mouse_pos)
+void mouse_update(t_mouse *mouse, t_pos mouse_pos)
 {
 	mouse->last = mouse->actual;
 	mouse->actual = mouse_pos;
-	//printf("mouse a = %d | mouse l = %d\n", mouse->actual.x, mouse->actual.x);
+}
+
+void mouse_recenter(t_win win, t_mouse *mouse)
+{
+	int		win_half_w;
+	int		win_half_h;
+	t_pos	actual;
+
+	win_half_w = WIN_WIDTH / 2;
+	win_half_h = WIN_HEIGHT / 2;
+	actual = mouse->actual;
+	if (actual.x >= WIN_WIDTH || actual.x <= 0)
+	{
+		actual.x = win_half_w;
+		mouse_update(mouse, actual);
+		mlx_mouse_move(win.mlx, win.mlx_win, actual.x, actual.y);
+	}
+	if (actual.y >= WIN_HEIGHT || actual.y <= 0)
+	{
+		actual.y = win_half_h;
+		mouse_update(mouse, actual);
+		mlx_mouse_move(win.mlx, win.mlx_win, actual.x, actual.y);
+	}
 }
 
 void mouse_control(t_win win, int *mouse_state)
 {	
-	if (*mouse_state == MOUSE_HIDE)
-		;//mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	else if (*mouse_state == MOUSE_CHANGE_SHOW)
+	if (*mouse_state == MOUSE_CHANGE_SHOW)
 	{
 		mlx_mouse_show(win.mlx, win.mlx_win);
 		*mouse_state = MOUSE_SHOW;
