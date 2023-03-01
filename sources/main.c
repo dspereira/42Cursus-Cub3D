@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 14:57:52 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:17:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int render_win(void *data)
 		mouse_recenter(win, &mouse);
 		((t_data*)data)->mouse = mouse;
 	}		
-	mouse_control(win, &((t_data*)data)->mouse_state);
+	mouse_state_control(win, &((t_data*)data)->mouse_state);
 
 	raycast_all(player, map.content);
 

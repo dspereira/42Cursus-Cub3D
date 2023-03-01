@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 14:50:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:15:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,21 +376,18 @@ int check_collisions(t_pos p_pos, char **map);
 
 void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
 
+
 // mouse.c
 void	mouse_init(t_win win, int *mouse_state);
-t_pos	mouse_get_pos(t_win win);
-void	mouse_control(t_win win, int *mouse_state);
-int		mouse_hook(int button, int x, int y, t_data *data);
+t_pos 	mouse_get_pos(t_win win);
+void	mouse_update(t_mouse *mouse, t_pos mouse_pos);
+void	mouse_recenter(t_win win, t_mouse *mouse);
+void	mouse_state_control(t_win win, int *mouse_state);
 
-void mouse_recenter(t_win win, t_mouse *mouse);
-
-//void update_mouse(t_mouse *mouse, t_pos mouse_pos);
-
-void mouse_update(t_mouse *mouse, t_pos mouse_pos);
+// mouse_hook.c
+int	mouse_hook(int button, int x, int y, t_data *data);
 
 // player_rot_mouse.c
-//void player_rot_mouse(t_player *player, t_pos mouse_pos);
-//void	player_rot_mouse1(t_player *player, t_mouse mouse);
 void	player_rot_mouse(t_player *player, t_mouse mouse);
 
 
