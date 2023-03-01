@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 17:25:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:16:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 #define RIGHT			270
 
 #define ROT_STEP		2
-#define MOVE_STEP		5
+#define MOVE_STEP		3
 
 // render 2D
 #define PLAYER_SIZE		10
@@ -146,6 +146,8 @@
 
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
+
+#define MOVE_SPEED_MS		5
 
 
 #define	MINIMAP_SQUARE_SIZE		15
@@ -380,14 +382,15 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 // time.c
 unsigned long	check_time_ms(unsigned long time);
 unsigned long	doors_time_check_ms(unsigned long time);
+unsigned long	moves_time_check_ms(unsigned long time);
 
 // key_controls.c
 t_key	key_init(void);
 int		key_press_hook(int keycode, t_data *data);
 int		key_release_hook(int keycode, t_data *data);
-void	key_control(t_key key, t_player *player, char **map);
+void	key_move_control(t_key key, t_player *player, char **map);
 
-int	key(int keycode, t_data *data);
+//int	key(int keycode, t_data *data);
 
 // collisions.c
 int check_collisions(t_pos p_pos, char **map);

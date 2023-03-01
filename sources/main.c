@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 17:55:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:16:22 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int main(int argc, char **argv)
 	}
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
-
-	printf("height: %i, width: %i\n", map.height, map.width);
 
 	player = player_init(map.pos, map.orientation);
 
@@ -96,7 +94,7 @@ int render_win(void *data)
 	}
 	mouse_state_control(win, &((t_data*)data)->mouse_state);
 
-	//key_control(((t_data*)data)->key_state, player, map.content);
+	key_move_control(((t_data*)data)->key_state, player, map.content);
 
 	// mouse state control	
 	doors_control(map);
