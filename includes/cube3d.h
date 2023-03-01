@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 15:46:11 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:21:36 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,11 +204,6 @@ typedef struct s_tex
 	int		floor_rgb;
 }				t_tex;
 
-typedef struct s_door
-{
-	t_pos	pos;
-}			t_door;
-
 typedef struct s_map
 {
 	char		**wall_textures;
@@ -218,7 +213,7 @@ typedef struct s_map
 	t_pos		pos;
 	int			height;
 	int			width;
-	t_pos		*doors;
+	t_pos		*doors; // dar free
 }				t_map;
 
 typedef struct s_pos_dec
@@ -306,8 +301,10 @@ typedef struct s_data
 	int			mouse_state;
 }	t_data; 
 
-
-
+typedef struct s_alloc_mem
+{
+	t_data		*data;
+}				t_alloc_mem;
 
 // math_utils.c
 int		math_abs(int n);
@@ -408,9 +405,20 @@ void	doors_control(t_map map);
 
 // setup_textures.c
 void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
-t_pos get_new_dist_pos1(t_pos init, float dir, int dist);
+t_pos	get_new_dist_pos1(t_pos init, float dir, int dist);
 
 // frame_count.c
 void	frame_count(t_win win);
+
+// free_map_memory.c
+void	free_map_memory(t_map map);
+
+// error_handler.c
+void	print_error_msg(char *msg);
+void	free_alloc_mem(void);
+void	*oom_guard(void *p);
+
+// init_data_pointers.c
+void	init_data_pointers(t_data *data);
 
 #endif

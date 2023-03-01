@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 15:52:06 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:46:15 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 		printf("Invalid number of arguments\n");
 		return (-1);
 	}
+	init_data_pointers(&data);
 	if (!get_game_configs(argc, argv, &map))
 		return (-1);
 
@@ -68,7 +69,7 @@ int render_win(void *data)
 	win = *((t_data*)data)->win;
 
 	raycast_all(player, map.content);
-	
+
 	//exit(0);
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 		player_rot_mouse(player, mouse_get_pos(win));
@@ -101,6 +102,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 				return (0);
 			if (!get_all_map_info(&map, av[1]))
 			{
+				//free_map_memory(*map);
 				printf("Map KO\n");
 				return (0);
 			}
@@ -113,7 +115,6 @@ static int get_game_configs(int ac, char **av, t_map *map)
 			return (0);
 		}
 		printf("---------------\n\n");
-		//free_memory(map);
 		return (1);
 	}
 	printf("Error: Invalid number of Arguments\n");

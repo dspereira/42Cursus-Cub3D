@@ -2,8 +2,8 @@ NAME = cub3D
 
 CC = cc
 #CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
-CFLAGS = 
-EXTRA_FLAGS = -O3 -Imlx_linux -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address
+CFLAGS = #-fsanitize=address
+EXTRA_FLAGS = -O3 -Imlx_linux -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 
 RM = rm -f
 
@@ -39,8 +39,10 @@ SRC_NAME =	main.c										\
 			player/player.c								\
 			player/player_rot_mouse.c					\
 			map.c										\
-			free_memory.c								\
-			error_msgs.c								\
+			init_data_pointers.c						\
+			free_map_memory.c							\
+			alloc_memory.c								\
+			error_handler.c								\
 			draw_utils.c								\
 			math_utils.c								\
 			utils.c										\

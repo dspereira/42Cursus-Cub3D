@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:45:04 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:43:13 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	init_map_struct(t_map *init)
 	}
 	init->rgb_colors[RGB_C] = RGB_NO_COLOR;
 	init->rgb_colors[RGB_F] = RGB_NO_COLOR;
+	init->content = NULL;
 	return (TRUE);
 }
 
