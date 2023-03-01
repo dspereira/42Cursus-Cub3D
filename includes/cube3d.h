@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 15:15:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:25:28 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@
 #define KEY_CTRL			65507
 
 #define KEY_PRESS			2
-#define KEY_PRESS_MASK		1L
+#define KEY_PRESS_MASK		(1L<<0)
+#define KEY_RELEASE			3
+#define KEY_RELEASE_MASK	(1L<<1)
 
 #define BUTTON_LEFT_CLICK	1
 
@@ -296,6 +298,16 @@ typedef struct s_mouse
 	t_pos last;
 }	t_mouse;
 
+typedef struct s_key
+{
+	int w;
+	int s;
+	int a;
+	int d;
+	int arrow_r;
+	int arrow_l;
+}	t_key;
+
 typedef struct s_data
 {
 	t_win		*win;
@@ -305,6 +317,7 @@ typedef struct s_data
 	t_minimap	minimap;
 	int			mouse_state;
 	t_mouse		mouse;
+	t_key		key_state;
 }	t_data; 
 
 
@@ -369,6 +382,11 @@ unsigned long	check_time_ms(unsigned long time);
 unsigned long	doors_time_check_ms(unsigned long time);
 
 // key_controls.c
+t_key	key_init(void);
+int		key_press_hook(int keycode, t_data *data);
+int		key_release_hook(int keycode, t_data *data);
+void	key_control(t_key key, t_player *player, char **map);
+
 int	key(int keycode, t_data *data);
 
 // collisions.c

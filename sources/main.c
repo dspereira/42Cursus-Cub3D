@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 15:17:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:55:05 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int main(int argc, char **argv)
 
 	player = player_init(map.pos, map.orientation);
 
+	data.key_state = key_init();
+
 	data.mouse.actual = (t_pos){WIN_WIDTH / 2, WIN_HEIGHT / 2};
 	data.mouse.last = (t_pos){0, 0};
 
@@ -57,7 +59,11 @@ int main(int argc, char **argv)
 	data.tex = tex;
 	mlx_loop_hook(win.mlx, render_win, &data);
 	//mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
+	//mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
+
+	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_press_hook, &data);
+	mlx_hook(win.mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook, &data);
+	
 	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
 	mlx_loop(win.mlx);
 	return (0);
@@ -79,17 +85,18 @@ int render_win(void *data)
 	
 	//exit(0);
 	
-	//t_pos aux_pos;
+	raycast_all(player, map.content);
+
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 	{
 		mouse_update(&mouse, mouse_get_pos(win));
 		player_rot_mouse(player, mouse);
 		mouse_recenter(win, &mouse);
 		((t_data*)data)->mouse = mouse;
-	}		
+	}
 	mouse_state_control(win, &((t_data*)data)->mouse_state);
 
-	raycast_all(player, map.content);
+	//key_control(((t_data*)data)->key_state, player, map.content);
 
 	// mouse state control	
 	doors_control(map);
