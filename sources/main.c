@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 17:57:18 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:32:19 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ int render_win(void *data)
 	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 	{
 		update_mouse(&mouse, mouse_get_pos(win));
-		//printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-		//printf("mouse actual: %i\n", mouse.actual.x);
-		//printf("mouse last  : %i\n", mouse.last.x);
-		player_rot_mouse1(player, mouse);
+
+		
+		player_rot_mouse(player, mouse);
 
 		if (mouse.actual.x >= WIN_WIDTH || mouse.actual.x <= 0)
 		{
@@ -112,8 +111,6 @@ int render_win(void *data)
 
 		((t_data*)data)->mouse = mouse;
 
-		
-		//player_rot_mouse(player, mouse_get_pos(win));
 	}
 		
 	mouse_control(win, &((t_data*)data)->mouse_state);

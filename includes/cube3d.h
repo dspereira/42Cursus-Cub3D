@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 17:40:04 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:05:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,8 +385,9 @@ int		mouse_hook(int button, int x, int y, t_data *data);
 void update_mouse(t_mouse *mouse, t_pos mouse_pos);
 
 // player_rot_mouse.c
-void player_rot_mouse(t_player *player, t_pos mouse_pos);
-void	player_rot_mouse1(t_player *player, t_mouse mouse);
+//void player_rot_mouse(t_player *player, t_pos mouse_pos);
+//void	player_rot_mouse1(t_player *player, t_mouse mouse);
+void	player_rot_mouse(t_player *player, t_mouse mouse);
 
 
 
