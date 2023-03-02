@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:02:32 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 12:01:30 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 12:42:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ int			is_valid_file_type(char *file);
 
 int			check_textures(char **textures, int *rgb_colors);
 int			get_map_textures(t_map **map, int fd);
-
-void		free_memory(t_map *map);
-
-void		print_error_msg(char *msg);
 
 char		*get_next_line(int fd);
 

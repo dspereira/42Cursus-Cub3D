@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 19:16:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:08:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,39 @@ int main(int argc, char **argv)
 		printf("Invalid number of arguments\n");
 		return (-1);
 	}
-	if (!get_game_configs(argc, argv, &map))
+	init_data_pointers(&data);
+	if (!get_game_configs(argc, argv, &(data.map)))
 		return (-1);
 
-	player = player_init(map.pos, map.orientation);
-
+	data.player = player_init(data.map.pos, data.map.orientation);
 	data.key_state = key_init();
-
 	data.mouse.actual = (t_pos){WIN_WIDTH / 2, WIN_HEIGHT / 2};
 	data.mouse.last = (t_pos){0, 0};
-
-	win.mlx = mlx_init();
-	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
-	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
-	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
-	setup_textures(map.wall_textures, map.rgb_colors, &tex, win.mlx);
-	data.win = &win;
-	data.player = player;
-	data.map = map;
-	data.minimap = minimap_init(map.width, map.height);
-	mouse_init(win, &data.mouse_state);
-	
-	data.tex = tex;
-	mlx_loop_hook(win.mlx, render_win, &data);
-	//mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	//mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
-
-	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_press_hook, &data);
-	mlx_hook(win.mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook, &data);
-	
-	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
-	mlx_loop(win.mlx);
+	data.win = ft_calloc(1, sizeof(t_win));
+	data.win->mlx = mlx_init();
+	data.win->mlx_win = mlx_new_window(data.win->mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
+	data.win->frame.mlx_img = mlx_new_image(data.win->mlx, WIN_WIDTH, WIN_HEIGHT);
+	data.win->frame.addr = mlx_get_data_addr(data.win->frame.mlx_img, &(data.win->frame.bpp),
+		&(data.win->frame.line_len), &(data.win->frame.endian));
+	setup_textures(data.map.wall_textures, data.map.rgb_colors, &data.tex, data.win->mlx);
+	//data.win = &win;
+	//data.player = player;
+	//data.map = map;
+	data.minimap = minimap_init(data.map.width, data.map.height);
+	mouse_init(*(data.win), &data.mouse_state);
+	//data.tex = tex;
+	mlx_loop_hook(data.win->mlx, render_win, &data);
+	//mlx_mouse_move(data.win->mlx, data.win->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	//mlx_hook(data.win->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
+	mlx_hook(data.win->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_press_hook, &data);
+	mlx_hook(data.win->mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook, &data);
+	mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
+	mlx_loop(data.win->mlx);
 	return (0);
 }
 
 int render_win(void *data)
 {
-	static int	frames_count = 0;
 	t_player	*player;
 	t_map		map;
 	t_win		win;
@@ -97,6 +93,8 @@ int render_win(void *data)
 	key_move_control(((t_data*)data)->key_state, player, map.content);
 
 	// mouse state control	
+	mlx_clear_window(win.mlx, win.mlx_win);
+	//mouse_control(win, &((t_data*)data)->mouse_state);
 	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
@@ -105,14 +103,8 @@ int render_win(void *data)
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-	frames_count++;
-	if (check_time_ms(1000))
-	{
-		//printf("\033[2J\033[1;1H");
-		printf("fps: %d\n", frames_count);
-		frames_count = 0;
-	}
-	//mouse_control(win, &((t_data*)data)->mouse_state);
+	frame_count(win);
+	//mlx_destroy_image(win.mlx, win.frame.mlx_img);
 	return (0);
 }
 
@@ -127,6 +119,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 				return (0);
 			if (!get_all_map_info(&map, av[1]))
 			{
+				//free_map_memory(*map);
 				printf("Map KO\n");
 				return (0);
 			}
@@ -139,7 +132,6 @@ static int get_game_configs(int ac, char **av, t_map *map)
 			return (0);
 		}
 		printf("---------------\n\n");
-		//free_memory(map);
 		return (1);
 	}
 	printf("Error: Invalid number of Arguments\n");
