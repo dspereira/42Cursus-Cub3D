@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/01 17:20:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:54:48 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static t_alloc_mem  *alloc_mem(t_data *elem);
+static t_alloc_mem	*alloc_mem(t_data *elem);
 
-void    init_alloc_mem(void)
+void	init_alloc_mem(void)
 {
 	alloc_mem(0);
 }
 
-void    save_alloc_mem(t_data *mem)
+void	save_alloc_mem(t_data *data)
 {
-	alloc_mem(mem);	
+	alloc_mem(data);	
 }
 
 void	free_alloc_mem(void)
@@ -32,11 +32,15 @@ void	free_alloc_mem(void)
 	if (mem && mem->data)
 	{
 		free_map_memory(mem->data->map);
+		free_tex_memory(mem->data->tex, mem->data->win->mlx);
+		free_player_memory(mem->data->player);
+		free_mlx_memory(mem->data->win);
 		free (mem);
 	}
+	exit(EXIT_SUCCESS);
 }
 
-static t_alloc_mem  *alloc_mem(t_data *elem)
+static t_alloc_mem	*alloc_mem(t_data *elem)
 {
 	static t_alloc_mem	*mem = 0;
 
