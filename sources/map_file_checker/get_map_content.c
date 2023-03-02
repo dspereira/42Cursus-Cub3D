@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/01 16:09:02 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:56:03 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			is_line_empty(char *line);
 void		map_resizer(char ***src);
 void		clear_map(char ***map);
 static void	get_map_line(char **content, char *src);
-static void	realloc_map(int actual_len, char ***content);
+static int	realloc_map(int actual_len, char ***content);
 static char	*get_begin_line(int fd);
 
 int	get_map_content(char ***content, int fd)
@@ -24,20 +24,22 @@ int	get_map_content(char ***content, int fd)
 	char	*line;
 	int		i;
 
-	*content = oom_guard(ft_calloc(2, sizeof(char *)));
+	*content = ft_calloc(2, sizeof(char *));
+	if (!*content)
+		return (FALSE);
 	line = get_begin_line(fd);
 	i = 0;
 	while (line && !is_line_empty(line))
 	{
 		get_map_line(&((*content)[i]), line);
-		free(line);
 		if (!(*content)[i])
 		{
 			clear_map(content);
 			return (FALSE);
 		}
+		if (!realloc_map(i + 2, content))
+			return (FALSE);
 		line = get_next_line(fd);
-		realloc_map(i + 2, content);
 		i++;
 	}
 	map_resizer(content);
@@ -61,6 +63,7 @@ void	clear_map(char ***map)
 		i++;
 	}
 	free(free_map);
+	*map = NULL;
 }
 
 static void	get_map_line(char **content, char *src)
@@ -78,16 +81,20 @@ static void	get_map_line(char **content, char *src)
 		(*content)[i] = src[i];
 		i++;
 	}
+	free (src);
 }
 
-static void	realloc_map(int actual_len, char ***content)
+static int	realloc_map(int actual_len, char ***content)
 {
 	char	**new_content;
 	int		i;
 
 	new_content = ft_calloc(actual_len + 1, sizeof(char *));
 	if (!new_content)
-		return ;
+	{
+		clear_map(content);
+		return (FALSE);
+	}
 	i = 0;
 	while (i < actual_len)
 	{
@@ -96,6 +103,7 @@ static void	realloc_map(int actual_len, char ***content)
 	}
 	free(*content);
 	*content = new_content;
+	return (TRUE);
 }
 
 static char	*get_begin_line(int fd)

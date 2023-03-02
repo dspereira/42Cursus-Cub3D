@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 11:08:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:04:37 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int main(int argc, char **argv)
 	t_data		data;
 	t_tex		tex;
 
-	if (argc < 2)
-	{
-		printf("Invalid number of arguments\n");
-		return (-1);
-	}
 	init_data_pointers(&data);
 	if (!get_game_configs(argc, argv, &(data.map)))
 		return (-1);
@@ -119,7 +114,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 				return (0);
 			if (!get_all_map_info(&map, av[1]))
 			{
-				//free_map_memory(*map);
+				free_map_memory(*map);
 				printf("Map KO\n");
 				return (0);
 			}

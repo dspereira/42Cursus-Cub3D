@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_resizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:14:18 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/01 17:34:40 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:00:23 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ void	map_resizer(char ***src)
 	if (map_size < 3)
 		return ;
 	res = ft_calloc(map_size + 3, sizeof(char *));
-	//res = oom_guard(ft_calloc(map_size + 3, sizeof(char *)));
+	if (!res)
+	{
+		free_resizer_memory(res, src, map_size + 3);
+		return ;
+	}
 	res[0] = fill_first_last_line(big_len);
 	res[map_size + 1] = fill_first_last_line(big_len);
 	if (!res[0] || !res[map_size + 1]
