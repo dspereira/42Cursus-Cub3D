@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 17:14:03 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:00:39 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static void			set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos);
 static int			get_door_side(char map_character);
 
 static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
+
+// refactored new functions
+static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
+static void	update_side(int *side, t_value step, t_value_dec ray_leng);
+static void update_ray_leng(t_value_dec *ray_leng, t_ray ray);
+
 
 void	raycast_all(t_player *player, char **map)
 {
@@ -83,11 +89,14 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 	map_pos = get_map_pos((t_pos){p_pos.x, p_pos.y});
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-	while (map[map_pos.y][map_pos.x] == '0' \
-		|| (map[map_pos.y][map_pos.x] >= 'G' && map[map_pos.y][map_pos.x] <= 'N') \
-		|| (map[map_pos.y][map_pos.x] >= 'g' && map[map_pos.y][map_pos.x] <= 'n'))
+
+	while(is_floor(map, map_pos) || is_door(map, map_pos))
 	{
-		if (ray_length.x < ray_length.y)
+		
+		update_map_pos(&map_pos, step, ray_length);
+		update_side(&(ray->side), step, ray_length);
+		update_ray_leng(&ray_length, *ray);
+		/*if (ray_length.x < ray_length.y)
 		{
 			map_pos.x += step.x;
 			ray_length.x += ray->sx;
@@ -98,15 +107,18 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 			map_pos.y += step.y;
 			ray_length.y += ray->sy;
 			ray->side = SO_SIDE;
-		}
-		if ((map[map_pos.y][map_pos.x] >= 'G' && map[map_pos.y][map_pos.x] <= 'N') \
-			|| (map[map_pos.y][map_pos.x] >= 'g' && map[map_pos.y][map_pos.x] <= 'n'))
+		}*/
+		
+
+		
+		if (is_door(map, map_pos))
 		{
 			ray->is_door = 1;
-			if (ray->side == EA_SIDE)
+			/*if (ray->side == EA_SIDE)
 				test_side = ray->side * step.x;
 			else
-				test_side = ray->side * step.y;
+				test_side = ray->side * step.y;*/
+				test_side = ray->side;
 			if (test_side == EA_SIDE || test_side == WE_SIDE)
 				ray->door_dist = (ray_length.x - ray->sx) * ray->cos2;
 			if (test_side == SO_SIDE || test_side == NO_SIDE)
@@ -117,10 +129,10 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 			set_distace_win1(ray, map_pos, p_pos);
 		}
 	}
-	if (ray->side == EA_SIDE)
+	/*if (ray->side == EA_SIDE)
 		ray->side *= step.x;
 	else
-		ray->side *= step.y;
+		ray->side *= step.y;*/
 	if (ray->side == EA_SIDE || ray->side == WE_SIDE)
 		ray->dist_wall = (ray_length.x - ray->sx) * ray->cos2;
 	if (ray->side == SO_SIDE || ray->side == NO_SIDE)
@@ -130,6 +142,41 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 	//printf("valor: %.5f\n",ray->map_wall_pos);
 }
 
+static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng)
+{
+	if (ray_leng.x < ray_leng.y)
+		m_pos->x += step.x;
+	else
+		m_pos->y += step.y;
+}
+
+static void	update_side(int *side, t_value step, t_value_dec ray_leng)
+{
+	if (ray_leng.x < ray_leng.y)
+	{
+		if (step.x < 0)
+			*side = WE_SIDE;
+		else
+			*side = EA_SIDE;
+	}
+	else
+	{
+		if (step.y < 0)
+			*side = NO_SIDE;
+		else
+			*side = SO_SIDE;
+	}
+}
+
+static void update_ray_leng(t_value_dec *ray_leng, t_ray ray)
+{
+	if (ray_leng->x < ray_leng->y)
+		ray_leng->x += ray.sx;
+	else
+		ray_leng->y += ray.sy;
+}
+
+// raycast_get_step
 static t_value	ray_cast_get_step(t_ray ray)
 {
 	t_value step;
@@ -143,6 +190,7 @@ static t_value	ray_cast_get_step(t_ray ray)
 	return (step);
 }
 
+// raycast_get_init_leng
 static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
 {
 	t_value_dec	leng;

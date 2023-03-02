@@ -52,6 +52,7 @@ SRC_NAME =	main.c										\
 			render_scene_3d.c							\
 			ray.c										\
 			raycast.c									\
+			raycast_utils.c								\
 			time.c										\
 			key_controls.c								\
 			collisions.c								\

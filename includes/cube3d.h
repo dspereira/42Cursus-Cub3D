@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 11:03:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:48:13 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include <mlx.h>
+
+# define FALSE	0
+# define TRUE	1
+
+# define FLOOR '0'
+# define WALL	'1'
+# define DOOR_OPENING_START 'G'
+# define DOOR_OPENING_END 	 'N'
+# define DOOR_CLOSING_START 'g'
+# define DOOR_CLOSING_END 	 'n'
 
 // valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
@@ -92,7 +102,7 @@
 #define MOUSE_CHANGE_HIDE	4
 
 #define NO_SIDE			-2	//amarelo
-#define SO_SIDE			2	//azul
+#define SO_SIDE			2	//azulr
 #define EA_SIDE			1	//verde
 #define WE_SIDE			-1	//vermelho
 
@@ -147,7 +157,7 @@
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
 
-#define MOVE_SPEED_MS		5
+#define MOVE_SPEED_MS		20
 
 
 #define	MINIMAP_SQUARE_SIZE		15
@@ -369,6 +379,10 @@ void	ray_update_dir(t_ray *ray, float dir);
 
 // raycast.c
 void	raycast_all(t_player *player, char **map);
+
+// raycast_utils.c
+int	is_floor(char **map, t_pos pos);
+int	is_door(char **map, t_pos pos);
 
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);
