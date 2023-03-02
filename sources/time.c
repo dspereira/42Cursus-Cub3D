@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:05:36 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/24 16:45:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:03:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ unsigned long	check_time_ms(unsigned long time)
 }
 
 unsigned long	doors_time_check_ms(unsigned long time)
+{
+	static unsigned long	buff = 0;
+	unsigned long			actual;
+
+	if (!buff)
+		buff = get_actual_time_ms();
+	actual = get_actual_time_ms();
+	if ((actual - buff) >= time)
+	{
+		buff = 0;
+		return (actual);
+	}
+	return (0);
+}
+
+unsigned long	moves_time_check_ms(unsigned long time)
 {
 	static unsigned long	buff = 0;
 	unsigned long			actual;

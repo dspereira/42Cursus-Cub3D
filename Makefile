@@ -38,6 +38,8 @@ SRC_NAME =	main.c										\
 			minimap/minimap_utils.c						\
 			player/player.c								\
 			player/player_rot_mouse.c					\
+			mouse/mouse.c								\
+			mouse/mouse_hook.c							\
 			map.c										\
 			init_data_pointers.c						\
 			free_map_memory.c							\
@@ -53,7 +55,6 @@ SRC_NAME =	main.c										\
 			time.c										\
 			key_controls.c								\
 			collisions.c								\
-			mouse.c										\
 			doors.c										\
 			setup_textures.c							\
 			frame_count.c
@@ -74,6 +75,7 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects/map_file_checker
 	mkdir -p objects/minimap
 	mkdir -p objects/player
+	mkdir -p objects/mouse
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:

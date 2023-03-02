@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 17:21:36 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:03:14 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@
 #define KEY_CTRL			65507
 
 #define KEY_PRESS			2
-#define KEY_PRESS_MASK		1L
+#define KEY_PRESS_MASK		(1L<<0)
+#define KEY_RELEASE			3
+#define KEY_RELEASE_MASK	(1L<<1)
 
 #define BUTTON_LEFT_CLICK	1
 
@@ -60,7 +62,7 @@
 #define RIGHT			270
 
 #define ROT_STEP		2
-#define MOVE_STEP		5
+#define MOVE_STEP		3
 
 // render 2D
 #define PLAYER_SIZE		10
@@ -145,6 +147,8 @@
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
 
+#define MOVE_SPEED_MS		5
+
 
 #define	MINIMAP_SQUARE_SIZE		15
 #define MINIMAP_PLAYER_RADIUS	4
@@ -161,7 +165,7 @@
 
 // MIN SENSE = 0  
 // MAX SENSE = 1
-#define MOUSE_SENSE				0.5
+#define MOUSE_SENSE				1
 
 #define TIME_PER_FRAME		1000
 #define FRAMES_TEXT_COLOR	0
@@ -291,6 +295,22 @@ typedef struct s_minimap
 	float	map_scale;
 }	t_minimap;
 
+typedef struct s_mouse
+{
+	t_pos actual;
+	t_pos last;
+}	t_mouse;
+
+typedef struct s_key
+{
+	int w;
+	int s;
+	int a;
+	int d;
+	int arrow_r;
+	int arrow_l;
+}	t_key;
+
 typedef struct s_data
 {
 	t_win		*win;
@@ -299,6 +319,8 @@ typedef struct s_data
 	t_tex		tex;
 	t_minimap	minimap;
 	int			mouse_state;
+	t_mouse		mouse;
+	t_key		key_state;
 }	t_data; 
 
 typedef struct s_alloc_mem
@@ -341,9 +363,6 @@ void		player_move(t_player *player, char **map, int dir);
 void		player_rotation_key(t_player *player, float rot_angle);
 void 		player_update_rays(t_ray *rays, float rot_angle);
 
-// player_rot_mouse.c
-void player_rot_mouse(t_player *player, t_pos mouse_pos);
-
 // ray.c
 void	ray_init(t_ray *ray, float dir, float p_dir);
 void	ray_update_dir(t_ray *ray, float dir);
@@ -368,20 +387,36 @@ void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
 // time.c
 unsigned long	check_time_ms(unsigned long time);
 unsigned long	doors_time_check_ms(unsigned long time);
+unsigned long	moves_time_check_ms(unsigned long time);
 
 // key_controls.c
-int	key(int keycode, t_data *data);
+t_key	key_init(void);
+int		key_press_hook(int keycode, t_data *data);
+int		key_release_hook(int keycode, t_data *data);
+void	key_move_control(t_key key, t_player *player, char **map);
+
+//int	key(int keycode, t_data *data);
 
 // collisions.c
 int check_collisions(t_pos p_pos, char **map);
 
 void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
 
+
 // mouse.c
 void	mouse_init(t_win win, int *mouse_state);
-t_pos	mouse_get_pos(t_win win);
-void	mouse_control(t_win win, int *mouse_state);
-int		mouse_hook(int button, int x, int y, t_data *data);
+t_pos 	mouse_get_pos(t_win win);
+void	mouse_update(t_mouse *mouse, t_pos mouse_pos);
+void	mouse_recenter(t_win win, t_mouse *mouse);
+void	mouse_state_control(t_win win, int *mouse_state);
+
+// mouse_hook.c
+int	mouse_hook(int button, int x, int y, t_data *data);
+
+// player_rot_mouse.c
+void	player_rot_mouse(t_player *player, t_mouse mouse);
+
+
 
 // minimap.c
 t_minimap	minimap_init(int map_width, int map_height);
