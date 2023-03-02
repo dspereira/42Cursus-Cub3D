@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_2d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/23 14:24:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:05:51 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void render_map(t_img img, char **map);
-static void render_player(t_img img, t_player player, char **map);
-static void render_player_circle(t_img img, t_player player, char **map);
-static void render_background(t_img img, int color);
+static void	render_map(t_img img, char **map);
+static void	render_player(t_img img, t_player player, char **map);
+static void	render_player_circle(t_img img, t_player player, char **map);
+static void	render_background(t_img img, int color);
 
-void render_scene_2d(t_img img, t_player player, char **map)
+void	render_scene_2d(t_img img, t_player player, char **map)
 {
 	render_background(img, 0x0021130d);
 	render_map(img, map);
@@ -25,7 +25,7 @@ void render_scene_2d(t_img img, t_player player, char **map)
 	render_player_circle(img, player, map);
 }
 
-static void render_map(t_img img, char **map)
+static void	render_map(t_img img, char **map)
 {
 	t_pos	map_pos;
 	t_pos	win_pos;
@@ -33,7 +33,7 @@ static void render_map(t_img img, char **map)
 
 	square_size = MAP_SQUARE_SIZE;
 	map_pos.y = 0;
-	while (map_pos.y < MAP_HEIGHT) 
+	while (map_pos.y < MAP_HEIGHT)
 	{
 		map_pos.x = 0;
 		while (map_pos.x < MAP_WIDTH)
@@ -50,7 +50,7 @@ static void render_map(t_img img, char **map)
 	}
 }
 
-static void render_player(t_img img, t_player player, char **map)
+static void	render_player(t_img img, t_player player, char **map)
 {
 	int		i;
 	t_pos	p_pos;
@@ -62,17 +62,19 @@ static void render_player(t_img img, t_player player, char **map)
 	i = 0;
 	while (i < NUMBER_RAYS)
 	{
-		ray_end_pos = get_new_pos((t_pos){player.pos.x, player.pos.y}, player.rays[i].cos, player.rays[i].sin,  player.rays[i].length_win);
-		draw_line(img, (t_pos){player.pos.x, player.pos.y}, ray_end_pos, 0x00FF0000);
+		ray_end_pos = get_new_pos((t_pos){player.pos.x, player.pos.y}, \
+			player.rays[i].cos, player.rays[i].sin, player.rays[i].length_win);
+		draw_line(img, (t_pos){player.pos.x, player.pos.y}, \
+			ray_end_pos, 0x00FF0000);
 		i++;
 	}
 }
 
-static void render_player_circle(t_img img, t_player player, char **map)
+static void	render_player_circle(t_img img, t_player player, char **map)
 {
 	t_pos	p_pos;
 	t_pos	point_pos;
-	float 	i;
+	float	i;
 
 	p_pos = (t_pos){player.pos.x, player.pos.y};
 	i = 0;
@@ -82,11 +84,11 @@ static void render_player_circle(t_img img, t_player player, char **map)
 		draw_pixel(img, point_pos.x, point_pos.y, PLAYER_COLOR);
 		i += 0.1;
 	}
-	draw_line(img, p_pos, get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
-
+	draw_line(img, p_pos, \
+		get_new_dist_pos(p_pos, player.dir, 15), PLAYER_COLOR);
 }
 
-static void render_background(t_img img, int color)
+static void	render_background(t_img img, int color)
 {
 	int	i;
 	int	j;

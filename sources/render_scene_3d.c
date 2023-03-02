@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 14:07:47 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:54:46 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void	get_tex_data(t_ray ray, t_value draw_vals, t_tex tex, t_tex_data *data)
 		data->tex = tex.no;
 }
 
-void	get_d_tex_data(t_ray ray, t_value draw_vals, t_tex tex, t_tex_data *data)
+void	get_d_tex_data(t_ray ray, t_value drawvals, t_tex tex, t_tex_data *data)
 {
-	data->win_start_pos.x = draw_vals.x;
+	data->win_start_pos.x = drawvals.x;
 	data->height = ((int)((WIN_HEIGHT) / ray.door_dist));
-	data->win_start_pos.y = draw_vals.y - (data->height / 2);
+	data->win_start_pos.y = drawvals.y - (data->height / 2);
 	data->map_wall_pos = ray.map_door_pos;
 	if (ray.door_tex == 'G')
 		data->tex = tex.doors[DOOR_CLOSE];

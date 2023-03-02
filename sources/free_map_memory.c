@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_memory.c                                      :+:      :+:    :+:   */
+/*   free_map_memory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:19:08 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/01/23 10:25:19 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:30:48 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "header.h"
 
 static void	free_textures(char **textures, int *rgb_colors);
-static void	free_content(char **contente);
+static void	free_content(char **content);
 
-void	free_memory(t_map *map)
+void	free_map_memory(t_map map)
 {
-	if (map)
-	{
-		free_textures(map->wall_textures, map->rgb_colors);
-		free_content(map->content);
-		free (map);
-	}
+	free_textures(map.wall_textures, map.rgb_colors);
+	free_content(map.content);
 }
 
 static void	free_textures(char **textures, int *rgb_colors)
@@ -44,19 +40,18 @@ static void	free_textures(char **textures, int *rgb_colors)
 		free (rgb_colors);
 }
 
-static void	free_content(char **contente)
+static void	free_content(char **content)
 {
 	int	i;
 
 	i = 0;
-	if (contente)
+	if (content)
 	{
-		while (contente[i])
+		while (content[i])
 		{
-			if (contente[i])
-				free (contente[i]);
+			free (content[i]);
 			i++;
 		}
-		free (contente);
+		free (content);
 	}
 }

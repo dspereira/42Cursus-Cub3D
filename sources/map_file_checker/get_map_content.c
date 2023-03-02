@@ -6,7 +6,7 @@
 /*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:10:33 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:09:02 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int			is_line_empty(char *line);
 void		map_resizer(char ***src);
+void		clear_map(char ***map);
 static void	get_map_line(char **content, char *src);
 static void	realloc_map(int actual_len, char ***content);
-static void	clear_map(char ***map);
 static char	*get_begin_line(int fd);
 
 int	get_map_content(char ***content, int fd)
@@ -24,9 +24,7 @@ int	get_map_content(char ***content, int fd)
 	char	*line;
 	int		i;
 
-	*content = ft_calloc(2, sizeof(char *));
-	if (!*content)
-		return (FALSE);
+	*content = oom_guard(ft_calloc(2, sizeof(char *)));
 	line = get_begin_line(fd);
 	i = 0;
 	while (line && !is_line_empty(line))
@@ -48,7 +46,7 @@ int	get_map_content(char ***content, int fd)
 	return (TRUE);
 }
 
-static void	clear_map(char ***map)
+void	clear_map(char ***map)
 {
 	int		i;
 	char	**free_map;
