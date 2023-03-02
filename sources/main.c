@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 17:46:15 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:41:08 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,28 @@ int main(int argc, char **argv)
 		return (-1);
 	}
 	init_data_pointers(&data);
-	if (!get_game_configs(argc, argv, &map))
+	if (!get_game_configs(argc, argv, &(data.map)))
 		return (-1);
 
-	player = player_init(map.pos, map.orientation);
-
-	win.mlx = mlx_init();
-	win.mlx_win = mlx_new_window(win.mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
-	win.frame.mlx_img = mlx_new_image(win.mlx, WIN_WIDTH, WIN_HEIGHT);
-	win.frame.addr = mlx_get_data_addr(win.frame.mlx_img, &(win.frame.bpp), &(win.frame.line_len), &(win.frame.endian));
-	setup_textures(map.wall_textures, map.rgb_colors, &tex, win.mlx);
-	data.win = &win;
-	data.player = player;
-	data.map = map;
-	data.minimap = minimap_init(map.width, map.height);
-	mouse_init(win, &data.mouse_state);
-	data.tex = tex;
-	mlx_loop_hook(win.mlx, render_win, &data);
-	mlx_mouse_move(win.mlx, win.mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	mlx_hook(win.mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
-	mlx_mouse_hook(win.mlx_win, mouse_hook, &data);
-	mlx_loop(win.mlx);
+	data.player = player_init(data.map.pos, data.map.orientation);
+	data.win = ft_calloc(1, sizeof(t_win));
+	data.win->mlx = mlx_init();
+	data.win->mlx_win = mlx_new_window(data.win->mlx, WIN_WIDTH, WIN_HEIGHT, "Cube3D");
+	data.win->frame.mlx_img = mlx_new_image(data.win->mlx, WIN_WIDTH, WIN_HEIGHT);
+	data.win->frame.addr = mlx_get_data_addr(data.win->frame.mlx_img, &(data.win->frame.bpp), \
+		&(data.win->frame.line_len), &(data.win->frame.endian));
+	setup_textures(data.map.wall_textures, data.map.rgb_colors, &data.tex, data.win->mlx);
+	//data.win = &win;
+	//data.player = player;
+	//data.map = map;
+	data.minimap = minimap_init(data.map.width, data.map.height);
+	mouse_init(*(data.win), &data.mouse_state);
+	//data.tex = tex;
+	mlx_loop_hook(data.win->mlx, render_win, &data);
+	mlx_mouse_move(data.win->mlx, data.win->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	mlx_hook(data.win->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
+	mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
+	mlx_loop(data.win->mlx);
 	return (0);
 }
 
@@ -76,11 +77,11 @@ int render_win(void *data)
 		//player_rotation(win, player, mouse_get_pos(win));
 
 	// mouse state control	
+	mlx_clear_window(win.mlx, win.mlx_win);
 	mouse_control(win, &((t_data*)data)->mouse_state);
 	doors_control(map);
 	//render_scene_2d(win.frame, *player, map.content);
 	//render_scene_3d(win.frame, *player);
-	mlx_clear_window(win.mlx, win.mlx_win);
 	render_scene_3d_tex(win.frame, *player, ((t_data*)data)->tex);
 
 	//minimap_render(win.frame, *player, map.content);
