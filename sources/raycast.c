@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/03 16:54:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:52:43 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,13 +228,25 @@ static int get_const_axis_collision(int side, t_pos m_pos)
 	return (value);
 }
 
+
+static t_pos_dec get_ray_collision_pos_pixels(t_ray ray, t_pos p_pos)
+{
+	t_pos_dec pos;
+
+	pos.x = ray.length_win * ray.cos + p_pos.x;
+	pos.y = ray.length_win * ray.sin + p_pos.y;
+	return (pos);
+}
+
+
 // tem de entrar aqui posição do player em decimal
 static double get_ray_collision_map(t_ray ray, t_pos p_pos)
 {
 	t_pos_dec	pos;
 	double		value;
 
-	pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray.dir, ray.length_win);
+	//pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray.dir, ray.length_win);
+	pos = get_ray_collision_pos_pixels(ray, p_pos);
 	pos = get_map_pos_decimal_1(pos);
 	if (ray.side == EA_SIDE)
 		value = pos.y;
@@ -247,23 +259,11 @@ static double get_ray_collision_map(t_ray ray, t_pos p_pos)
 	return (value);
 }
 
-
-
 static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
-	t_pos	win_pos;
-	t_pos	final_pos;
-	int		square_size;
-
-	t_pos_dec	wall_pos;
-
 	set_ray_leng_pixels(ray, m_pos, p_pos);
-
 	ray->map_wall_pos = get_ray_collision_map(*ray, p_pos);
-
-
 }
-
 
 
 static int	get_door_side(char map_character)
