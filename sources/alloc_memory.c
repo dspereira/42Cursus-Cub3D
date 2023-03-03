@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/02 15:54:48 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:00:34 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_alloc_mem(void)
 {
 	t_alloc_mem	*mem;
 
-	mem = alloc_mem(0);
+	mem = alloc_mem(NULL);
 	if (mem && mem->data)
 	{
 		free_map_memory(mem->data->map);
@@ -44,6 +44,7 @@ static t_alloc_mem	*alloc_mem(t_data *elem)
 {
 	static t_alloc_mem	*mem = 0;
 
+	printf("Here\n");
 	if (!mem)
 	{
 		mem = malloc(sizeof(t_alloc_mem));

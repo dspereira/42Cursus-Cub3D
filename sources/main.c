@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 13:49:08 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:03:17 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int main(int argc, char **argv)
 	t_data		data;
 	t_tex		tex;
 
-	init_alloc_mem();
 	init_data_pointers(&data);
-	save_alloc_mem(&data);
 	if (!get_game_configs(argc, argv, &(data.map)))
 		return (-1);
+	init_alloc_mem();
+	save_alloc_mem(&data);
 
 	data.player = player_init(data.map.pos, data.map.orientation);
 	data.key_state = key_init();
