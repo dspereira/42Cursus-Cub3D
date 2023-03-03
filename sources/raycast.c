@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/03 14:12:07 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:54:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
 
 
 // refactored new functions
-static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
-static void	update_side(int *side, t_value step, t_value_dec ray_leng);
-static void update_ray_leng(t_value_dec *ray_leng, t_ray ray);
-static void	set_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
-static int get_const_axis_collision(int side, t_pos m_pos);
-static void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
+static void		update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
+static void		update_side(int *side, t_value step, t_value_dec ray_leng);
+static void		update_ray_leng(t_value_dec *ray_leng, t_ray ray);
+static void		set_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
+static int		get_const_axis_collision(int side, t_pos m_pos);
+static void		set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
+static double	get_ray_collision_map(t_ray ray, t_pos p_pos);
 
 
 void	raycast_all(t_player *player, char **map)
@@ -194,9 +195,6 @@ static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
 	return (leng);
 }
 
-
-
-
 static void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
 	int final_pos;
@@ -230,6 +228,26 @@ static int get_const_axis_collision(int side, t_pos m_pos)
 	return (value);
 }
 
+// tem de entrar aqui posição do player em decimal
+static double get_ray_collision_map(t_ray ray, t_pos p_pos)
+{
+	t_pos_dec	pos;
+	double		value;
+
+	pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray.dir, ray.length_win);
+	pos = get_map_pos_decimal_1(pos);
+	if (ray.side == EA_SIDE)
+		value = pos.y;
+	else if (ray.side == SO_SIDE)
+		value = pos.x;
+	else if (ray.side == NO_SIDE)
+		value = pos.x;
+	else if (ray.side == WE_SIDE)
+		value = pos.y;
+	return (value);
+}
+
+
 
 static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
@@ -239,40 +257,11 @@ static void	set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos)
 
 	t_pos_dec	wall_pos;
 
-	/*square_size = MAP_SQUARE_SIZE;
-	win_pos = get_win_pos(m_pos);
-	if (ray->side == EA_SIDE)
-		final_pos.x = win_pos.x;
-	else if (ray->side == SO_SIDE)
-		final_pos.y = win_pos.y;
-	else if (ray->side == NO_SIDE)
-		final_pos.y = win_pos.y + square_size;
-	else if (ray->side == WE_SIDE)
-		final_pos.x = win_pos.x + square_size;
-	
-	if (ray->side == EA_SIDE)
-		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
-	else if (ray->side == SO_SIDE)
-		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
-	else if (ray->side == NO_SIDE)
-		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
-	else if (ray->side == WE_SIDE)
-		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;*/
+	set_ray_leng_pixels(ray, m_pos, p_pos);
 
-	set_ray_leng_pixels(ray, m_pos, p_pos);	
-	
-	// perde precisão aqui
+	ray->map_wall_pos = get_ray_collision_map(*ray, p_pos);
 
-	wall_pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray->dir, ray->length_win);
 
-	if (ray->side == EA_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
-	else if (ray->side == SO_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
-	else if (ray->side == NO_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).x;
-	else if (ray->side == WE_SIDE)
-		ray->map_wall_pos = get_map_pos_decimal_1(wall_pos).y;
 }
 
 
