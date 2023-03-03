@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 11:03:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:43:39 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,11 @@ void	frame_count(t_win win);
 // free_map_memory.c
 void	free_map_memory(t_map map);
 
+// free_memory_utils.c
+void	free_tex_memory(t_tex tex, void *mlx);
+void	free_mlx_memory(t_win *win);
+void	free_player_memory(t_player *player);
+
 // error_handler.c
 void	print_error_msg(char *msg);
 void	free_alloc_mem(void);
@@ -455,5 +460,10 @@ void	*oom_guard(void *p);
 
 // init_data_pointers.c
 void	init_data_pointers(t_data *data);
+
+// alloc_memory.c
+void	init_alloc_mem(void);
+void	save_alloc_mem(t_data *data);
+void	free_alloc_mem(void);
 
 #endif
