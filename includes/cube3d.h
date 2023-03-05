@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 14:48:13 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:10:35 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,10 +377,13 @@ void 		player_update_rays(t_ray *rays, float rot_angle);
 void	ray_init(t_ray *ray, float dir, float p_dir);
 void	ray_update_dir(t_ray *ray, float dir);
 
-// raycast.c
+// raycast/raycast.c
 void	raycast_all(t_player *player, char **map);
 
-// raycast_utils.c
+// raycast/raycast_update.c
+void raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step);
+
+// raycast/raycast_utils.c
 int	is_floor(char **map, t_pos pos);
 int	is_door(char **map, t_pos pos);
 

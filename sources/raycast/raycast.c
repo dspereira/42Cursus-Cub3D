@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/05 18:04:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:11:44 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ static t_value_dec	get_init_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
 
 
 static int			get_door_side(char map_character);
-//static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
-//static t_value		ray_cast_get_step(t_ray ray);
 
-// refactored new functions
+
 static void		update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
 static void		update_side(int *side, t_value step, t_value_dec ray_leng);
 static void		update_ray_leng(t_value_dec *ray_leng, t_ray ray);
@@ -56,9 +54,10 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 	ray_length = get_init_leng(*ray, map_pos, p_pos);
 	while(is_floor(map, map_pos) || is_door(map, map_pos))
 	{
-		update_map_pos(&map_pos, step, ray_length);
-		update_side(&(ray->side), step, ray_length);
-		update_ray_leng(&ray_length, *ray);
+		//update_map_pos(&map_pos, step, ray_length);
+		//update_side(&(ray->side), step, ray_length);
+		//update_ray_leng(&ray_length, *ray);
+		raycast_update(ray, &map_pos, &ray_length, step);
 		if (is_door(map, map_pos))
 		{
 			set_door_raycast_info(ray, map, map_pos, ray_length);
@@ -117,6 +116,7 @@ static void set_door_raycast_info_1(t_ray *ray, t_pos_dec p_pos, t_pos map_pos)
 	ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
 }
 
+/*
 static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng)
 {
 	if (ray_leng.x < ray_leng.y)
@@ -150,6 +150,7 @@ static void update_ray_leng(t_value_dec *ray_leng, t_ray ray)
 	else
 		ray_leng->y += ray.sy;
 }
+*/
 
 static double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng)
 {
