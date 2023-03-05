@@ -6,23 +6,26 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/05 17:22:30 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/05 18:04:53 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 
-static void			raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir);
+static void			raycast(t_ray *ray, t_pos_dec p_pos, char **map);
+static t_value		get_step(t_ray ray);
+static t_value_dec	get_init_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
+
+
 static int			get_door_side(char map_character);
-static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
-static t_value		ray_cast_get_step(t_ray ray);
+//static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
+//static t_value		ray_cast_get_step(t_ray ray);
 
 // refactored new functions
 static void		update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
 static void		update_side(int *side, t_value step, t_value_dec ray_leng);
 static void		update_ray_leng(t_value_dec *ray_leng, t_ray ray);
-//static void		set_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
 static double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
 static int		get_const_axis_collision(int side, t_pos m_pos);
 static void		set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
@@ -38,20 +41,19 @@ void	raycast_all(t_player *player, char **map)
 
 	i = -1;
 	while (++i < NUMBER_RAYS)
-		raycast(&(player->rays[i]), player->pos_dec, map, player->dir);
+		raycast(&(player->rays[i]), player->pos_dec, map);
 }
 
-static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
+static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 {
 	t_value		step;
 	t_value_dec	ray_length;
 	t_pos		map_pos;
-	int			test_side;
 
 	ray->is_door = 0;
 	map_pos = get_map_pos((t_pos){p_pos.x, p_pos.y});
-	step = ray_cast_get_step(*ray);
-	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
+	step = get_step(*ray);
+	ray_length = get_init_leng(*ray, map_pos, p_pos);
 	while(is_floor(map, map_pos) || is_door(map, map_pos))
 	{
 		update_map_pos(&map_pos, step, ray_length);
@@ -59,14 +61,6 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 		update_ray_leng(&ray_length, *ray);
 		if (is_door(map, map_pos))
 		{
-			/*ray->is_door = 1;
-			ray->door_dist = get_ray_dist_to_wall(ray, ray_length);
-			ray->door_side = ray->side;
-			ray->door_pos = map_pos;
-			ray->door_tex = map[map_pos.y][map_pos.x];
-			set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
-			ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
-			*/
 			set_door_raycast_info(ray, map, map_pos, ray_length);
 			set_door_raycast_info_1(ray, p_pos, map_pos);
 		}
@@ -76,6 +70,37 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 	set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
 	ray->map_wall_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
 }
+
+static t_value	get_step(t_ray ray)
+{
+	t_value step;
+
+	step.x = 1;
+	step.y = 1;
+	if (ray.cos < 0)
+		step.x = -1;
+	if (ray.sin < 0)
+		step.y = -1;
+	return (step);
+}
+
+static t_value_dec	get_init_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
+{
+	t_value_dec	leng;
+	t_pos_dec	map_pos_dec;
+
+	map_pos_dec = get_map_pos_decimal_1(p_pos);
+	if (ray.cos < 0)
+		leng.x = (map_pos_dec.x - m_pos.x) * ray.sx;
+	else 
+		leng.x = ((m_pos.x + 1) - map_pos_dec.x) * ray.sx;
+	if (ray.sin < 0)
+		leng.y = (map_pos_dec.y - m_pos.y) * ray.sy;
+	else
+		leng.y = ((m_pos.y + 1) - map_pos_dec.y) * ray.sy;
+	return (leng);
+}
+
 
 static void	set_door_raycast_info(t_ray *ray, char **map, t_pos map_pos, t_value_dec ray_len)
 {
@@ -137,37 +162,8 @@ static double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng)
 	return (dist);
 }
 
-// raycast_get_step
-static t_value	ray_cast_get_step(t_ray ray)
-{
-	t_value step;
 
-	step.x = 1;
-	step.y = 1;
-	if (ray.cos < 0)
-		step.x = -1;
-	if (ray.sin < 0)
-		step.y = -1;
-	return (step);
-}
 
-// raycast_get_init_leng
-static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
-{
-	t_value_dec	leng;
-	t_pos_dec	map_pos_dec;
-
-	map_pos_dec = get_map_pos_decimal_1(p_pos);
-	if (ray.cos < 0)
-		leng.x = (map_pos_dec.x - m_pos.x) * ray.sx;
-	else 
-		leng.x = ((m_pos.x + 1) - map_pos_dec.x) * ray.sx;
-	if (ray.sin < 0)
-		leng.y = (map_pos_dec.y - m_pos.y) * ray.sy;
-	else
-		leng.y = ((m_pos.y + 1) - map_pos_dec.y) * ray.sy;
-	return (leng);
-}
 
 static void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
