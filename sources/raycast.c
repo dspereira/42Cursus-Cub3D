@@ -6,21 +6,17 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/03 18:35:44 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:22:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
+
 static void			raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir);
-static t_value		ray_cast_get_step(t_ray ray);
-//static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos p_pos);
-static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
-static void			set_distace_win(t_ray *ray, t_pos m_pos, t_pos p_pos);
 static int			get_door_side(char map_character);
-
-static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
-
+static t_value_dec	ray_cast_get_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos);
+static t_value		ray_cast_get_step(t_ray ray);
 
 // refactored new functions
 static void		update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng);
@@ -33,6 +29,9 @@ static void		set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
 static double	get_ray_collision_map(t_ray ray, t_pos p_pos);
 
 
+static void	set_door_raycast_info(t_ray *ray, char **map, t_pos map_pos, t_value_dec ray_len);
+static void set_door_raycast_info_1(t_ray *ray, t_pos_dec p_pos, t_pos map_pos);
+
 void	raycast_all(t_player *player, char **map)
 {
 	int	i;
@@ -40,46 +39,6 @@ void	raycast_all(t_player *player, char **map)
 	i = -1;
 	while (++i < NUMBER_RAYS)
 		raycast(&(player->rays[i]), player->pos_dec, map, player->dir);
-}
-
-static void	set_distace_win1(t_ray *ray, t_pos m_pos, t_pos_dec p_pos)
-{
-	t_pos	win_pos;
-	t_pos	final_pos;
-	int		square_size;
-
-	t_pos_dec	wall_pos;
-
-	//square_size = WIN_HEIGHT / MAP_HEIGHT;
-	square_size = MAP_SQUARE_SIZE;
-	win_pos = get_win_pos(m_pos);
-	if (ray->door_side == EA_SIDE)
-		final_pos.x = win_pos.x;
-	else if (ray->door_side == SO_SIDE)
-		final_pos.y = win_pos.y;
-	else if (ray->door_side == NO_SIDE)
-		final_pos.y = win_pos.y + square_size;
-	else if (ray->door_side == WE_SIDE)
-		final_pos.x = win_pos.x + square_size;
-	if (ray->door_side == EA_SIDE)
-		ray->length_win = (final_pos.x - p_pos.x) * ray->sx;
-	else if (ray->door_side == SO_SIDE)
-		ray->length_win = (final_pos.y - p_pos.y) * ray->sy;
-	else if (ray->door_side == NO_SIDE)
-		ray->length_win = (p_pos.y - final_pos.y) * ray->sy;
-	else if (ray->door_side == WE_SIDE)
-		ray->length_win =  (p_pos.x - final_pos.x) * ray->sx;
-
-	wall_pos = get_new_dist_pos_dec((t_pos_dec){p_pos.x, p_pos.y}, ray->dir, ray->length_win);
-
-	if (ray->door_side == EA_SIDE)
-		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).y;
-	else if (ray->door_side == SO_SIDE)
-		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).x;
-	else if (ray->door_side == NO_SIDE)
-		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).x;
-	else if (ray->door_side == WE_SIDE)
-		ray->map_door_pos = get_map_pos_decimal_1(wall_pos).y;
 }
 
 static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
@@ -90,46 +49,47 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map, float p_dir)
 	int			test_side;
 
 	ray->is_door = 0;
-	ray->door_pos.x = -1;
-	ray->door_pos.y = -1;
 	map_pos = get_map_pos((t_pos){p_pos.x, p_pos.y});
 	step = ray_cast_get_step(*ray);
 	ray_length = ray_cast_get_leng(*ray, map_pos, p_pos);
-
 	while(is_floor(map, map_pos) || is_door(map, map_pos))
 	{
-		
 		update_map_pos(&map_pos, step, ray_length);
 		update_side(&(ray->side), step, ray_length);
 		update_ray_leng(&ray_length, *ray);
-		
 		if (is_door(map, map_pos))
 		{
-			ray->is_door = 1;
-			//test_side = ray->side;
-
+			/*ray->is_door = 1;
 			ray->door_dist = get_ray_dist_to_wall(ray, ray_length);
-			
-			/*
-			if (test_side == EA_SIDE || test_side == WE_SIDE)
-				ray->door_dist = (ray_length.x - ray->sx) * ray->cos2;
-			if (test_side == SO_SIDE || test_side == NO_SIDE)
-				ray->door_dist = (ray_length.y - ray->sy) * ray->cos2;
-			*/
-		
-			//ray->door_side = test_side;
 			ray->door_side = ray->side;
 			ray->door_pos = map_pos;
 			ray->door_tex = map[map_pos.y][map_pos.x];
-			//set_distace_win1(ray, map_pos, p_pos);
 			set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
 			ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
+			*/
+			set_door_raycast_info(ray, map, map_pos, ray_length);
+			set_door_raycast_info_1(ray, p_pos, map_pos);
 		}
 	}
-	//set_ray_dist_to_wall(ray, ray_length);
 	ray->dist_wall = get_ray_dist_to_wall(ray, ray_length);
 	ray->door_side_wall = get_door_side(map[map_pos.y][map_pos.x]);
-	set_distace_win(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
+	set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
+	ray->map_wall_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
+}
+
+static void	set_door_raycast_info(t_ray *ray, char **map, t_pos map_pos, t_value_dec ray_len)
+{
+	ray->is_door = 1;
+	ray->door_dist = get_ray_dist_to_wall(ray, ray_len);
+	ray->door_side = ray->side;
+	ray->door_pos = map_pos;
+	ray->door_tex = map[map_pos.y][map_pos.x];
+}
+
+static void set_door_raycast_info_1(t_ray *ray, t_pos_dec p_pos, t_pos map_pos)
+{
+	set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
+	ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
 }
 
 static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_leng)
