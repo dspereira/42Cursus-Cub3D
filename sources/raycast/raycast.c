@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 16:14:48 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:13:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 	map_pos = get_map_pos((t_pos){p_pos.x, p_pos.y});
 	step = get_step(*ray);
 	ray_length = get_init_leng(*ray, map_pos, p_pos);
-	while(is_floor(map, map_pos) || is_door(map, map_pos))
+	while (is_floor(map, map_pos) || is_door(map, map_pos))
 	{
 		raycast_update(ray, &map_pos, &ray_length, step);
 		if (is_door(map, map_pos))
@@ -51,7 +51,7 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 
 static t_value	get_step(t_ray ray)
 {
-	t_value step;
+	t_value	step;
 
 	step.x = 1;
 	step.y = 1;
@@ -70,7 +70,7 @@ static t_value_dec	get_init_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
 	map_pos_dec = get_map_pos_decimal_1(p_pos);
 	if (ray.cos < 0)
 		leng.x = (map_pos_dec.x - m_pos.x) * ray.sx;
-	else 
+	else
 		leng.x = ((m_pos.x + 1) - map_pos_dec.x) * ray.sx;
 	if (ray.sin < 0)
 		leng.y = (map_pos_dec.y - m_pos.y) * ray.sy;

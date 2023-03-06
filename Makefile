@@ -45,6 +45,7 @@ SRC_NAME =	main.c										\
 			raycast/raycast_door.c						\
 			raycast/raycast_wall.c						\
 			raycast/raycast_utils.c						\
+			raycast/raycast_utils2.c					\
 			map.c										\
 			init_data_pointers.c						\
 			free_map_memory.c							\

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 16:01:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:18:53 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,8 @@ void raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos p_pos);
 // raycast/raycast_utils.c
 int	is_floor(char **map, t_pos pos);
 int	is_door(char **map, t_pos pos);
+
+// raycast/raycast_utils2.c
 int get_const_axis_collision(int side, t_pos m_pos);
 t_pos_dec get_ray_collision_pos_pixels(t_ray ray, t_pos p_pos);
 void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
