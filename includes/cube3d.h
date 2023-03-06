@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 11:43:44 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:59:48 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,6 +386,11 @@ void raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step);
 // raycast/raycast_door.c
 void raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos p_pos, char **map);
 void raycast_door_set_dist(t_ray *ray, t_value_dec ray_len);
+void raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map);
+
+// raycast/raycast_wall.c
+void raycast_wall_set_dist(t_ray *ray, t_value_dec ray_len);
+void raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos p_pos);
 
 // raycast/raycast_utils.c
 int	is_floor(char **map, t_pos pos);

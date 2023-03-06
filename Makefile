@@ -43,6 +43,7 @@ SRC_NAME =	main.c										\
 			raycast/raycast.c							\
 			raycast/raycast_update.c					\
 			raycast/raycast_door.c						\
+			raycast/raycast_wall.c						\
 			raycast/raycast_utils.c						\
 			map.c										\
 			init_data_pointers.c						\

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 12:40:13 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:00:40 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ static int		get_const_axis_collision(int side, t_pos m_pos);
 static void		set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
 static double	get_ray_collision_map(t_ray ray, t_pos p_pos);
 
-
-//static void	set_door_raycast_info(t_ray *ray, char **map, t_pos map_pos, t_value_dec ray_len);
-//static void set_door_raycast_info_1(t_ray *ray, t_pos_dec p_pos, t_pos map_pos);
 
 void	raycast_all(t_player *player, char **map)
 {
@@ -58,10 +55,14 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 			raycast_door_set_dist(ray, ray_length);
 		}
 	}
-	ray->dist_wall = get_ray_dist_to_wall(ray, ray_length);
-	ray->door_side_wall = get_door_side(map[map_pos.y][map_pos.x]);
-	set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
-	ray->map_wall_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
+
+	//ray->door_side_wall = get_door_side(map[map_pos.y][map_pos.x]);
+	raycast_door_set_wall_side(ray, map_pos, map);
+	raycast_wall_set_dist(ray, ray_length);
+	raycast_set_wall_inf(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
+	//ray->dist_wall = get_ray_dist_to_wall(ray, ray_length);
+	//set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
+	//ray->map_wall_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
 }
 
 static t_value	get_step(t_ray ray)
@@ -94,22 +95,6 @@ static t_value_dec	get_init_leng(t_ray ray, t_pos m_pos, t_pos_dec p_pos)
 	return (leng);
 }
 
-/*
-static void	set_door_raycast_info(t_ray *ray, char **map, t_pos map_pos, t_value_dec ray_len)
-{
-	ray->is_door = 1;
-	ray->door_dist = get_ray_dist_to_wall(ray, ray_len);
-	ray->door_side = ray->side;
-	ray->door_pos = map_pos;
-	ray->door_tex = map[map_pos.y][map_pos.x];
-}
-
-static void set_door_raycast_info_1(t_ray *ray, t_pos_dec p_pos, t_pos map_pos)
-{
-	set_ray_leng_pixels(ray, map_pos, (t_pos){p_pos.x, p_pos.y});
-	ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
-}
-*/
 
 static double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng)
 {
