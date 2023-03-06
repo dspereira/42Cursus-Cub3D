@@ -6,13 +6,14 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:17:48 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 15:31:42 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:57:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 // precisa ser acessivel em vários ficheiros
+/*
 static int get_const_axis_collision(int side, t_pos m_pos)
 {
 	t_pos	w_pos;
@@ -87,7 +88,7 @@ static double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng)
 		dist = (ray_leng.y - ray->sy) * ray->cos2;
 	return (dist);
 }
-
+*/
 
 void raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos p_pos, char **map)
 {
