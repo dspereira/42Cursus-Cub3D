@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:50:07 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/03 12:17:14 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:58:20 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	free_mlx_memory(t_win *win)
 {
 	if (win)
 	{
+		if (win->nbr_frames)
+			free(win->nbr_frames);
 		mlx_clear_window(win->mlx, win->mlx_win);
 		mlx_destroy_image(win->mlx, win->frame.mlx_img);
 		mlx_destroy_window(win->mlx, win->mlx_win);
