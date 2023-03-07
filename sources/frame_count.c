@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/07 15:51:17 by diogo            ###   ########.fr       */
+/*   Updated: 2023/03/07 16:20:19 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	frame_count(t_win *win)
 	{
 		aux_frames = ft_itoa(frames_count);
 		set_nframe_str(nframes_str, aux_frames);
-		// printf("\'%s\'\n", win.nbr_frames);
 		frames_count = 0;
 	}
 }
@@ -112,12 +111,9 @@ static void	set_nframe_str(char *frames, char *src)
 	}
 	else
 	{
-		i = 0;
-		while (i < 5)
-		{
+		i = -1;
+		while (++i < 5)
 			frames[i] = src[i];
-			i++;
-		}
 	}
 	free(src);
 }
