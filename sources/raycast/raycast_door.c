@@ -6,13 +6,14 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:17:48 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 14:18:59 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:02:04 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos, char **map)
+void	raycast_door_set_inf(t_ray *ray, t_pos m_pos,
+	t_pos_dec p_pos, char **map)
 {
 	ray->is_door = 1;
 	ray->door_side = ray->side;
