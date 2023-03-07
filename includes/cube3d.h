@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 17:18:53 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:40:30 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
 
-#define MOVE_SPEED_MS		20
+#define MOVE_SPEED_MS		25
 
 
 #define	MINIMAP_SQUARE_SIZE		15
@@ -350,6 +350,7 @@ t_pos_dec	get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
+t_pos		get_map_pos_1(t_pos_dec pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
@@ -384,13 +385,13 @@ void	raycast_all(t_player *player, char **map);
 void raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step);
 
 // raycast/raycast_door.c
-void raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos p_pos, char **map);
+void raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos, char **map);
 void raycast_door_set_dist(t_ray *ray, t_value_dec ray_len);
 void raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map);
 
 // raycast/raycast_wall.c
 void raycast_wall_set_dist(t_ray *ray, t_value_dec ray_len);
-void raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos p_pos);
+void raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
 
 // raycast/raycast_utils.c
 int	is_floor(char **map, t_pos pos);
@@ -398,9 +399,9 @@ int	is_door(char **map, t_pos pos);
 
 // raycast/raycast_utils2.c
 int get_const_axis_collision(int side, t_pos m_pos);
-t_pos_dec get_ray_collision_pos_pixels(t_ray ray, t_pos p_pos);
-void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos);
-double get_ray_collision_map(t_ray ray, t_pos p_pos);
+t_pos_dec get_ray_collision_pos_pixels(t_ray ray, t_pos_dec p_pos);
+void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
+double get_ray_collision_map(t_ray ray, t_pos_dec p_pos);
 double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
 
 

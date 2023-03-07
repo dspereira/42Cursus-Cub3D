@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:17:55 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 17:02:11 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:15:27 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	update_map_pos(t_pos *m_pos, t_value step, t_value_dec ray_len);
 static void	update_side(int *side, t_value step, t_value_dec ray_len);
 static void	update_ray_leng(t_value_dec *ray_len, t_ray ray);
 
-void	raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step)
+void	raycast_update(t_ray *ray, t_pos *m_pos,
+	t_value_dec *ray_l, t_value step)
 {
 	update_map_pos(m_pos, step, *ray_l);
 	update_side(&ray->side, step, *ray_l);

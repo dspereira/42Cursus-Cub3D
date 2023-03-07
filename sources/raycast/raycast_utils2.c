@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:17:59 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 17:19:24 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:03:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_const_axis_collision(int side, t_pos m_pos)
 	return (value);
 }
 
-t_pos_dec	get_ray_collision_pos_pixels(t_ray ray, t_pos p_pos)
+t_pos_dec	get_ray_collision_pos_pixels(t_ray ray, t_pos_dec p_pos)
 {
 	t_pos_dec	pos;
 
@@ -38,6 +38,7 @@ t_pos_dec	get_ray_collision_pos_pixels(t_ray ray, t_pos p_pos)
 	return (pos);
 }
 
+/*
 void	set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos)
 {
 	int	final_pos;
@@ -52,14 +53,31 @@ void	set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos p_pos)
 	else if (ray->side == WE_SIDE)
 		ray->length_win = (p_pos.x - final_pos) * ray->sx;
 }
+*/
 
-double	get_ray_collision_map(t_ray ray, t_pos p_pos)
+void	set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos_dec p_pos)
+{
+	int	final_pos;
+
+	final_pos = get_const_axis_collision(ray->side, m_pos);
+	if (ray->side == EA_SIDE)
+		ray->length_win = (final_pos - p_pos.x) * ray->sx;
+	else if (ray->side == SO_SIDE)
+		ray->length_win = (final_pos - p_pos.y) * ray->sy;
+	else if (ray->side == NO_SIDE)
+		ray->length_win = (p_pos.y - final_pos) * ray->sy;
+	else if (ray->side == WE_SIDE)
+		ray->length_win = (p_pos.x - final_pos) * ray->sx;
+}
+
+double	get_ray_collision_map(t_ray ray, t_pos_dec p_pos)
 {
 	t_pos_dec	pos;
 	double		value;
 
 	pos = get_ray_collision_pos_pixels(ray, p_pos);
 	pos = get_map_pos_decimal_1(pos);
+
 	if (ray.side == EA_SIDE)
 		value = pos.y;
 	else if (ray.side == SO_SIDE)
@@ -68,6 +86,7 @@ double	get_ray_collision_map(t_ray ray, t_pos p_pos)
 		value = pos.x;
 	else if (ray.side == WE_SIDE)
 		value = pos.y;
+		
 	return (value);
 }
 

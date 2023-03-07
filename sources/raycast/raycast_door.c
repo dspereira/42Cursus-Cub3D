@@ -6,20 +6,20 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:17:48 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 17:05:14 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:18:59 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos p_pos, char **map)
+void	raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos, char **map)
 {
 	ray->is_door = 1;
 	ray->door_side = ray->side;
 	ray->door_pos = m_pos;
 	ray->door_tex = map[m_pos.y][m_pos.x];
-	set_ray_leng_pixels(ray, m_pos, (t_pos){p_pos.x, p_pos.y});
-	ray->map_door_pos = get_ray_collision_map(*ray, (t_pos){p_pos.x, p_pos.y});
+	set_ray_leng_pixels(ray, m_pos, p_pos);
+	ray->map_door_pos = get_ray_collision_map(*ray, p_pos);
 }
 
 void	raycast_door_set_dist(t_ray *ray, t_value_dec ray_len)
