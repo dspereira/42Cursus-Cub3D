@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_walls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:39:13 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 15:06:54 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:04:40 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	check_top_bot_lines(char **map);
 static int	check_left_right_borders(char **map);
 static int	check_mid_lines(char **map);
 static int	check_nearby_pos(char **map, int x, int y);
+int			is_wall(char c);
 
 int	check_map_walls(char **map)
 {
@@ -39,7 +40,7 @@ static int	check_top_bot_lines(char **map)
 	j = 0;
 	while (map[0][j])
 	{
-		if (map[1][j] == ' ' || map[1][j] == '1')
+		if (is_wall(map[1][j]))
 			j++;
 		else
 			return (FALSE);
@@ -50,7 +51,7 @@ static int	check_top_bot_lines(char **map)
 	j = 0;
 	while (map[i][j])
 	{
-		if (map[i - 1][j] == ' ' || map[i - 1][j] == '1')
+		if (is_wall(map[i - 1][j]))
 			j++;
 		else
 			return (FALSE);
@@ -66,7 +67,7 @@ static int	check_left_right_borders(char **map)
 	i = 0;
 	while (map[i])
 	{
-		if (map[i][1] == ' ' || map[i][1] == '1')
+		if (is_wall(map[i][1]))
 			i++;
 		else
 			return (FALSE);
@@ -77,7 +78,7 @@ static int	check_left_right_borders(char **map)
 	i = 0;
 	while (map[i])
 	{
-		if (map[i][j - 2] == ' ' || map[i][j - 2] == '1')
+		if (is_wall(map[i][j - 2]))
 			i++;
 		else
 			return (FALSE);
@@ -110,13 +111,13 @@ static int	check_mid_lines(char **map)
 
 static int	check_nearby_pos(char **map, int x, int y)
 {
-	if (map[y][x + 1] != ' ' && map[y][x + 1] != '1')
+	if (!is_wall(map[y][x + 1]))	
 		return (FALSE);
-	if (map[y][x - 1] != ' ' && map[y][x - 1] != '1')
+	if (!is_wall(map[y][x - 1]))	
 		return (FALSE);
-	if (map[y + 1][x] != ' ' && map[y + 1][x] != '1')
+	if (!is_wall(map[y + 1][x]))	
 		return (FALSE);
-	if (map[y - 1][x] != ' ' && map[y - 1][x] != '1')
+	if (!is_wall(map[y - 1][x]))	
 		return (FALSE);
 	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:53:45 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:32:53 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:59:30 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,14 @@ static void	*ft_memset(void *s, int c, size_t len)
 		i++;
 	}
 	return (s);
+}
+
+int	is_wall(char c)
+{
+	if (c == ' ' || c == '1')
+		return (TRUE);
+	else if (c >= 'A' && c <= 'D')
+		return (TRUE);
+	else
+		return (FALSE);
 }
