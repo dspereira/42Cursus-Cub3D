@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 15:42:13 by diogo            ###   ########.fr       */
+/*   Updated: 2023/03/08 12:08:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 #include <fcntl.h>
 #include <mlx.h>
 
+# define FALSE	0
+# define TRUE	1
+
+# define FLOOR '0'
+# define WALL	'1'
+# define DOOR_OPENING_START 'G'
+# define DOOR_OPENING_END 	 'N'
+# define DOOR_CLOSING_START 'g'
+# define DOOR_CLOSING_END 	 'n'
+
 // valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
@@ -31,8 +41,12 @@
 //#define WIN_WIDTH		1040
 //#define WIN_WIDTH		1920
 
-#define WIN_HEIGHT		720
-#define WIN_WIDTH		1080
+//#define WIN_HEIGHT		720
+//#define WIN_WIDTH		1080
+
+#define WIN_HEIGHT		1000
+#define WIN_WIDTH		1920
+
 
 #define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -92,7 +106,7 @@
 #define MOUSE_CHANGE_HIDE	4
 
 #define NO_SIDE			-2	//amarelo
-#define SO_SIDE			2	//azul
+#define SO_SIDE			2	//azulr
 #define EA_SIDE			1	//verde
 #define WE_SIDE			-1	//vermelho
 
@@ -341,6 +355,7 @@ t_pos_dec	get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
 t_pos		get_map_pos(t_pos pos);
+t_pos		get_map_pos_1(t_pos_dec pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
@@ -368,8 +383,32 @@ void 		player_update_rays(t_ray *rays, float rot_angle);
 void	ray_init(t_ray *ray, float dir, float p_dir);
 void	ray_update_dir(t_ray *ray, float dir);
 
-// raycast.c
+// raycast/raycast.c
 void	raycast_all(t_player *player, char **map);
+
+// raycast/raycast_update.c
+void raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step);
+
+// raycast/raycast_door.c
+void raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos, char **map);
+void raycast_door_set_dist(t_ray *ray, t_value_dec ray_len);
+void raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map);
+
+// raycast/raycast_wall.c
+void raycast_wall_set_dist(t_ray *ray, t_value_dec ray_len);
+void raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
+
+// raycast/raycast_utils.c
+int	is_floor(char **map, t_pos pos);
+int	is_door(char **map, t_pos pos);
+
+// raycast/raycast_utils2.c
+int get_const_axis_collision(int side, t_pos m_pos);
+t_pos_dec get_ray_collision_pos_pixels(t_ray ray, t_pos_dec p_pos);
+void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
+double get_ray_collision_map(t_ray ray, t_pos_dec p_pos);
+double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
+
 
 // draw_utils.c
 void draw_pixel(t_img img, int x, int y, int color);

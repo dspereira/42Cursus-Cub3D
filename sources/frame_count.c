@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/07 16:20:19 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:55:32 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@ static void	set_nframe_str(char *frames, char *src);
 void	frame_count(t_win *win)
 {
 	static int	frames_count = 0;
-	static char	nframes_str[6];
+	static char	frames_str[6];
 	char		*aux_frames;
 
 	frames_count++;
 	aux_frames = NULL;
-	if (nframes_str[0])
+	if (frames_str[0] != '\0')
 	{
 		mlx_string_put(win->mlx, win->mlx_win, FRAMES_WIN_POS_X, \
 			FRAMES_WIN_POS_Y, FRAMES_TEXT_COLOR, "FPS: ");
 		mlx_string_put(win->mlx, win->mlx_win, FRAMES_WIN_POS_X + 28, \
-			FRAMES_WIN_POS_Y + 1, FRAMES_TEXT_COLOR, nframes_str);
+			FRAMES_WIN_POS_Y + 1, FRAMES_TEXT_COLOR, frames_str);
 	}
 	if (check_time_ms(TIME_PER_FRAME))
 	{
 		aux_frames = ft_itoa(frames_count);
-		set_nframe_str(nframes_str, aux_frames);
+		set_nframe_str(frames_str, aux_frames);
+		printf("frames: %s\n", frames_str);
 		frames_count = 0;
 	}
 }
@@ -95,25 +96,25 @@ static void	set_nframe_str(char *frames, char *src)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
+	while (++i < 5)
+		frames[i] = '\0';
 	if (!src)
 		return ;
-	while (i < 6)
-		frames[i++] = '\0';
 	i = 0;
 	while (src[i])
 		i++;
 	if (i >= 6)
 	{
-		i = 0;
-		while (i < 5)
-			frames[i++] = '9';
+		i = -1;
+		while (++i < 5)
+			frames[i] = '9';
 	}
 	else
 	{
-		i = -1;
-		while (++i < 5)
-			frames[i] = src[i];
+		i = 0;
+		while (src[i])
+			frames[i++] = src[i];
 	}
 	free(src);
 }

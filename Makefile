@@ -40,6 +40,12 @@ SRC_NAME =	main.c										\
 			player/player_rot_mouse.c					\
 			mouse/mouse.c								\
 			mouse/mouse_hook.c							\
+			raycast/raycast.c							\
+			raycast/raycast_update.c					\
+			raycast/raycast_door.c						\
+			raycast/raycast_wall.c						\
+			raycast/raycast_utils.c						\
+			raycast/raycast_utils2.c					\
 			map.c										\
 			init_data_pointers.c						\
 			free_map_memory.c							\
@@ -52,7 +58,6 @@ SRC_NAME =	main.c										\
 			render_scene_2d.c							\
 			render_scene_3d.c							\
 			ray.c										\
-			raycast.c									\
 			time.c										\
 			key_controls.c								\
 			collisions.c								\
@@ -77,6 +82,7 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects/minimap
 	mkdir -p objects/player
 	mkdir -p objects/mouse
+	mkdir -p objects/raycast
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:
