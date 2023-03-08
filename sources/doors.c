@@ -6,7 +6,7 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:54:55 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/28 11:50:48 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:30:56 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	doors_control(t_map map)
 
 	content = map.content;
 	i = 0;
+	if (!map.doors)
+		return ;
 	while (map.doors[i].x != -1)
 	{
 		x = map.doors[i].x;

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 15:40:30 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:43:27 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ typedef struct s_win
 	void	*mlx;
 	void	*mlx_win;
 	t_img	frame;
+	char	*nbr_frames;
 }	t_win;
 
 typedef struct s_pos
@@ -478,10 +479,15 @@ void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 t_pos	get_new_dist_pos1(t_pos init, float dir, int dist);
 
 // frame_count.c
-void	frame_count(t_win win);
+void	frame_count(t_win *win);
 
 // free_map_memory.c
 void	free_map_memory(t_map map);
+
+// free_memory_utils.c
+void	free_tex_memory(t_tex tex, void *mlx);
+void	free_mlx_memory(t_win *win);
+void	free_player_memory(t_player *player);
 
 // error_handler.c
 void	print_error_msg(char *msg);
@@ -490,5 +496,10 @@ void	*oom_guard(void *p);
 
 // init_data_pointers.c
 void	init_data_pointers(t_data *data);
+
+// alloc_memory.c
+void	init_alloc_mem(void);
+void	save_alloc_mem(t_data *data);
+void	free_alloc_mem(void);
 
 #endif

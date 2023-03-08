@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 12:54:32 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:46:06 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ int main(int argc, char **argv)
 	t_data		data;
 	t_tex		tex;
 
-	if (argc < 2)
-	{
-		printf("Invalid number of arguments\n");
-		return (-1);
-	}
 	init_data_pointers(&data);
 	if (!get_game_configs(argc, argv, &(data.map)))
 		return (-1);
+	init_alloc_mem();
+	save_alloc_mem(&data);
 
 	data.player = player_init(data.map.pos, data.map.orientation);
 	data.key_state = key_init();
@@ -52,14 +49,14 @@ int main(int argc, char **argv)
 	//data.player = player;
 	//data.map = map;
 	data.minimap = minimap_init(data.map.width, data.map.height);
-	mouse_init(*(data.win), &data.mouse_state);
+	//mouse_init(*(data.win), &data.mouse_state);
 	//data.tex = tex;
 	mlx_loop_hook(data.win->mlx, render_win, &data);
 	//mlx_mouse_move(data.win->mlx, data.win->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	//mlx_hook(data.win->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key, &data);
 	mlx_hook(data.win->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_press_hook, &data);
 	mlx_hook(data.win->mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook, &data);
-	mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
+	//mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
 	mlx_loop(data.win->mlx);
 	return (0);
 }
@@ -81,14 +78,14 @@ int render_win(void *data)
 	
 	raycast_all(player, map.content);
 
-	if (((t_data*)data)->mouse_state == MOUSE_HIDE)
+	/*if (((t_data*)data)->mouse_state == MOUSE_HIDE)
 	{
 		mouse_update(&mouse, mouse_get_pos(win));
 		player_rot_mouse(player, mouse);
 		mouse_recenter(win, &mouse);
 		((t_data*)data)->mouse = mouse;
 	}
-	mouse_state_control(win, &((t_data*)data)->mouse_state);
+	mouse_state_control(win, &((t_data*)data)->mouse_state);*/
 
 	key_move_control(((t_data*)data)->key_state, player, map.content);
 
@@ -103,7 +100,7 @@ int render_win(void *data)
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-	frame_count(win);
+	frame_count(&win);
 	//mlx_destroy_image(win.mlx, win.frame.mlx_img);
 	return (0);
 }
@@ -119,7 +116,7 @@ static int get_game_configs(int ac, char **av, t_map *map)
 				return (0);
 			if (!get_all_map_info(&map, av[1]))
 			{
-				//free_map_memory(*map);
+				free_map_memory(*map);
 				printf("Map KO\n");
 				return (0);
 			}

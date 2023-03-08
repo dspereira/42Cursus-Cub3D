@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_controls.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:29:37 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 19:20:08 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:48:21 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	key_press_hook(int keycode, t_data *data)
 	else if (keycode == KEY_CTRL)
 		data->mouse_state = MOUSE_CHANGE_SHOW;
 	else if (keycode == KEY_ESC)
-		exit(0);
+		free_alloc_mem();
 	else if (keycode == KEY_E)
 		doors_interaction(data->map, data->player);
 	return (0);
