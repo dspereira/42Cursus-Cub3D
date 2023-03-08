@@ -33,6 +33,7 @@ SRC_NAME =	main.c										\
 			map_file_checker/get_map_utils.c			\
 			map_file_checker/map_resizer.c				\
 			map_file_checker/get_player_info.c			\
+			map_file_checker/map.c						\
 			minimap/minimap.c							\
 			minimap/minimap_draw_player.c				\
 			minimap/minimap_utils.c						\
@@ -49,7 +50,6 @@ SRC_NAME =	main.c										\
 			draw_utils/draw_utils.c						\
 			draw_utils/draw_utils2.c					\
 			draw_utils/draw_utils_2d.c					\
-			map.c										\
 			init_data_pointers.c						\
 			free_map_memory.c							\
 			free_memory_utils.c							\

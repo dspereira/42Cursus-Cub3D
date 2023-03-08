@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 13:03:23 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:06:51 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -518,5 +518,8 @@ void	init_data_pointers(t_data *data);
 void	init_alloc_mem(void);
 void	save_alloc_mem(t_data *data);
 void	free_alloc_mem(void);
+
+// map.c
+int		get_game_configs(int ac, char **av, t_map *map);
 
 #endif

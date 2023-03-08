@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 12:20:20 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:09:04 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static t_alloc_mem	*alloc_mem(t_data *elem)
 {
 	static t_alloc_mem	*mem = 0;
 
-	printf("Here\n");
 	if (!mem)
 	{
 		mem = malloc(sizeof(t_alloc_mem));
