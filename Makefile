@@ -6,7 +6,7 @@ EXTRA_FLAGS = -O3 -Imlx_linux -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lX
 
 RM = rm -f
 
-$(VERBOSE).SILENT:
+#$(VERBOSE).SILENT:
 
 HEADER = header.h
 
