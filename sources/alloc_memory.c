@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/03 12:00:34 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:20:20 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_alloc_mem(void)
 
 void	save_alloc_mem(t_data *data)
 {
-	alloc_mem(data);	
+	alloc_mem(data);
 }
 
 void	free_alloc_mem(void)

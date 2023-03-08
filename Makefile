@@ -46,13 +46,15 @@ SRC_NAME =	main.c										\
 			raycast/raycast_wall.c						\
 			raycast/raycast_utils.c						\
 			raycast/raycast_utils2.c					\
+			draw_utils/draw_utils.c						\
+			draw_utils/draw_utils2.c					\
+			draw_utils/draw_utils_2d.c					\
 			map.c										\
 			init_data_pointers.c						\
 			free_map_memory.c							\
 			free_memory_utils.c							\
 			alloc_memory.c								\
 			error_handler.c								\
-			draw_utils.c								\
 			math_utils.c								\
 			utils.c										\
 			render_scene_2d.c							\
@@ -83,6 +85,7 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	mkdir -p objects/player
 	mkdir -p objects/mouse
 	mkdir -p objects/raycast
+	mkdir -p objects/draw_utils
 	$(CC) -c $(CFLAGS) -I/usr/include -Imlx_linux -O3 $(INC) $< -o $@
 
 norminette:

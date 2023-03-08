@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 12:08:36 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:03:23 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,7 +422,20 @@ void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
-//void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color);
+
+// draw_utils/draw_utils.c
+void	draw_pixel(t_img img, int x, int y, int color);
+void	draw_line(t_img img, t_pos init, t_pos end, int color);
+void	draw_line_tex(t_img frame, t_tex_data wall);
+void	draw_door_tex(t_img frame, t_tex_data wall);
+
+// draw_utils/draw_utils2.c
+void	draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
+void	draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+
+// draw_utils/draw_utils_2d.c
+void	draw_stroke_square(t_img img, t_pos init, int size, int color);
+void	draw_fill_square(t_img img, t_pos init, int size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
