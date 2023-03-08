@@ -6,32 +6,34 @@
 /*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/28 15:47:23 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:20:19 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static char	*ft_itoa(int n);
+static void	set_nframe_str(char *frames, char *src);
 
-void	frame_count(t_win win)
+void	frame_count(t_win *win)
 {
 	static int	frames_count = 0;
-	static char	*nbr_frames = NULL;
+	static char	nframes_str[6];
+	char		*aux_frames;
 
 	frames_count++;
-	if (nbr_frames)
+	aux_frames = NULL;
+	if (nframes_str[0])
 	{
-		mlx_string_put(win.mlx, win.mlx_win, FRAMES_WIN_POS_X, \
+		mlx_string_put(win->mlx, win->mlx_win, FRAMES_WIN_POS_X, \
 			FRAMES_WIN_POS_Y, FRAMES_TEXT_COLOR, "FPS: ");
-		mlx_string_put(win.mlx, win.mlx_win, FRAMES_WIN_POS_X + 28, \
-			FRAMES_WIN_POS_Y + 1, FRAMES_TEXT_COLOR, nbr_frames);
+		mlx_string_put(win->mlx, win->mlx_win, FRAMES_WIN_POS_X + 28, \
+			FRAMES_WIN_POS_Y + 1, FRAMES_TEXT_COLOR, nframes_str);
 	}
 	if (check_time_ms(TIME_PER_FRAME))
 	{
-		if (nbr_frames)
-			free(nbr_frames);
-		nbr_frames = ft_itoa(frames_count);
+		aux_frames = ft_itoa(frames_count);
+		set_nframe_str(nframes_str, aux_frames);
 		frames_count = 0;
 	}
 }
@@ -87,4 +89,31 @@ static char	*ft_itoa(int n)
 	else if (size == 0 && str[1] != '\0')
 		*(str + size) = '-';
 	return (str);
+}
+
+static void	set_nframe_str(char *frames, char *src)
+{
+	int	i;
+
+	i = 0;
+	if (!src)
+		return ;
+	while (i < 6)
+		frames[i++] = '\0';
+	i = 0;
+	while (src[i])
+		i++;
+	if (i >= 6)
+	{
+		i = 0;
+		while (i < 5)
+			frames[i++] = '9';
+	}
+	else
+	{
+		i = -1;
+		while (++i < 5)
+			frames[i] = src[i];
+	}
+	free(src);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/02 15:43:39 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:42:13 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@
 #define DOOR_TIME_SPRITES	75
 #define DIST_OPEN_DOOR		1.5
 
-#define MOVE_SPEED_MS		5
+#define MOVE_SPEED_MS		25
 
 
 #define	MINIMAP_SQUARE_SIZE		15
@@ -188,6 +188,7 @@ typedef struct s_win
 	void	*mlx;
 	void	*mlx_win;
 	t_img	frame;
+	char	*nbr_frames;
 }	t_win;
 
 typedef struct s_pos
@@ -443,7 +444,7 @@ void	setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
 t_pos	get_new_dist_pos1(t_pos init, float dir, int dist);
 
 // frame_count.c
-void	frame_count(t_win win);
+void	frame_count(t_win *win);
 
 // free_map_memory.c
 void	free_map_memory(t_map map);

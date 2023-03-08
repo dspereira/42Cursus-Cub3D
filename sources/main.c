@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/03 12:03:17 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:55:24 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int render_win(void *data)
 	//minimap_render(win.frame, *player, map.content);
 	minimap_render(win.frame, map.content, *player, ((t_data*)data)->minimap);
 	mlx_put_image_to_window(win.mlx, win.mlx_win, win.frame.mlx_img, 0, 0);
-	frame_count(win);
+	frame_count(&win);
 	//mlx_destroy_image(win.mlx, win.frame.mlx_img);
 	return (0);
 }
