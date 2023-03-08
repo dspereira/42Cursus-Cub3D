@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 11:48:20 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:55:32 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	frame_count(t_win *win)
 	{
 		aux_frames = ft_itoa(frames_count);
 		set_nframe_str(frames_str, aux_frames);
+		printf("frames: %s\n", frames_str);
 		frames_count = 0;
 	}
 }
