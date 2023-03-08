@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 13:04:33 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:04:03 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ static void	set_nframe_str(char *frames, char *src)
 	}
 	else
 	{
-		i = 0;
-		while (src[i])
-			frames[i++] = src[i];
+		i = -1;
+		while (src[++i])
+			frames[i] = src[i];
 	}
 	free(src);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_player.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:44:57 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:24:30 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:48:04 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void		draw_player_circle(t_img img, t_pos p_pos, float dir);
+static void		draw_player_circle(t_img img, t_pos p_pos);
 static void		draw_player_arrow(t_img img, t_pos p_pos, float dir);
 static t_pos	get_player_pos_minimap(t_pos p_pos, t_minimap minimap);
 
@@ -21,11 +21,11 @@ void	minimap_draw_player(t_img img, t_player player, t_minimap minimap)
 	t_pos	p_pos;
 
 	p_pos = get_player_pos_minimap(player.pos, minimap);
-	draw_player_circle(img, p_pos, player.dir);
+	draw_player_circle(img, p_pos);
 	draw_player_arrow(img, p_pos, player.dir);
 }
 
-static void	draw_player_circle(t_img img, t_pos p_pos, float dir)
+static void	draw_player_circle(t_img img, t_pos p_pos)
 {
 	t_pos	point;
 	int		i;

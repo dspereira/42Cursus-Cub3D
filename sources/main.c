@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 14:10:09 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:43:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,7 @@ int			render_win(void *data);
 
 int main(int argc, char **argv) 
 {
-	t_win		win;
-	t_pos		pos1;
-	t_pos		pos2;
-	int			red;
-	int 		size;
-	t_player	*player;
-	t_map		map;
 	t_data		data;
-	t_tex		tex;
 
 	init_data_pointers(&data);
 	if (!get_game_configs(argc, argv, &(data.map)))

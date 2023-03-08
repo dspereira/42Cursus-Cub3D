@@ -1,13 +1,12 @@
 NAME = cub3D
 
 CC = cc
-#CFLAGS = -Wall -Werror -Wextra -g -I./includes -fsanitize=address
-CFLAGS = #-fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -g -I./includes #-fsanitize=address
 EXTRA_FLAGS = -O3 -Imlx_linux -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 
 RM = rm -f
 
-#$(VERBOSE).SILENT:
+$(VERBOSE).SILENT:
 
 HEADER = header.h
 
@@ -93,7 +92,7 @@ norminette:
 	@./norm.sh
 
 clean:
-	#cd mlx_linux && make clean && cd ..
+	cd mlx_linux && make clean && cd ..
 	rm -rf $(OBJ_PATH)
 	@echo "\033[1;33mAll $(NAME).o files are removed\033[0m"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 12:07:31 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/06 17:17:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:50:16 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	is_door(char **map, t_pos pos)
 	char	c;
 
 	c = map[pos.y][pos.x];
-	if (c >= DOOR_OPENING_START && c <= DOOR_OPENING_END
-		|| c >= DOOR_CLOSING_START && c <= DOOR_CLOSING_END)
+	if ((c >= DOOR_OPENING_START && c <= DOOR_OPENING_END)
+		|| (c >= DOOR_CLOSING_START && c <= DOOR_CLOSING_END))
 		return (TRUE);
 	else
 		return (FALSE);

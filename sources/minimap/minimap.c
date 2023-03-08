@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:56 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/23 17:48:31 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:46:31 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	draw_minimap(t_img img, char **map, t_pos p_pos, t_minimap minimap)
 		{
 			color = get_pixel_color(pos, map, minimap.map_size);
 			draw_pos = get_minimap_pos(pos, p_pos, minimap);
-			if (color != MINIMAP_COLOR_NONE)
+			if ((unsigned int)color != MINIMAP_COLOR_NONE)
 				draw_pixel(img, draw_pos.x, draw_pos.y, color);
 			pos.x++;
 		}

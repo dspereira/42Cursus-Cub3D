@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_2d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:07:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 16:05:51 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:58:58 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 static void	render_map(t_img img, char **map);
-static void	render_player(t_img img, t_player player, char **map);
-static void	render_player_circle(t_img img, t_player player, char **map);
+//static void	render_player(t_img img, t_player player);
+static void	render_player_circle(t_img img, t_player player);
 static void	render_background(t_img img, int color);
 
 void	render_scene_2d(t_img img, t_player player, char **map)
 {
 	render_background(img, 0x0021130d);
 	render_map(img, map);
-	//render_player(img, player, map);
-	render_player_circle(img, player, map);
+	//render_player(img, player);
+	render_player_circle(img, player);
 }
 
 static void	render_map(t_img img, char **map)
@@ -50,7 +50,7 @@ static void	render_map(t_img img, char **map)
 	}
 }
 
-static void	render_player(t_img img, t_player player, char **map)
+/* static void	render_player(t_img img, t_player player)
 {
 	int		i;
 	t_pos	p_pos;
@@ -68,9 +68,9 @@ static void	render_player(t_img img, t_player player, char **map)
 			ray_end_pos, 0x00FF0000);
 		i++;
 	}
-}
+} */
 
-static void	render_player_circle(t_img img, t_player player, char **map)
+static void	render_player_circle(t_img img, t_player player)
 {
 	t_pos	p_pos;
 	t_pos	point_pos;

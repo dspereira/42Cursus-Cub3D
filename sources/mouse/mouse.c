@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:01:17 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/01 15:26:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:48:30 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-static int	mouse_checks_if_is_inside_window(int x, int y);
 
 void	mouse_init(t_win win, int *mouse_state)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:27:35 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:20:58 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:45:18 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	get_map_dimensions(t_map **map)
 	char	**cont;
 
 	cont = (*map)->content;
+	x = 0;
 	while (cont[0][x])
 		x++;
 	y = get_map_size(cont);

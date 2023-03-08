@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 14:06:51 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:08:45 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@
 //#define WIN_HEIGHT		720
 //#define WIN_WIDTH		1080
 
-#define WIN_HEIGHT		1000
-#define WIN_WIDTH		1920
-
+#define WIN_HEIGHT		720
+#define WIN_WIDTH		1080
 
 #define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
