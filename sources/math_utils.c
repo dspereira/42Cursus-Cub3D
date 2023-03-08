@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:57:54 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:10:22 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:56:32 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	clamp(int min, int max, int value)
 {
 	int	result;
 
+	result = 0;
 	if (value >= min && value <= max)
 		result = value;
 	else if (value < min)

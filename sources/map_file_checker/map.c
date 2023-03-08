@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/01 14:43:13 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:15:25 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,26 @@ int	get_all_map_info(t_map **map, char *filename)
 	if (get_doors_info((*map)->content, &(*map)->doors) == -1)
 		return (FALSE);
 	return (TRUE);
+}
+
+int	get_game_configs(int ac, char **av, t_map *map)
+{
+	if (ac == 2)
+	{
+		if (check_file(av[1]))
+		{
+			if (!init_map_struct(map))
+				return (0);
+			if (!get_all_map_info(&map, av[1]))
+			{
+				free_map_memory(*map);
+				return (0);
+			}
+		}
+		else
+			return (0);
+		return (1);
+	}
+	print_error_msg("Invalid number of Arguments");
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:54:55 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/02 13:30:56 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:00:03 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static char	door_status_update(char old_status)
 {
 	char	new_status;
 
+	new_status = '\0';
 	if (old_status > D_FRAME_CLOSE_1 && old_status <= D_FRAME_CLOSE_7)
 		new_status = old_status - 1;
 	else if (old_status >= D_FRAME_OPEN_1 && old_status < D_FRAME_OPEN_7)

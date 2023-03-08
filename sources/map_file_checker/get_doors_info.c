@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_doors_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:05:04 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/02 13:31:55 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:44:44 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	get_nbr_doors(char **map)
 	counter = 0;
 	if (!map)
 		return (0);
+	i = 0;
 	while (map[i])
 	{
 		j = 0;

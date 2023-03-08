@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file_type.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 15:02:40 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:11:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	is_valid_file_type(char *file)
 
 	dot_index = find_last_char_index(file, '.');
 	extension = ft_substr(file, dot_index, (ft_strlen(file) - dot_index));
+	if (!extension)
+		return (FALSE);
 	if (ft_strcmp(extension, ".cub"))
 	{
 		free(extension);

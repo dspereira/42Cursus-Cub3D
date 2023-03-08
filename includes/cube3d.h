@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 12:08:36 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:13:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@
 //#define WIN_HEIGHT		720
 //#define WIN_WIDTH		1080
 
-#define WIN_HEIGHT		1000
-#define WIN_WIDTH		1920
-
+#define WIN_HEIGHT		720
+#define WIN_WIDTH		1080
 
 #define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -343,6 +342,9 @@ typedef struct s_alloc_mem
 	t_data		*data;
 }				t_alloc_mem;
 
+// main.c
+int	close_game(void);
+
 // math_utils.c
 int		math_abs(int n);
 float	normalize_angles(float angle);
@@ -374,7 +376,7 @@ void render_scene_3d(t_img img, t_player player);
 void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
-t_player	*player_init(t_pos pos, int dir);
+void		player_init(t_player **player, t_pos pos, int dir);
 void		player_move(t_player *player, char **map, int dir);
 void		player_rotation_key(t_player *player, float rot_angle);
 void 		player_update_rays(t_ray *rays, float rot_angle);
@@ -422,7 +424,20 @@ void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
 void draw_stroke_square(t_img img, t_pos init, int size, int color);
 void draw_fill_square(t_img img, t_pos init, int size, int color);
 void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
-//void draw_color_rectangle(t_img img, t_pos init, t_pos end, int color);
+
+// draw_utils/draw_utils.c
+void	draw_pixel(t_img img, int x, int y, int color);
+void	draw_line(t_img img, t_pos init, t_pos end, int color);
+void	draw_line_tex(t_img frame, t_tex_data wall);
+void	draw_door_tex(t_img frame, t_tex_data wall);
+
+// draw_utils/draw_utils2.c
+void	draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
+void	draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+
+// draw_utils/draw_utils_2d.c
+void	draw_stroke_square(t_img img, t_pos init, int size, int color);
+void	draw_fill_square(t_img img, t_pos init, int size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
@@ -489,7 +504,7 @@ void	frame_count(t_win *win);
 void	free_map_memory(t_map map);
 
 // free_memory_utils.c
-void	free_tex_memory(t_tex tex, void *mlx);
+void	free_tex_memory(t_tex tex, t_win *win);
 void	free_mlx_memory(t_win *win);
 void	free_player_memory(t_player *player);
 
@@ -505,5 +520,8 @@ void	init_data_pointers(t_data *data);
 void	init_alloc_mem(void);
 void	save_alloc_mem(t_data *data);
 void	free_alloc_mem(void);
+
+// map.c
+int		get_game_configs(int ac, char **av, t_map *map);
 
 #endif

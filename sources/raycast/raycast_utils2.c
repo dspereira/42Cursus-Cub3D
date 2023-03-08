@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:17:59 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 17:01:22 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:54:41 by dcandeia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_const_axis_collision(int side, t_pos m_pos)
 		value = w_pos.y;
 	else if (side == NO_SIDE)
 		value = w_pos.y + MAP_SQUARE_SIZE;
-	else if (side == WE_SIDE)
+	else
 		value = w_pos.x + MAP_SQUARE_SIZE;
 	return (value);
 }
@@ -66,7 +66,7 @@ double	get_ray_collision_map(t_ray ray, t_pos_dec p_pos)
 		value = pos.x;
 	else if (ray.side == NO_SIDE)
 		value = pos.x;
-	else if (ray.side == WE_SIDE)
+	else
 		value = pos.y;
 	return (value);
 }
@@ -75,6 +75,7 @@ double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng)
 {
 	double	dist;
 
+	dist = 0;
 	if (ray->side == EA_SIDE || ray->side == WE_SIDE)
 		dist = (ray_leng.x - ray->sx) * ray->cos2;
 	if (ray->side == SO_SIDE || ray->side == NO_SIDE)
