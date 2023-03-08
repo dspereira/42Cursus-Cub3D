@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 15:08:45 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:13:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,9 @@ typedef struct s_alloc_mem
 	t_data		*data;
 }				t_alloc_mem;
 
+// main.c
+int	close_game(void);
+
 // math_utils.c
 int		math_abs(int n);
 float	normalize_angles(float angle);
@@ -373,7 +376,7 @@ void render_scene_3d(t_img img, t_player player);
 void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
-t_player	*player_init(t_pos pos, int dir);
+void		player_init(t_player **player, t_pos pos, int dir);
 void		player_move(t_player *player, char **map, int dir);
 void		player_rotation_key(t_player *player, float rot_angle);
 void 		player_update_rays(t_ray *rays, float rot_angle);
@@ -501,7 +504,7 @@ void	frame_count(t_win *win);
 void	free_map_memory(t_map map);
 
 // free_memory_utils.c
-void	free_tex_memory(t_tex tex, void *mlx);
+void	free_tex_memory(t_tex tex, t_win *win);
 void	free_mlx_memory(t_win *win);
 void	free_player_memory(t_player *player);
 

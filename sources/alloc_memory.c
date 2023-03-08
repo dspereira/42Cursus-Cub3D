@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 14:09:04 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:17:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_alloc_mem(void)
 	if (mem && mem->data)
 	{
 		free_map_memory(mem->data->map);
-		free_tex_memory(mem->data->tex, mem->data->win->mlx);
+		free_tex_memory(mem->data->tex, mem->data->win);
 		free_player_memory(mem->data->player);
 		free_mlx_memory(mem->data->win);
 		free (mem);

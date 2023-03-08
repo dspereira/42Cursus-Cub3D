@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/27 16:24:43 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:03:46 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void		add_rays_to_player(t_player *player, int n_rays);
 
-t_player	*player_init(t_pos pos, int dir)
+void	player_init(t_player **player_src, t_pos pos, int dir)
 {
-	t_player	*player;
+	t_player *player;
 
-	player = malloc(sizeof(t_player));
-	if (!player)
-		return (0);
+	*player_src = oom_guard(malloc(sizeof(t_player)));
+	player = *player_src;
+	player->rays = NULL;
 	player->pos = pos;
 	player->pos_dec = (t_pos_dec){pos.x, pos.y};
 	player->dir = (float) dir;
@@ -30,11 +30,8 @@ t_player	*player_init(t_pos pos, int dir)
 	player->min_dir_y = player->midle_dir_y / 2;
 	player->angle_step = (float)CAMERA_ANGLE / NUMBER_RAYS;
 	player->win_half_size = WIN_WIDTH / 2;
-	player->rays = malloc(NUMBER_RAYS * sizeof(t_ray));
-	if (!(player->rays))
-		return (0);
+	player->rays = oom_guard(malloc(NUMBER_RAYS * sizeof(t_ray)));
 	add_rays_to_player(player, NUMBER_RAYS);
-	return (player);
 }
 
 void	player_move(t_player *player, char **map, int dir)

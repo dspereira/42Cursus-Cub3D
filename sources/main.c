@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 15:57:43 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:19:18 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win->mlx_win, KEY_RELEASE, KEY_RELEASE_MASK,
 		key_release_hook, &data);
 	mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
+	mlx_hook(data.win->mlx_win, 17, KEY_PRESS_MASK, close_game, NULL);
 	mlx_loop(data.win->mlx);
 	return (0);
 }
@@ -45,11 +46,11 @@ static int	game_init_data(int argc, char **argv, t_data *data)
 		return (-1);
 	init_alloc_mem();
 	save_alloc_mem(data);
-	data->player = player_init(data->map.pos, data->map.orientation);
+	player_init(&data->player, data->map.pos, data->map.orientation);
 	data->key_state = key_init();
 	data->mouse.actual = (t_pos){WIN_WIDTH / 2, WIN_HEIGHT / 2};
 	data->mouse.last = (t_pos){0, 0};
-	data->win = ft_calloc(1, sizeof(t_win));
+	data->win = oom_guard(ft_calloc(1, sizeof(t_win)));
 	return (0);
 }
 
@@ -84,5 +85,11 @@ static int	render_win(void *data_src)
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win,
 		data->win->frame.mlx_img, 0, 0);
 	frame_count(data->win);
+	return (0);
+}
+
+int	close_game(void)
+{
+	free_alloc_mem();
 	return (0);
 }
