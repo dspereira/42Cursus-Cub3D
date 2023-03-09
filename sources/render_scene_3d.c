@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:48:22 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/02/28 15:54:46 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:35:01 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	get_tex_data(t_ray ray, t_value draw_vals, t_tex tex, t_tex_data *data)
 	data->map_wall_pos = ray.map_wall_pos;
 	if (ray.door_side_wall != 0 && ray.side == ray.door_side_wall)
 		data->tex = tex.door_side;
+	else if (ray.is_no_inter_door)
+		data->tex = tex.doors[DOOR_CLOSE];
 	else if (ray.side == EA_SIDE)
 		data->tex = tex.ea;
 	else if (ray.side == WE_SIDE)

@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/09 15:33:49 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:41:09 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define FLOOR 					'0'
 # define WALL					'1'
+# define DOOR_CLOSED			'G'
 # define DOOR_OPENING_START 	'G'
 # define DOOR_OPENING_END 	 	'N'
 # define DOOR_CLOSING_START 	'g'
@@ -242,6 +243,7 @@ typedef struct s_ray
 	double	sy;
 	double	map_wall_pos;
 	double	map_door_pos;
+	int		is_no_inter_door;
 	int		is_door;
 	int		door_side_wall;
 	int		door_side;
@@ -367,6 +369,8 @@ void			raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map);
 // raycast/raycast_wall.c
 void			raycast_wall_set_dist(t_ray *ray, t_value_dec ray_len);
 void			raycast_set_wall_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
+int				raycast_set_non_interactive_door(t_ray *ray, char **map,
+					t_pos m_pos);
 
 // raycast/raycast_utils.c
 int				is_floor(char **map, t_pos pos);

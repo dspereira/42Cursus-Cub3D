@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/09 12:23:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:39:41 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 	t_pos		map_pos;
 
 	ray->is_door = 0;
+	ray->is_no_inter_door = 0;
 	map_pos = get_map_pos_1(p_pos);
 	step = get_step(*ray);
 	ray_length = get_init_leng(*ray, map_pos, p_pos);
 	while (is_floor(map, map_pos) || is_door(map, map_pos))
 	{
 		raycast_update(ray, &map_pos, &ray_length, step);
+		if (raycast_set_non_interactive_door(ray, map, map_pos))
+			break ;
 		if (!ray->is_door && is_door(map, map_pos))
 		{
 			raycast_door_set_inf(ray, map_pos, p_pos, map);

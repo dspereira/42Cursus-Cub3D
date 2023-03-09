@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 11:17:48 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 17:02:04 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:40:49 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map)
 	else if (c == WE_DOOR)
 		side = WE_SIDE;
 	ray->door_side_wall = side;
+}
+
+int	raycast_set_non_interactive_door(t_ray *ray, char **map, t_pos m_pos)
+{
+	if (ray->is_door && map[m_pos.y][m_pos.x] == DOOR_CLOSED)
+	{
+		ray->is_no_inter_door = 1;
+		return (1);
+	}
+	return (0);
 }
