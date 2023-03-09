@@ -6,11 +6,11 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:26:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 17:17:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 static t_alloc_mem	*alloc_mem(t_data *elem);
 

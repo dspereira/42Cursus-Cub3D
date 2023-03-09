@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_elements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:18:39 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:20:27 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 static int	check_empty_map(const char **map);
 static int	check_nbr_player_start_pos(const char **map);

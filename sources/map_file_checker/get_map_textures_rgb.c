@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_textures_rgb.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:01:43 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 16:05:48 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 static int	get_number(char *src, int *index);
 static int	check_rgb_elemts(char *src);

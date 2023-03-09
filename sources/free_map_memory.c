@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_map_memory.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:19:08 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/02 12:33:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 static void	free_textures(char **textures, int *rgb_colors);
 static void	free_content(char **content);

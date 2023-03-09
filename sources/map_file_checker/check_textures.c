@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia < dcandeia@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:35:50 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/02/24 15:11:18 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 #define MAX_NBR_RGB 16777216
 #define MIN_NBR_RGB 0
