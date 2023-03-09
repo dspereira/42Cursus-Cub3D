@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:09:29 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/07 16:27:05 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:23:54 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	raycast(t_ray *ray, t_pos_dec p_pos, char **map)
 	while (is_floor(map, map_pos) || is_door(map, map_pos))
 	{
 		raycast_update(ray, &map_pos, &ray_length, step);
-		if (is_door(map, map_pos))
+		if (!ray->is_door && is_door(map, map_pos))
 		{
 			raycast_door_set_inf(ray, map_pos, p_pos, map);
 			raycast_door_set_dist(ray, ray_length);
