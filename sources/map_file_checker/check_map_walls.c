@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:39:13 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:03:04 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,13 @@ static int	check_mid_lines(char **map)
 
 static int	check_nearby_pos(char **map, int x, int y)
 {
-	if (!is_wall(map[y][x + 1]))	
+	if (!is_wall(map[y][x + 1]))
 		return (FALSE);
-	if (!is_wall(map[y][x - 1]))	
+	if (!is_wall(map[y][x - 1]))
 		return (FALSE);
-	if (!is_wall(map[y + 1][x]))	
+	if (!is_wall(map[y + 1][x]))
 		return (FALSE);
-	if (!is_wall(map[y - 1][x]))	
+	if (!is_wall(map[y - 1][x]))
 		return (FALSE);
 	return (TRUE);
 }

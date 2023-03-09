@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:40:52 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 17:03:46 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:03:52 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		add_rays_to_player(t_player *player, int n_rays);
 
 void	player_init(t_player **player_src, t_pos pos, int dir)
 {
-	t_player *player;
+	t_player	*player;
 
 	*player_src = oom_guard(malloc(sizeof(t_player)));
 	player = *player_src;

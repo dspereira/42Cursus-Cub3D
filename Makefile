@@ -48,7 +48,6 @@ SRC_NAME =	main.c										\
 			raycast/raycast_utils2.c					\
 			draw_utils/draw_utils.c						\
 			draw_utils/draw_utils2.c					\
-			draw_utils/draw_utils_2d.c					\
 			init_data_pointers.c						\
 			free_map_memory.c							\
 			free_memory_utils.c							\
@@ -56,7 +55,7 @@ SRC_NAME =	main.c										\
 			error_handler.c								\
 			math_utils.c								\
 			utils.c										\
-			render_scene_2d.c							\
+			utils2.c									\
 			render_scene_3d.c							\
 			ray.c										\
 			time.c										\
