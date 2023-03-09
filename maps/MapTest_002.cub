@@ -1,7 +1,7 @@
-NO ./textures/bricks.xpm
-SO ./textures/bricks.xpm
-WE ./textures/bricks.xpm
-EA ./textures/bricks.xpm
+NO ./textures/redbrick.xpm
+SO ./textures/redbrick.xpm
+WE ./textures/redbrick.xpm
+EA ./textures/redbrick.xpm
 
 F 220,100,0
 C 225,30,0
