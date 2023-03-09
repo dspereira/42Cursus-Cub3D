@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:14:20 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/09 13:21:41 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:02:58 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	main(int argc, char **argv)
 	data.minimap = minimap_init(data.map.width, data.map.height);
 	mouse_init(*(data.win), &data.mouse_state);
 	mlx_loop_hook(data.win->mlx, render_win, &data);
-	mlx_hook(data.win->mlx_win, KEY_PRESS, 1L<<0,
+	mlx_hook(data.win->mlx_win, KEY_PRESS, 1L << 0,
 		key_press_hook, &data);
-	mlx_hook(data.win->mlx_win, KEY_RELEASE, 1L<<1,
+	mlx_hook(data.win->mlx_win, KEY_RELEASE, 1L << 1,
 		key_release_hook, &data);
 	mlx_mouse_hook(data.win->mlx_win, mouse_hook, &data);
-	mlx_hook(data.win->mlx_win, 17, 1L<<0, close_game, NULL);
+	mlx_hook(data.win->mlx_win, 17, 1L << 0, close_game, NULL);
 	mlx_loop(data.win->mlx);
 	return (0);
 }

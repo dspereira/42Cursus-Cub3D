@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/09 13:36:33 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:02:00 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,8 @@ int				clamp(int min, int max, int value);
 // utils.c
 t_pos_dec		get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec		get_map_pos_decimal_1(t_pos_dec pos);
-t_pos			get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
+t_pos			get_new_pos(t_pos init, double scale_x,
+					double scale_y, int dist);
 t_pos			get_map_pos(t_pos pos);
 t_pos			get_map_pos_1(t_pos_dec pos);
 t_pos_dec		get_map_pos_decimal(t_pos pos);
@@ -375,10 +376,12 @@ void			ray_update_dir(t_ray *ray, float dir);
 void			raycast_all(t_player *player, char **map);
 
 // raycast/raycast_update.c
-void			raycast_update(t_ray *ray, t_pos *m_pos, t_value_dec *ray_l, t_value step);
+void			raycast_update(t_ray *ray, t_pos *m_pos,
+					t_value_dec *ray_l, t_value step);
 
 // raycast/raycast_door.c
-void			raycast_door_set_inf(t_ray *ray, t_pos m_pos, t_pos_dec p_pos, char **map);
+void			raycast_door_set_inf(t_ray *ray, t_pos m_pos,
+					t_pos_dec p_pos, char **map);
 void			raycast_door_set_dist(t_ray *ray, t_value_dec ray_len);
 void			raycast_door_set_wall_side(t_ray *ray, t_pos m_pos, char **map);
 
@@ -404,8 +407,10 @@ void			draw_line_tex(t_img frame, t_tex_data wall);
 void			draw_door_tex(t_img frame, t_tex_data wall);
 
 // draw_utils/draw_utils2.c
-void			draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
-void			draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
+void			draw_vertical_line(t_img img, t_pos init_pos,
+					int height, int color);
+void			draw_fill_rectangle(t_img img, t_pos init,
+					t_value size, int color);
 
 // time.c
 unsigned long	check_time_ms(unsigned long time);
@@ -436,10 +441,12 @@ void			player_rot_mouse(t_player *player, t_mouse mouse);
 
 // minimap.c
 t_minimap		minimap_init(int map_width, int map_height);
-void			minimap_render(t_img img, char **map, t_player pl, t_minimap minimap);
+void			minimap_render(t_img img, char **map, t_player pl,
+					t_minimap minimap);
 
 // minimap_draw_player.c
-void			minimap_draw_player(t_img img, t_player player, t_minimap minimap);
+void			minimap_draw_player(t_img img, t_player player,
+					t_minimap minimap);
 
 // minimap_utils.c
 t_pos			get_player_pos_map_scaled(t_pos pos, t_minimap minimap);
@@ -453,7 +460,8 @@ void			doors_interaction(t_map map, t_player *player);
 void			doors_control(t_map map);
 
 // setup_textures.c
-void			setup_textures(char **tex_files, int *rgb, t_tex *texture, void *mlx);
+void			setup_textures(char **tex_files, int *rgb,
+					t_tex *texture, void *mlx);
 t_pos			get_new_dist_pos1(t_pos init, float dir, int dist);
 
 // frame_count.c
@@ -493,8 +501,8 @@ int				get_map_textures(t_map **map, int fd);
 char			*get_next_line(int fd);
 int				get_map_content(char ***content, int fd);
 int				get_player_info(char **map, int *orientation, t_pos *pos);
-int         	get_map_dimensions(t_map **map);
-int         	get_doors_info(char **map, t_pos **doors);
+int				get_map_dimensions(t_map **map);
+int				get_doors_info(char **map, t_pos **doors);
 int				check_map(char **map);
 int				check_map_elements(char **map);
 int				check_map_walls(char **map);
