@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/08 17:13:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:50:11 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CUBE3D_H
 
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
@@ -30,19 +31,10 @@
 # define DOOR_CLOSING_START 'g'
 # define DOOR_CLOSING_END 	 'n'
 
-// valor tem de ser defenidos consoante o mapa recebido (não pode ser define)
 #define MAP_HEIGHT		26
 #define MAP_WIDTH		26
 
 #define MAP_SQUARE_SIZE	40
-
-
-//#define WIN_HEIGHT		1080
-//#define WIN_WIDTH		1040
-//#define WIN_WIDTH		1920
-
-//#define WIN_HEIGHT		720
-//#define WIN_WIDTH		1080
 
 #define WIN_HEIGHT		720
 #define WIN_WIDTH		1080
@@ -94,7 +86,6 @@
 #define BLUE_COLOR		0x000000FF
 #define YELLOW_COLOR	0x00ff9933
 
-//#define BGD_MINIMAP_COLOR	0x00c0c1c2
 #define BGD_MINIMAP_COLOR	0x66000000
 
 #define PLAYER_RADIUS	4
@@ -104,10 +95,10 @@
 #define MOUSE_CHANGE_SHOW	3
 #define MOUSE_CHANGE_HIDE	4
 
-#define NO_SIDE			-2	//amarelo
-#define SO_SIDE			2	//azulr
-#define EA_SIDE			1	//verde
-#define WE_SIDE			-1	//vermelho
+#define NO_SIDE			-2
+#define SO_SIDE			2
+#define EA_SIDE			1
+#define WE_SIDE			-1
 
 #define NO_DOOR			'A'
 #define SO_DOOR			'B'
@@ -185,6 +176,25 @@
 #define FRAMES_WIN_POS_X	20
 #define FRAMES_WIN_POS_Y	20
 
+# define TEX_NO	0
+# define TEX_SO	1
+# define TEX_WE	2
+# define TEX_EA	3
+
+# define RGB_C			0
+# define RGB_F			1
+# define RGB_NO_COLOR	-1
+
+# define ORIENTATION_N	90
+# define ORIENTATION_S	270
+# define ORIENTATION_E	0
+# define ORIENTATION_W	180
+
+# define BUFFER_SIZE	13
+
+# define FALSE	0
+# define TRUE	1
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -231,7 +241,7 @@ typedef struct s_map
 	t_pos		pos;
 	int			height;
 	int			width;
-	t_pos		*doors; // dar free
+	t_pos		*doors;
 }				t_map;
 
 typedef struct s_pos_dec
@@ -256,7 +266,6 @@ typedef struct s_ray
 {
 	float	dir;
 	int		length;
-	//int		length_win;
 	double	length_win;
 	int		length_map;
 	double	dist_wall;
@@ -280,7 +289,7 @@ typedef struct s_player
 {
 	t_pos		pos;
 	t_pos_dec	pos_dec;
-	float		dir; // angle_dir
+	float		dir;
 	float		angle_step;
 	t_ray		*rays;
 	int			dir_y;
@@ -352,7 +361,7 @@ double	cos_degree(double angle);
 double	sin_degree(double angle);
 int		clamp(int min, int max, int value);
 
-//utils.c
+// utils.c
 t_pos_dec	get_new_dist_pos_dec(t_pos_dec init, float dir, double dist);
 t_pos_dec	get_map_pos_decimal_1(t_pos_dec pos);
 t_pos		get_new_pos(t_pos init, double scale_x, double scale_y, int dist);
@@ -361,18 +370,12 @@ t_pos		get_map_pos_1(t_pos_dec pos);
 t_pos_dec	get_map_pos_decimal(t_pos pos);
 t_pos		get_win_pos(t_pos pos);
 t_pos 		get_new_dist_pos(t_pos init, float dir, int dist);
-//int			hex_to_int(const char *str);
-
-//t_pos_dec  	get_new_dist_pos_dec(t_pos init, float dir, double dist);
 t_pos_dec 	get_map_pos_decimal_1(t_pos_dec pos);
 
-void		*ft_calloc(size_t count, size_t size);
-
-//render_scene_2d.c
+// render_scene_2d.c
 void render_scene_2d(t_img img, t_player player, char **map);
 
 // render_scene_3d.c
-void render_scene_3d(t_img img, t_player player);
 void render_scene_3d_tex(t_img img, t_player player, t_tex tex);
 
 // player.c
@@ -411,20 +414,6 @@ void set_ray_leng_pixels(t_ray *ray, t_pos m_pos, t_pos_dec p_pos);
 double get_ray_collision_map(t_ray ray, t_pos_dec p_pos);
 double	get_ray_dist_to_wall(t_ray *ray, t_value_dec ray_leng);
 
-
-// draw_utils.c
-void draw_pixel(t_img img, int x, int y, int color);
-void draw_line(t_img img, t_pos init, t_pos end, int color);
-
-void draw_line_tex(t_img frame, t_tex_data wall);
-
-void draw_door_tex(t_img frame, t_tex_data wall);
-
-void draw_vertical_line(t_img img, t_pos init_pos, int height, int color);
-void draw_stroke_square(t_img img, t_pos init, int size, int color);
-void draw_fill_square(t_img img, t_pos init, int size, int color);
-void draw_fill_rectangle(t_img img, t_pos init, t_value size, int color);
-
 // draw_utils/draw_utils.c
 void	draw_pixel(t_img img, int x, int y, int color);
 void	draw_line(t_img img, t_pos init, t_pos end, int color);
@@ -455,9 +444,6 @@ void	key_move_control(t_key key, t_player *player, char **map);
 // collisions.c
 int check_collisions(t_pos p_pos, char **map);
 
-void draw_tex_line(t_img frame, t_img tex, t_pos f_pos, t_pos tex_pos, int f_height);
-
-
 // mouse.c
 void	mouse_init(t_win win, int *mouse_state);
 t_pos 	mouse_get_pos(t_win win);
@@ -470,8 +456,6 @@ int	mouse_hook(int button, int x, int y, t_data *data);
 
 // player_rot_mouse.c
 void	player_rot_mouse(t_player *player, t_mouse mouse);
-
-
 
 // minimap.c
 t_minimap	minimap_init(int map_width, int map_height);
@@ -487,7 +471,6 @@ t_pos	get_minimap_init_pos(t_pos p_pos, t_minimap minimap);
 int		get_pixel_color(t_pos pos, char **map, t_value map_size);
 t_pos	get_scaled_map_pos(t_pos pos);
 t_pos	get_minimap_pos(t_pos pos, t_pos p_pos, t_minimap minimap);
-
 
 // doors.c
 void	doors_interaction(t_map map, t_player *player);
@@ -521,7 +504,25 @@ void	init_alloc_mem(void);
 void	save_alloc_mem(t_data *data);
 void	free_alloc_mem(void);
 
-// map.c
-int		get_game_configs(int ac, char **av, t_map *map);
+// map_filr_checker
+int			get_game_configs(int ac, char **av, t_map *map);
+void		*ft_calloc(size_t count, size_t size);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t		ft_strlen(const char *src);
+void		putstr_error(char *str);
+int			check_file(char *filename);
+int			is_valid_file_type(char *file);
+int			check_textures(char **textures, int *rgb_colors);
+int			get_map_textures(t_map **map, int fd);
+char		*get_next_line(int fd);
+int			get_map_content(char ***content, int fd);
+int			get_player_info(char **map, int *orientation, t_pos *pos);
+int         get_map_dimensions(t_map **map);
+int         get_doors_info(char **map, t_pos **doors);
+int			check_map(char **map);
+int			check_map_elements(char **map);
+int			check_map_walls(char **map);
+int			init_map_struct(t_map *init);
+int			get_all_map_info(t_map **map, char *filename);
 
 #endif

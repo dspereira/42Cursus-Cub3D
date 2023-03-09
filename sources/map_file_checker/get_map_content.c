@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 11:07:59 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/02 12:56:03 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 int			is_line_empty(char *line);
 void		map_resizer(char ***src);

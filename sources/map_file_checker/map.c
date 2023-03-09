@@ -6,11 +6,11 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:18:16 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 14:15:25 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 int	init_map_struct(t_map *init)
 {

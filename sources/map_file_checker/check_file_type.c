@@ -6,11 +6,11 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:08:40 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 16:11:54 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "cube3d.h"
 
 static int		find_last_char_index(char *file, char to_find);
 static int		ft_strcmp(char *s1, char *s2);

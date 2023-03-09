@@ -6,11 +6,11 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:08:15 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 17:17:51 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:39:37 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../includes/cube3d.h"
 
 void	print_error_msg(char *msg)
 {
