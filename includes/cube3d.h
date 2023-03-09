@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:50:11 by dsilveri          #+#    #+#             */
-/*   Updated: 2023/03/09 15:02:00 by dsilveri         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:33:49 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@
 # include <fcntl.h>
 # include <mlx.h>
 
-# define FALSE					0
-# define TRUE					1
-
 # define FLOOR 					'0'
 # define WALL					'1'
 # define DOOR_OPENING_START 	'G'
 # define DOOR_OPENING_END 	 	'N'
 # define DOOR_CLOSING_START 	'g'
 # define DOOR_CLOSING_END 	 	'n'
-
-# define MAP_HEIGHT		26
-# define MAP_WIDTH		26
 
 # define MAP_SQUARE_SIZE	40
 
@@ -66,19 +60,6 @@
 
 # define ROT_STEP			2
 # define MOVE_STEP			3
-
-# define PLAYER_MINIMAP_SIZE	4
-
-# define FLOOR_COLOR			0x003a2e27
-# define CEIL_COLOR				0x00e4f7fa
-# define WALL_COLOR1			0x00FF0000
-
-# define RED_COLOR				0x00FF0000
-# define GREEN_COLOR			0x0000FF00
-# define BLUE_COLOR				0x000000FF
-# define YELLOW_COLOR			0x00ff9933
-
-# define BGD_MINIMAP_COLOR		0x66000000
 
 # define PLAYER_RADIUS		4
 
@@ -155,12 +136,12 @@
 # define MINIMAP_COLOR_WALL		0x002A2829
 
 # define MINIMAP_COLOR_DOOR_CLOSE	0x00D92525
-# define MINIMAP_COLOR_DOOR_OPEN		0x0002A676
+# define MINIMAP_COLOR_DOOR_OPEN	0x0002A676
 
-# define TIME_PER_FRAME		1000
-# define FRAMES_TEXT_COLOR	0
-# define FRAMES_WIN_POS_X	20
-# define FRAMES_WIN_POS_Y	20
+# define FRAMES_COUNTER_TIME_MS		1000
+# define FRAMES_TEXT_COLOR			0
+# define FRAMES_WIN_POS_X			20
+# define FRAMES_WIN_POS_Y			20
 
 # define TEX_NO		0
 # define TEX_SO		1
@@ -251,9 +232,7 @@ typedef struct s_value_dec
 typedef struct s_ray
 {
 	float	dir;
-	int		length;
 	double	length_win;
-	int		length_map;
 	double	dist_wall;
 	int		side;
 	double	cos;

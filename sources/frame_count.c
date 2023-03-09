@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcandeia <dcandeia@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:57:41 by dcandeia          #+#    #+#             */
-/*   Updated: 2023/03/08 15:04:03 by dcandeia         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:22:08 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	frame_count(t_win *win)
 		mlx_string_put(win->mlx, win->mlx_win, FRAMES_WIN_POS_X + 28, \
 			FRAMES_WIN_POS_Y + 1, FRAMES_TEXT_COLOR, frames_str);
 	}
-	if (check_time_ms(TIME_PER_FRAME))
+	if (check_time_ms(FRAMES_COUNTER_TIME_MS))
 	{
 		aux_frames = ft_itoa(frames_count);
 		set_nframe_str(frames_str, aux_frames);
