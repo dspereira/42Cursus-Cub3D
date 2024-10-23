@@ -18,3 +18,6 @@ Usage example:
 ```shell
 ./cub3D maps/MapTest_001.cub
 ```
+
+## License
+This project is licensed under the [MIT License](https://github.com/dspereira/42Cursus-Cube3D/edit/main/LICENSE).
