@@ -43,8 +43,9 @@ static double	render_map(t_img img, char **map)
 
 	map_height = get_map_height(map);
 	map_width = get_map_width(map);
-	
+
 	square_size = get_square_size(map_height, map_width);
+	//square_size = 40;
 
 	map_pos.y = 0;
 	while (map_pos.y < map_height)
@@ -68,13 +69,15 @@ static void	render_player(t_img img, t_player player, float scale)
 	int		i;
 	t_pos	p_pos;
 	t_pos	ray_end_pos;
+	t_pos	ray_start;
 
+	float	halfPlayerSize = (float)PLAYER_SIZE / 2;
 
-	float x = player.pos.x * scale;
-	float y = player.pos.y * scale;
+	ray_start.x = round(player.pos.x * scale);
+	ray_start.y = round(player.pos.y * scale);
+	p_pos.x = round(ray_start.x - halfPlayerSize);
+	p_pos.y = round(ray_start.y - halfPlayerSize);
 
-	p_pos.x = (x - PLAYER_SIZE / 2);
-	p_pos.y = (y - PLAYER_SIZE / 2);
 
 	draw_fill_square(img, p_pos, PLAYER_SIZE, PLAYER_COLOR);
 	i = 0;
@@ -82,11 +85,9 @@ static void	render_player(t_img img, t_player player, float scale)
 	{
 		ray_end_pos = get_new_pos((t_pos){player.pos.x, player.pos.y}, \
 			player.rays[i].cos, player.rays[i].sin, player.rays[i].length_win);
-		
 		ray_end_pos.x = round(ray_end_pos.x * scale);
 		ray_end_pos.y = round(ray_end_pos.y * scale);
-
-		draw_line(img, p_pos, ray_end_pos, 0x00FF0000);
+		draw_line(img, ray_start, ray_end_pos, 0x00FF0000);
 		i++;
 	}
 }

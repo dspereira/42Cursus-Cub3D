@@ -36,8 +36,11 @@
 
 #define MAP_SQUARE_SIZE	40
 
-#define WIN_HEIGHT		720
-#define WIN_WIDTH		1080
+//#define WIN_HEIGHT		720
+//#define WIN_WIDTH		1080
+
+#define WIN_WIDTH		1680
+#define WIN_HEIGHT		600
 
 #define CAMERA_ANGLE	60
 #define	NUMBER_RAYS		WIN_WIDTH
@@ -70,7 +73,7 @@
 #define MOVE_STEP		3
 
 // render 2D
-#define PLAYER_SIZE		10
+#define PLAYER_SIZE		8
 #define PLAYER_COLOR	0x00E28743
 #define WALL_COLOR		0x002596BE
 
