@@ -83,8 +83,7 @@ static int	render_win(void *data_src)
 
 	render_scene_2d(data->win->frame, *data->player, data->map.content);
 
-	minimap_render(data->win->frame, data->map.content,
-		*data->player, data->minimap);
+	//minimap_render(data->win->frame, data->map.content, *data->player, data->minimap);
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win,
 		data->win->frame.mlx_img, 0, 0);
 	frame_count(data->win);
