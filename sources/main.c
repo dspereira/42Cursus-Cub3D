@@ -79,7 +79,10 @@ static int	render_win(void *data_src)
 	key_move_control(data->key_state, data->player, data->map.content);
 	mlx_clear_window(data->win->mlx, data->win->mlx_win);
 	doors_control(data->map);
-	render_scene_3d_tex(data->win->frame, *data->player, data->tex);
+	//render_scene_3d_tex(data->win->frame, *data->player, data->tex);
+
+	render_scene_2d(data->win->frame, *data->player, data->map.content);
+
 	minimap_render(data->win->frame, data->map.content,
 		*data->player, data->minimap);
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win,

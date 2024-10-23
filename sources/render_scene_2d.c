@@ -13,18 +13,22 @@
 #include "cube3d.h"
 
 static void	render_map(t_img img, char **map);
-//static void	render_player(t_img img, t_player player);
+static void	render_player(t_img img, t_player player);
 static void	render_player_circle(t_img img, t_player player);
 static void	render_background(t_img img, int color);
+static int get_map_width(char **map);
+static int get_map_height(char **map);
 
 void	render_scene_2d(t_img img, t_player player, char **map)
 {
 	render_background(img, 0x0021130d);
 	render_map(img, map);
-	//render_player(img, player);
-	render_player_circle(img, player);
+	//render_player_circle(img, player);
+	render_player(img, player);
 }
 
+
+/*
 static void	render_map(t_img img, char **map)
 {
 	t_pos	map_pos;
@@ -49,8 +53,36 @@ static void	render_map(t_img img, char **map)
 		map_pos.y++;
 	}
 }
+*/
 
-/* static void	render_player(t_img img, t_player player)
+static void	render_map(t_img img, char **map)
+{
+	t_pos	map_pos;
+	t_pos	win_pos;
+	int		square_size;
+	int		map_width; 
+	int		map_height;
+
+	map_height = get_map_height(map);
+	map_width = get_map_width(map);
+	square_size = 40;
+	map_pos.y = 0;
+	while (map_pos.y < map_height)
+	{
+		map_pos.x = 0;
+		while (map_pos.x < map_width)
+		{
+			win_pos.x = map_pos.x * square_size;
+			win_pos.y = map_pos.y * square_size;
+			if (map[map_pos.y][map_pos.x] != '0')
+				draw_fill_square(img, win_pos, square_size, WALL_COLOR);
+			map_pos.x++;
+		}
+		map_pos.y++;
+	}
+}
+
+static void	render_player(t_img img, t_player player)
 {
 	int		i;
 	t_pos	p_pos;
@@ -68,7 +100,7 @@ static void	render_map(t_img img, char **map)
 			ray_end_pos, 0x00FF0000);
 		i++;
 	}
-} */
+}
 
 static void	render_player_circle(t_img img, t_player player)
 {
@@ -104,4 +136,20 @@ static void	render_background(t_img img, int color)
 		}
 		i++;
 	}	
+}
+
+static int get_map_width(char **map) {
+	int i = 0;
+	while (map[0][i] != NULL) {
+		i++;
+	}
+	return --i;
+}
+
+static int get_map_height(char **map) {
+	int i = 0;
+	while (map[i] != NULL) {
+		i++;
+	}
+	return --i;
 }
