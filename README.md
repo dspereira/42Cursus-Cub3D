@@ -36,7 +36,7 @@ Map components:
 - 1 -> Wall
 - 0 -> Floor
 - E -> Player start position
-- G -> Gate (A, B, D, C is usded for inform door orientation on map)
+- G -> Gate (A, B, D, C are used to indicate the door orientation on the map, to correctly draw the sides of the door on the adjacent walls).
 
 ## Installation / Usage
 This project is designed to work on Debian-based Linux distributions and macOS.
