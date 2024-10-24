@@ -1,8 +1,12 @@
 # 42Cursus-Cube3D
 
 ## Installation / Usage
+This project is designed to work on Debian-based Linux distributions and macOS.
 
-This project is designed to work on Linux and macOS.
+MiniLibX requires xorg, x11, and zlib to work on Debian-based Linux systems. For more information, see [MiniLibX Getting Started Guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html).
+```shell
+sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
+```
 
 Clone repo:
 ```shell
