@@ -2,6 +2,15 @@
 This project is an integral part of the 42 Lisboa curriculum and aims to create a demonstration/game in C based on raycasting, using the graphics library [MiniLibX](https://harm-smits.github.io/42docs/libs/minilibx)
 Raycasting is a technique introduced in Wolfenstein 3D to render 3D graphics based on a 2D map. Essentially, raycasting works by sending rays from the player's point of view towards obstacles, calculating the distance each ray travels until it hits an object. With this distance, it is possible to draw obstacles (usually cubes) in perspective, creating the illusion of 3D space. See more about [Raycasting](https://en.wikipedia.org/wiki/Ray_casting).
 
+## Table of Content
+
+* [Map](#map)
+* [Controls](#controls)
+* [Examples](#examples)
+* [Installation / Usage](#installation--usage)
+* [License](#license)
+
+
 ## Map
 The map is an essential part of raycasting because it defines the position of every object relative to the player. The player can navigate through the map to every allowed position.
 The first four lines of the map file define the texture images that will be used in the four cardinal directions. Therefore, every wall will use the same texture based on its orientation in the map.
@@ -37,6 +46,17 @@ Map components:
 - 0 -> Floor
 - E -> Player start position
 - G -> Gate (A, B, D, C are used to indicate the door orientation on the map, to correctly draw the sides of the door on the adjacent walls).
+
+## Controls
+
+- W, S, A, D -> Movement forward, backward, left, and right.
+- Left and Right Arrow Keys -> Camera rotation.
+- Mouse -> Camera rotation.
+- ESC -> Exit.
+
+## Examples
+
+Here will be put images and videos
 
 ## Installation / Usage
 This project is designed to work on Debian-based Linux distributions and macOS.
