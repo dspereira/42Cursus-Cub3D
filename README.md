@@ -4,6 +4,8 @@ Raycasting is a technique introduced in Wolfenstein 3D to render 3D graphics bas
 
 ## Map
 The map is an essential part of raycasting because it defines the position of every object relative to the player. The player can navigate through the map to every allowed position.
+The first four lines of the map file define the texture images that will be used in the four cardinal directions. Therefore, every wall will use the same texture based on its orientation in the map.
+Above, there are two lines starting with 'F' and 'C' that define the colors of the floor and ceiling of the map. Above this is where the actual map starts.
 
 ```
 NO ./textures/mossy.xpm  
@@ -30,7 +32,11 @@ C 140,189,214
 11111111 1111111 1111111B111
 ```
 
-
+Map components:
+- 1 -> Wall
+- 0 -> Floor
+- E -> Player start position
+- G -> Gate (A, B, D, C is usded for inform door orientation on map)
 
 ## Installation / Usage
 This project is designed to work on Debian-based Linux distributions and macOS.
