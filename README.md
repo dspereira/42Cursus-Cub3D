@@ -52,6 +52,7 @@ Map components:
 - W, S, A, D -> Movement forward, backward, left, and right.
 - Left and Right Arrow Keys -> Camera rotation.
 - Mouse -> Camera rotation.
+- E -> Open/Close Door
 - ESC -> Exit.
 
 ## Examples
