@@ -53,7 +53,7 @@ Map components:
 - Left and Right Arrow Keys -> Camera rotation.
 - Mouse -> Camera rotation.
 - E -> Open/Close Door
-- ESC -> Exit.
+- ESC -> Exit
 
 ## Examples
 
