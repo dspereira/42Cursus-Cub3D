@@ -57,10 +57,10 @@ Map components:
 ## Examples
 
 ### Demo 3D
-https://github.com/user-attachments/assets/7b76eb3a-500e-45c4-91fa-fb70a6381476
+https://github.com/user-attachments/assets/8c52a247-a1c8-4c80-a68f-dfa434f0a358
 
 ### Demo 2D
-https://github.com/user-attachments/assets/0e81af1b-917a-4922-914e-55df97ab4d49
+https://github.com/user-attachments/assets/b545cfcb-eb47-4f96-9e4d-1f5bae7cb17a
 
 Here will be put images and videos
 
