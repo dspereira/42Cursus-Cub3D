@@ -56,7 +56,11 @@ Map components:
 
 ## Examples
 
+### Demo 3D
 https://github.com/user-attachments/assets/7b76eb3a-500e-45c4-91fa-fb70a6381476
+
+### Demo 2D
+https://github.com/user-attachments/assets/0e81af1b-917a-4922-914e-55df97ab4d49
 
 Here will be put images and videos
 
