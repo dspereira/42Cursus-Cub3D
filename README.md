@@ -56,6 +56,8 @@ Map components:
 
 ## Examples
 
+https://github.com/user-attachments/assets/7b76eb3a-500e-45c4-91fa-fb70a6381476
+
 Here will be put images and videos
 
 ## Installation / Usage
