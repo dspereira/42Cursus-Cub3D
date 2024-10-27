@@ -67,7 +67,7 @@ https://github.com/user-attachments/assets/b545cfcb-eb47-4f96-9e4d-1f5bae7cb17a
 Here will be put images and videos
 
 ## Installation / Usage
-This project is designed to work on Debian-based Linux distributions and macOS.
+This project is designed to work on Debian-based Linux distributions.
 
 MiniLibX requires xorg, x11, and zlib to work on Debian-based Linux systems. For more information, see [MiniLibX Getting Started Guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html).
 ```shell
