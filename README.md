@@ -3,6 +3,9 @@ This project is an integral part of the 42 Lisboa curriculum and aims to create 
 
 Raycasting is a technique introduced in Wolfenstein 3D to render 3D graphics based on a 2D map. Essentially, raycasting works by sending rays from the player's point of view towards obstacles, calculating the distance each ray travels until it hits an object. With this distance, it is possible to draw obstacles (usually cubes) in perspective, creating the illusion of 3D space. See more about [Raycasting](https://en.wikipedia.org/wiki/Ray_casting).
 
+For more information about cub3D, see the project [subject](https://github.com/dspereira/42Cursus-Cub3D/blob/main/en.subject.pdf).
+
+
 ## Table of Content
 
 * [Map](#map)
