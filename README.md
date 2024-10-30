@@ -67,8 +67,6 @@ https://github.com/user-attachments/assets/8c52a247-a1c8-4c80-a68f-dfa434f0a358
 ### Demo 2D
 https://github.com/user-attachments/assets/b545cfcb-eb47-4f96-9e4d-1f5bae7cb17a
 
-Here will be put images and videos
-
 ## Installation / Usage
 This project is designed to work on Debian-based Linux distributions.
 
